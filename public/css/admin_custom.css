@@ -1,0 +1,59 @@
+.id {
+    width: 20px;
+}
+
+td.image {
+    width: 10%;
+}
+
+td.image img,
+.edit-image-preview img,
+.main-image img {
+    width: 100%;
+    border: 2px solid grey;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.delete {
+    cursor: pointer;
+}
+
+.range-input {
+    width: 100%;
+}
+
+.range-input td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.range-input .min-max {
+    width: 70px;
+}
+
+.range-input .value {
+    width: 100px;
+    font-weight: bold;
+}
+
+.range-input .value input {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    float: left;
+}
+
+.range-input .value div {
+    padding-top: 5px;
+    margin-left: 5px;
+    float: left;
+}
+
+.modal-body {
+    background-color: #f1f1f1;
+    border: 1px solid #eaeaea;
+    margin-bottom: 20px;
+}
