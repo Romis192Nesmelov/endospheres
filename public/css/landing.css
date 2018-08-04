@@ -108,7 +108,6 @@ text
     position: absolute;
     left: 55px;
     bottom: 100px;
-    margin-bottom: -300px;
     z-index: 999;
     color: white;
 }

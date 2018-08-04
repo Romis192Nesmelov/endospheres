@@ -17,7 +17,7 @@
 
 <!--Подложка (предыдущий слайд)-->
 <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-    <image id="background-image" width='100%' height='100%' xlink:href='/images/landing/main.jpg'/>
+    <image id="background-image" width='100%' height='100%' xlink:href='/images/landing/main.jpg' />
 </svg>
 <!--/Подложка-->
 
@@ -25,22 +25,22 @@
 <svg id='linear1-mask-svg' viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
     <defs>
         <mask id='linear1-mask' x='0' y='0' width='100%' height='100%'>
-            <text class="decades" x='46%' y='0%' fill='#fff'>0</text>
-            <text class="units" x='54%' y='0%' fill='#fff'>1</text>
+            <text class="decades" x='46%' y='0%' fill='#fff'></text>
+            <text class="units" x='54%' y='0%' fill='#fff'></text>
         </mask>
     </defs>
-    <image width='100%' height='100%' xlink:href='/images/landing/slide1.jpg' />
+    <image width='100%' height='100%' xlink:href='' />
 </svg>
 <!--/Прямая маска-->
 
-<!--Инверсная маск (накрывающий снизу слайд)-->
+<!--Инверсная маска (накрывающий снизу слайд)-->
 <svg id="invert1-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
     <defs>
         <mask id="invert1-mask" x="0" y="100%" width="100%" height="100%">
             <rect x="0" y="0" width="100%" height="100%"/>
         </mask>
     </defs>
-    <image width='100%' height='100%' xlink:href='/images/landing/slide1.jpg' />
+    <image width='100%' height='100%' xlink:href='' />
 </svg>
 <!--/Инверсная маска-->
 
@@ -59,7 +59,7 @@
 </div>
 
 <div id="footer">
-    <table id="all-truth" class="text">
+    <table id="all-truth" class="text hidden">
         <tr>
             <td class="slide-number current">!</td>
             <td>{{ trans('landing.all_truth_about') }}</td>
@@ -68,8 +68,8 @@
 
     <table class="hidden" id="reasons">
         <tr>
-            <td class="slide-number current" rowspan="2">01</td>
-            <td class="slide-number">10</td>
+            <td class="slide-number current" rowspan="2"></td>
+            <td class="slide-number total"></td>
         </tr>
         <tr>
             <td class="text"></td>
@@ -84,21 +84,24 @@
 </div>
 
 <div id="logo"></div>
-
 <script>
     window.slides = [];
     window.currentSlide = 0;
-</script>
-@foreach($slides as $slide)
-    <script>
+    window.reasonsCount = 1;
+    window.imagesCount = 0;
+    @foreach($slides as $slide)
         window.slides.push({
             'path':"{{ $slide->path }}",
             'head':"{{ $slide['head_'.App::getLocale()] }}",
-            'description':"{{ $slide['description_'.App::getLocale()] }}",
+            'description':"{!! $slide['description_'.App::getLocale()] !!}",
             'is_image':parseInt("{{ $slide->is_image }}")
         });
-    </script>
-@endforeach
+
+        @if ($slide->is_image)
+            window.imagesCount++;
+        @endif
+    @endforeach
+</script>
 
 </body>
 </html>
