@@ -202,7 +202,7 @@ function nextSlide() {
             }, 500);
 
             setTimeout(function() {
-                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.05, function () {
+                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1, function () {
                     removeVideo();
                     maskInvert.attr('y','100%');
                     decadesCont.attr('y','0%');
