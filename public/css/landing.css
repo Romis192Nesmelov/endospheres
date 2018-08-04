@@ -74,7 +74,7 @@ a:hover
 #ten-reasons-container .big-digits
 {
     width: 100%;
-    height: 180px;
+    height: 170px;
     margin-top: 5px;
     margin-bottom: 10px;
     overflow: hidden;
@@ -93,7 +93,7 @@ a:hover
     font-size: 200px;
     font-weight: bold;
     text-align: left;
-    transform: translateY(-20px);
+    transform: translateY(-30px);
 }
 
 text
