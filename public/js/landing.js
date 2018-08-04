@@ -187,6 +187,7 @@ function nextSlide() {
 
         maskLinearSwg.find('image').attr('xlink:href',imageSrc);
         maskInvertSwg.find('image').attr('xlink:href',imageSrc);
+        maskInvert.attr('y','100%');
 
         if ($('#reasons').hasClass('hidden')) $('#reasons').removeClass('hidden');
 
@@ -204,7 +205,6 @@ function nextSlide() {
             setTimeout(function() {
                 breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
                     $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
-                    maskInvert.attr('y','100%');
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
                     removeVideo();
