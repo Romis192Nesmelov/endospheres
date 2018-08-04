@@ -207,8 +207,8 @@ function nextSlide() {
                     maskInvert.attr('y','100%');
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
-                    removeVideo();
-                    showMouse();
+                    // removeVideo();
+                    // showMouse();
                 });
             }, 2000);
 
