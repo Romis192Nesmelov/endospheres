@@ -173,8 +173,6 @@ function nextSlide() {
     if (!window.slides[window.currentSlide].is_image) loadVideo();
     else {
         removeAllTruthFooter();
-        $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
-
         var decade = window.reasonsCount < 10 ? 0 : Math.ceil(window.reasonsCount / 10),
             unit = window.reasonsCount - (decade * 10),
             maskLinearSwg = $('#linear1-mask-svg'),
@@ -205,6 +203,7 @@ function nextSlide() {
 
             setTimeout(function() {
                 breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
+                    $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
                     removeVideo();
                     maskInvert.attr('y','100%');
                     decadesCont.attr('y','0%');
