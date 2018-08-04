@@ -209,7 +209,6 @@ function nextSlide() {
                     unitsCont.attr('y','0%');
                     removeVideo();
                     showMouse();
-                    console.log(1111);
                 });
             }, 2000);
 

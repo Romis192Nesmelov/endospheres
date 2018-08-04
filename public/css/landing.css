@@ -202,15 +202,13 @@ svg mask rect
 #invert1-mask-svg > image
 {
     fill: white;
-    -webkit-mask: url(#invert1-mask);
-    mask: url(#invert1-mask);
+    mask: url('#invert1-mask');
 }
 
 #linear1-mask-svg > image
 {
     fill: white;
-    -webkit-mask: url(#linear1-mask);
-    mask: url(#linear1-mask);
+    mask: url('#linear1-mask');
 }
 
 .video-slide
