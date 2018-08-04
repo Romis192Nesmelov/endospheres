@@ -204,10 +204,10 @@ function nextSlide() {
             setTimeout(function() {
                 breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
                     removeVideo();
-                    $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
+                    maskInvert.attr('y','100%');
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
-                    maskInvert.attr('y','100%');
+                    $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
                     showMouse();
                 });
             }, 2000);
