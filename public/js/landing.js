@@ -18,7 +18,7 @@ $(document).ready(function ($) {
     showMouse();
 });
 
-function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCoof)
+function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCoof, callback)
 {
     var i = startVal,
         sign = sign ? sign : 1,
@@ -32,6 +32,7 @@ function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCo
         if ((sign == 1 && i > endVal) || (sign == -1 && i < endVal)) {
             i = endVal;
             clearInterval(timer);
+            if (callback) callback();
         }
     }, 5);
 }
@@ -48,11 +49,16 @@ function showMouse() {
     }, 3000);
 }
 
-function hideFooter() {
+function hideFooter(slideNumber, reasonNumber) {
     var footer = $('#footer');
     footer.animate({
         'margin-bottom':-300,
         'opacity':0
+    }, 1000, function () {
+        reasonsFooter = $('#reasons');
+        reasonsFooter.find('.slide-number.total').html(window.imagesCount);
+        reasonsFooter.find('.slide-number.current').html(reasonNumber < 10 ? '0'+reasonNumber : reasonNumber);
+        reasonsFooter.find('.text').html(window.slides[slideNumber].description);
     });
 }
 
@@ -60,7 +66,7 @@ function showFooter() {
     $('#footer').animate({
         'margin-bottom':0,
         'opacity':1
-    });
+    }, 1000);
 }
 
 function loadVideo() {
@@ -121,8 +127,10 @@ function digitMoving(useDecades=false) {
 }
 
 function nextSlide() {
+    if (window.currentSlide == window.slides.length) return false;
+
     hideMouse();
-    hideFooter();
+    hideFooter(window.currentSlide, window.reasonsCount);
     removeTimeout();
 
     if (!window.currentSlide) {
@@ -166,13 +174,12 @@ function nextSlide() {
     else {
         removeAllTruthFooter();
         var decade = window.reasonsCount < 10 ? 0 : Math.ceil(window.reasonsCount / 10),
-            unit = window.reasonsCount - decade,
+            unit = window.reasonsCount - (decade * 10),
             maskLinearSwg = $('#linear1-mask-svg'),
             maskInvertSwg = $('#invert1-mask-svg'),
             maskInvert = $('#invert1-mask'),
             decadesCont = maskLinearSwg.find('.decades'),
             unitsCont =  maskLinearSwg.find('.units'),
-            reasonsFooter = $('#reasons'),
             imageSrc = window.slides[window.currentSlide].path;
 
         decadesCont.html(decade);
@@ -181,12 +188,7 @@ function nextSlide() {
         maskLinearSwg.find('image').attr('xlink:href',imageSrc);
         maskInvertSwg.find('image').attr('xlink:href',imageSrc);
 
-        reasonsFooter.find('.slide-number.total').html(window.imagesCount);
-        reasonsFooter.find('.slide-number.current').html(window.reasonsCount < 10 ? '0'+window.reasonsCount : window.reasonsCount);
-        reasonsFooter.find('.text').html(window.slides[window.currentSlide].description);
-        if (reasonsFooter.hasClass('hidden')) reasonsFooter.removeClass('hidden');
-
-        $('#linear1-mask-svg ')
+        if ($('#reasons').hasClass('hidden')) $('#reasons').removeClass('hidden');
 
         var videoContainer = $('.video-slide'),
             background = videoContainer.length ? videoContainer : $('#background-image');
@@ -195,25 +197,24 @@ function nextSlide() {
             'opacity':0.5
         }, 500, function () {
             breakingAnim(0, 60, decadesCont, 'y', '%', 1, 1.05);
-
             setTimeout(function() {
                 breakingAnim(0, 60, unitsCont, 'y', '%', 1, 1.05);
             }, 500);
 
             setTimeout(function() {
-                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055);
+                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
+                    removeVideo();
+                    $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
+                    decadesCont.attr('y','0%');
+                    unitsCont.attr('y','0%');
+                    maskInvert.attr('y','100%');
+                    showMouse();
+                });
             }, 2000);
 
             setTimeout(function() {
-                removeVideo();
                 showFooter();
-
-                $('#background-image').attr('xlink:href',imageSrc);
-                decadesCont.attr('y','0%');
-                unitsCont.attr('y','0%');
-                maskInvert.attr('y','100%');
-            }, 2500);
-
+            }, 2200);
         });
         window.reasonsCount++;
     }
