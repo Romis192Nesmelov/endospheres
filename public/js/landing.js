@@ -213,6 +213,7 @@ function nextSlide() {
                 maskInvert.attr('y','100%');
                 decadesCont.attr('y','0%');
                 unitsCont.attr('y','0%');
+                $('#background-image').css('opacity',1);
                 showFooter();
             }, 3200);
         });
