@@ -11,6 +11,7 @@
 
     <!-- Core JS files -->
     <script type="text/javascript" src="/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="/js/landing.js"></script>
 </head>
 <body>

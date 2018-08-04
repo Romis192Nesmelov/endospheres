@@ -39,14 +39,14 @@ function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCo
 
 function hideMouse() {
     $('#mouse-container').animate({'opacity':0}, 500);
-    $(document).unbind();
+    $(window).unbind();
 }
 
 function showMouse() {
     setTimeout(function () {
         $('#mouse-container').animate({'opacity':1}, 500);
-        $(document).bind('mousewheel', function () { nextSlide(); });
-    }, 3000);
+        $(window).mousewheel(function () { nextSlide(); });
+    }, 2000);
 }
 
 function hideFooter(slideNumber, reasonNumber) {
