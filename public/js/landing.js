@@ -203,16 +203,16 @@ function nextSlide() {
 
             setTimeout(function() {
                 breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
-                    $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
+                    $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
                     removeVideo();
-                    maskInvert.attr('y','100%');
-                    decadesCont.attr('y','0%');
-                    unitsCont.attr('y','0%');
                     showMouse();
                 });
             }, 1500);
 
             setTimeout(function() {
+                maskInvert.attr('y','100%');
+                decadesCont.attr('y','0%');
+                unitsCont.attr('y','0%');
                 showFooter();
             }, 3200);
         });
