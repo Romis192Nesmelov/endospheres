@@ -173,6 +173,8 @@ function nextSlide() {
     if (!window.slides[window.currentSlide].is_image) loadVideo();
     else {
         removeAllTruthFooter();
+        $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
+
         var decade = window.reasonsCount < 10 ? 0 : Math.ceil(window.reasonsCount / 10),
             unit = window.reasonsCount - (decade * 10),
             maskLinearSwg = $('#linear1-mask-svg'),
@@ -208,12 +210,10 @@ function nextSlide() {
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
                     showMouse();
-                    $('#background-image').attr('xlink:href',imageSrc);
                 });
             }, 1500);
 
             setTimeout(function() {
-                $('#background-image').css('opacity',1);
                 showFooter();
             }, 3200);
         });
