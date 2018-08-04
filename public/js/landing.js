@@ -208,12 +208,12 @@ function nextSlide() {
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
                     showMouse();
-                    $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
+                    $('#background-image').attr('xlink:href',imageSrc);
                 });
             }, 1500);
 
             setTimeout(function() {
-
+                $('#background-image').css('opacity',1);
                 showFooter();
             }, 3200);
         });
