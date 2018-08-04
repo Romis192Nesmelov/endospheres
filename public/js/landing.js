@@ -202,17 +202,18 @@ function nextSlide() {
             }, 500);
 
             setTimeout(function() {
-                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1, function () {
+                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
                     removeVideo();
                     maskInvert.attr('y','100%');
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
                     showMouse();
+                    $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
                 });
             }, 1500);
 
             setTimeout(function() {
-                $('#background-image').css('opacity',1).attr('xlink:href',imageSrc);
+
                 showFooter();
             }, 3200);
         });
