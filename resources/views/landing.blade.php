@@ -130,7 +130,7 @@
     <source src="/audio/Robot_F_slow2.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="music" loop preload="auto" volume="-10000">
+<audio id="music" loop preload="auto">
     <source src="/audio/CycleProduction.mp3" type="audio/mpeg">
 </audio>
 

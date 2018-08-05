@@ -1,24 +1,20 @@
 $(document).ready(function ($) {
 
-    var audio = 'welcome';
-    play(audio);
+    window.audio = 'welcome';
     setTimeout(function () {
-        audio = 'music';
-        play(audio);
-    }, 3500);
+        play(window.audio);
+        bindAudioButton();
+    }, 1000);
 
-    $('#hrefs .glyphicon').click(function () {
-        if ($(this).hasClass('glyphicon-volume-off')) {
-            var removeClass = 'glyphicon-volume-off',
-                addClass = 'glyphicon-volume-up';
-            pause(audio);
-        } else {
-            removeClass = 'glyphicon-volume-up';
-            addClass = 'glyphicon-volume-off';
-            play(audio);
-        }
-        $(this).removeClass(removeClass).addClass(addClass);
-    });
+    setTimeout(function () {
+        $('#hrefs .glyphicon').unbind();
+    }, 3000);
+
+    setTimeout(function () {
+        window.audio = 'music';
+        play(window.audio);
+        bindAudioButton();
+    }, 4500);
 
     // Mouse wheel
     window.mouseAnim = setInterval(function () {
@@ -69,6 +65,21 @@ function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCo
             if (callback) callback();
         }
     }, 5);
+}
+
+function bindAudioButton() {
+    $('#hrefs .glyphicon').click(function () {
+        if ($(this).hasClass('glyphicon-volume-off')) {
+            var removeClass = 'glyphicon-volume-off',
+                addClass = 'glyphicon-volume-up';
+            pause(window.audio);
+        } else {
+            removeClass = 'glyphicon-volume-up';
+            addClass = 'glyphicon-volume-off';
+            play(window.audio);
+        }
+        $(this).removeClass(removeClass).addClass(addClass);
+    });
 }
 
 function hideMouse() {
