@@ -126,11 +126,11 @@
 
 <div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
 
-<audio id="welcome" preload="auto">
+<audio id="welcome" preload="auto" muted="muted">
     <source src="/audio/Robot_F_slow2.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="music" loop preload="auto">
+<audio id="music" loop preload="auto" muted="muted">
     <source src="/audio/CycleProduction.mp3" type="audio/mpeg">
 </audio>
 
