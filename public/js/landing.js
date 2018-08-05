@@ -1,6 +1,6 @@
 $(document).ready(function ($) {
     // Mouse wheel
-    var mWheel = setInterval(function () {
+    setInterval(function () {
         $('#mouse > div').animate({
             'margin-top':25,
             'opacity':0
@@ -43,22 +43,30 @@ function hideMouse() {
 }
 
 function showMouse() {
-    setTimeout(function () {
-        $('#mouse-container').animate({'opacity':1}, 500);
-        $(window).mousewheel(function () { nextSlide(); });
-    }, 2000);
+    if (window.currentSlide == window.slides.length) {
+        $('#button').removeClass('hidden').animate({
+            'opacity':0.8
+        });
+    } else {
+        setTimeout(function () {
+            $('#mouse-container').animate({'opacity':1}, 500);
+            $(window).mousewheel(function () { nextSlide(); });
+        }, 2000);
+    }
 }
 
-function hideFooter(slideNumber, reasonNumber) {
+function hideFooter(currentSlide, reasonNumber) {
     var footer = $('#footer');
     footer.animate({
         'margin-bottom':-300,
         'opacity':0
     }, 1000, function () {
-        reasonsFooter = $('#reasons');
-        reasonsFooter.find('.slide-number.total').html(window.imagesCount);
-        reasonsFooter.find('.slide-number.current').html(reasonNumber < 10 ? '0'+reasonNumber : reasonNumber);
-        reasonsFooter.find('.text').html(window.slides[slideNumber].description);
+        if (window.slides[currentSlide].is_image) {
+            var reasonsFooter = $('#reasons');
+            reasonsFooter.find('.slide-number.total').html(window.imagesCount);
+            reasonsFooter.find('.slide-number.current').html(reasonNumber < 10 ? '0'+reasonNumber : reasonNumber);
+            reasonsFooter.find('.text').html(window.slides[currentSlide].description);
+        } else $('#all-truth .text').html(window.slides[currentSlide].description);
     });
 }
 
@@ -69,24 +77,14 @@ function showFooter() {
     }, 1000);
 }
 
-function loadVideo() {
-    var id = 'video'+window.currentSlide;
-    $('body').prepend('<div class="video-slide"><video id="'+id+'" muted="muted" preload="auto" loop="loop" preload="auto"><source src="'+window.slides[window.currentSlide].path+'" type="video/mp4"></video></div>');
-    if (window.currentSlide && !window.slides[window.currentSlide-1].is_image) {
-        var prevId = 'video'+(window.currentSlide-1);
-        $('#'+prevId).parents('.video-slide').animate({
-            'top':'-100%'
-        }, 1000, function () {
-            $(this).remove();
-            showMouse();
-        });
-    }
-    document.getElementById(id).play();
+function playVideo(id) {
+    document.getElementById('video-'+id).play();
 }
 
-function removeVideo() {
-    var videoContainer = $('.video-slide');
-    if (videoContainer.length) videoContainer.remove();
+function removeVideo(currentSlide) {
+    if (currentSlide && !window.slides[currentSlide-1].is_image) {
+        $('#video-container-'+window.slides[currentSlide-1].id).remove();
+    }
 }
 
 function removeAllTruthFooter() {
@@ -121,57 +119,19 @@ function digitMoving(useDecades=false) {
             if (offset <= (170 * count)) container.css({'transform':'translateY('+ (offset * -1) +'px)'});
             else {
                 clearInterval(digitMove);
-                if (useDecades) showMouse();
             }
         }, 1);
 }
 
 function nextSlide() {
-    if (window.currentSlide == window.slides.length) return false;
-
+    var currentSlide = window.currentSlide;
     hideMouse();
-    hideFooter(window.currentSlide, window.reasonsCount);
+    hideFooter(currentSlide, window.reasonsCount);
     removeTimeout();
 
-    if (!window.currentSlide) {
-        $('#background-image').animate({
-            'opacity':0
-        }, 500, function () {
-            $('#all-truth').removeClass('hidden');
-            showFooter();
-            $('#ten-reasons-container').animate({
-                'margin-left':0
-            }, 500, function () {
-                var self = $(this);
-                var decades = Math.ceil(window.imagesCount / 10);
+    var background = currentSlide && !window.slides[currentSlide-1].is_image ? $('#video-container-'+window.slides[currentSlide-1].id) : $('#background-image');
 
-                if (decades > 0) {
-                    for (var i=1;i<=decades;i++) {
-                        self.find('.decades').append('<div>1</div>');
-                    }
-                }
-
-                var val = 1;
-                for (i=1;i<=window.imagesCount;i++) {
-                    val = val != 10 ? val : 0;
-                    self.find('.units').append('<div>' + val + '</div>');
-                    val++;
-                }
-                digitMoving();
-                // showMouse();
-            })
-        });
-    } else if (window.currentSlide == 1 && !window.slides[window.currentSlide].is_image) {
-        $('#ten-reasons-container').animate({'opacity':0}, 500, function () {
-            $(this).remove();
-            window.timeout = setTimeout(function(){
-                nextSlide();
-            },16000);
-        });
-    }
-
-    if (!window.slides[window.currentSlide].is_image) loadVideo();
-    else {
+    if (window.slides[currentSlide].is_image) {
         removeAllTruthFooter();
         var decade = window.reasonsCount < 10 ? 0 : Math.ceil(window.reasonsCount / 10),
             unit = window.reasonsCount - (decade * 10),
@@ -180,7 +140,7 @@ function nextSlide() {
             maskInvert = $('#invert1-mask'),
             decadesCont = maskLinearSwg.find('.decades'),
             unitsCont =  maskLinearSwg.find('.units'),
-            imageSrc = window.slides[window.currentSlide].path;
+            imageSrc = window.slides[currentSlide].path;
 
         decadesCont.html(decade);
         unitsCont.html(unit);
@@ -190,9 +150,6 @@ function nextSlide() {
         maskInvert.attr('y','100%');
 
         if ($('#reasons').hasClass('hidden')) $('#reasons').removeClass('hidden');
-
-        var videoContainer = $('.video-slide'),
-            background = videoContainer.length ? videoContainer : $('#background-image');
 
         background.animate({
             'opacity':0.5
@@ -207,16 +164,54 @@ function nextSlide() {
                     $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
-                    removeVideo();
+                    removeVideo(currentSlide);
                     showMouse();
                 });
             }, 2000);
 
             setTimeout(function() {
                 showFooter();
-            }, 3500);
+            }, 2500);
         });
         window.reasonsCount++;
+    } else {
+        background.animate({
+            'opacity':0
+        }, 500, function () {
+            playVideo(window.slides[currentSlide].id);
+            showMouse();
+
+            if (!currentSlide) {
+                $('#all-truth').removeClass('hidden');
+                showFooter();
+                $('#ten-reasons-container').animate({
+                    'margin-left':0
+                }, 500, function () {
+                    var self = $(this);
+                    var decades = Math.ceil(window.imagesCount / 10);
+
+                    if (decades > 0) {
+                        for (var i=1;i<=decades;i++) {
+                            self.find('.decades').append('<div>1</div>');
+                        }
+                    }
+
+                    var val = 1;
+                    for (i=1;i<=window.imagesCount;i++) {
+                        val = val != 10 ? val : 0;
+                        self.find('.units').append('<div>' + val + '</div>');
+                        val++;
+                    }
+                    digitMoving();
+                });
+            } else if (currentSlide == 1 && !window.slides[currentSlide].is_image) {
+                $('#ten-reasons-container').animate({'opacity':0}, 500, function () {
+                    window.timeout = setTimeout(function(){
+                        nextSlide();
+                    },16000);
+                });
+            }
+        });
     }
     window.currentSlide++;
 }

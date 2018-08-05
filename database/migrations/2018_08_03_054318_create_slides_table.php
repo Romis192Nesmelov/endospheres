@@ -15,6 +15,7 @@ class CreateSlidesTable extends Migration
         Schema::create('slides', function (Blueprint $table) {
             $table->increments('id');
             $table->string('path');
+            $table->string('poster');
             $table->string('head_ru');
             $table->string('head_en');
             $table->text('description_ru');

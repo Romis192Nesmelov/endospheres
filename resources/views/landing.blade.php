@@ -16,6 +16,27 @@
 </head>
 <body>
 
+<script>
+    window.slides = [];
+    window.currentSlide = 0;
+    window.reasonsCount = 1;
+    window.imagesCount = 0;
+    @foreach($slides as $slide)
+        window.slides.push({
+            'id':"{{ $slide->id }}",
+            'path':"{{ $slide->path }}",
+            'head':"{{ $slide['head_'.App::getLocale()] }}",
+            'description':"{!! $slide['description_'.App::getLocale()] !!}",
+            'is_image':parseInt("{{ $slide->is_image }}")
+        });
+        @if ($slide->is_image)
+            window.imagesCount++;
+        @else
+            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.$slide->poster : '' }}><source src="{{ $slide->path }}" type="video/mp4"></video></div>');
+        @endif
+    @endforeach
+</script>
+
 <!--Подложка (предыдущий слайд)-->
 <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
     <image id="background-image" width='100%' height='100%' xlink:href='/images/landing/main.jpg' />
@@ -59,11 +80,13 @@
     {!! trans('landing.move_mouse_wheel_to_continue') !!}
 </div>
 
+<a href="#"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
+
 <div id="footer">
     <table id="all-truth" class="text hidden">
         <tr>
             <td class="slide-number current">!</td>
-            <td>{{ trans('landing.all_truth_about') }}</td>
+            <td class="text">{{ trans('landing.all_truth_about') }}</td>
         </tr>
     </table>
 
@@ -85,24 +108,6 @@
 </div>
 
 <div id="logo"></div>
-<script>
-    window.slides = [];
-    window.currentSlide = 0;
-    window.reasonsCount = 1;
-    window.imagesCount = 0;
-    @foreach($slides as $slide)
-        window.slides.push({
-            'path':"{{ $slide->path }}",
-            'head':"{{ $slide['head_'.App::getLocale()] }}",
-            'description':"{!! $slide['description_'.App::getLocale()] !!}",
-            'is_image':parseInt("{{ $slide->is_image }}")
-        });
-
-        @if ($slide->is_image)
-            window.imagesCount++;
-        @endif
-    @endforeach
-</script>
 
 </body>
 </html>
