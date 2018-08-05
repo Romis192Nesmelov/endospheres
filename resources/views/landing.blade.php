@@ -27,6 +27,7 @@
             'path':"{{ $slide->path }}",
             'head':"{{ $slide['head_'.App::getLocale()] }}",
             'description':"{!! $slide['description_'.App::getLocale()] !!}",
+            'background':"{{ $slide->background }}",
             'is_image':parseInt("{{ $slide->is_image }}")
         });
         @if ($slide->is_image)
@@ -42,6 +43,19 @@
     <image id="background-image" width='100%' height='100%' xlink:href='/images/landing/main.jpg' />
 </svg>
 <!--/Подложка-->
+
+<!--Цифры-->
+<svg id="digits-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+    <defs>
+        <mask id="digits-mask" x="0" y="0" width="100%" height="100%">
+            <rect x="0" y="0" width="55" height="80"/>
+        </mask>
+    </defs>
+    <image id="digits" width='100%' height='100%' xlink:href='/images/landing/digits.png' />
+</svg>
+<!--/Цифры-->
+
+<div class="flash"></div>
 
 <!--Прямая маска (прилетающие сверху цифры)-->
 <svg id='linear1-mask-svg' viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
@@ -107,7 +121,7 @@
     <img src="/images/italy_flag.gif" />
 </div>
 
-<div id="logo"></div>
+<div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
 
 </body>
 </html>
