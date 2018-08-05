@@ -1,4 +1,25 @@
 $(document).ready(function ($) {
+
+    var audio = 'welcome';
+    play(audio);
+    setTimeout(function () {
+        audio = 'music';
+        play(audio);
+    }, 3500);
+
+    $('#hrefs .glyphicon').click(function () {
+        if ($(this).hasClass('glyphicon-volume-off')) {
+            var removeClass = 'glyphicon-volume-off',
+                addClass = 'glyphicon-volume-up';
+            pause(audio);
+        } else {
+            removeClass = 'glyphicon-volume-up';
+            addClass = 'glyphicon-volume-off';
+            play(audio);
+        }
+        $(this).removeClass(removeClass).addClass(addClass);
+    });
+
     // Mouse wheel
     window.mouseAnim = setInterval(function () {
         $('#mouse > div').animate({
@@ -93,8 +114,12 @@ function showFooter() {
     }, 1000);
 }
 
-function playVideo(id) {
-    document.getElementById('video-'+id).play();
+function play(id) {
+    document.getElementById(id).play();
+}
+
+function pause(id) {
+    document.getElementById(id).pause();
 }
 
 function removeVideo(currentSlide) {
@@ -210,7 +235,7 @@ function nextSlide() {
         background.animate({
             'opacity':0
         }, 500, function () {
-            playVideo(window.slides[currentSlide].id);
+            play('video-'+window.slides[currentSlide].id);
             showMouse();
 
             if (!currentSlide) {

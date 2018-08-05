@@ -121,14 +121,34 @@ text
 
 #hrefs a.skip
 {
-    margin-right: 50px;
+    margin-right: 30px;
 }
 
 #hrefs img
 {
     margin-left: 20px;
-    margin-top: 2px;
-    float: right;
+    margin-right: 30px;
+    position: relative;
+    margin-top: -5px;
+}
+
+#hrefs img:hover
+{
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+#hrefs .glyphicon
+{
+    cursor: pointer;
+    font-size: 25px !important;
+    position: relative;
+    margin-top: -5px;
+}
+
+#hrefs .glyphicon:hover
+{
+    color: #0a68b4 !important;
 }
 
 #all-truth.text

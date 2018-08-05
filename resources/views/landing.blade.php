@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Endospheres therapy</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/core.css" rel="stylesheet" type="text/css">
     <link href="/css/landing.css" rel="stylesheet" type="text/css">
 
     <!-- Core JS files -->
@@ -117,11 +119,21 @@
 
 <div id="hrefs">
     <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
-    <a href="#">{{ trans('landing.redirect_to_italy_site') }}</a>
-    <img src="/images/italy_flag.gif" />
+    <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="/images/italy_flag.gif" /></a>
+    <span class="glyphicon glyphicon-volume-off" style="font-size: 20px; color: white;"></span>
+
 </div>
 
 <div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
+
+<audio id="welcome" preload="auto">
+    <source src="/audio/Robot_F_slow2.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="music" loop preload="auto">
+    <source src="/audio/CycleProduction.mp3" type="audio/mpeg">
+</audio>
+
 
 </body>
 </html>
