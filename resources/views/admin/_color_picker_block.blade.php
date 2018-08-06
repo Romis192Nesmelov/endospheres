@@ -1,0 +1,2 @@
+<div class="control-label text-semibold">{{ $label }}</div>
+<input type="text" name="{{ $name }}" class="form-control {{ !isset($palletClass) ? 'colorpicker-flat-palette' : $palletClass }}" value="{!! isset($value) && $value ? $value : '#45818e' !!}" style="display: none;">

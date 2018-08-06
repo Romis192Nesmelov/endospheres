@@ -34,4 +34,4 @@
 </form>
 
 <?php $content = ob_get_clean(); ?>
-@include('layouts._modal_block',['id' => 'feedback_modal', 'title' => trans('content.send_request'), 'content' => $content, 'addClass' => isset($addClass) ? $addClass : null])
+@include('layouts._modal_block',['id' => 'feedback_modal', 'title' => trans('content.send_request'), 'content' => $content, 'mainClass' => 'bg-primary-400', 'addClass' => isset($addClass) ? $addClass : null])

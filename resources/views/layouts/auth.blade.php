@@ -13,6 +13,13 @@
     <link href="/css/core.css" rel="stylesheet" type="text/css">
     <link href="/css/components.css" rel="stylesheet" type="text/css">
     <link href="/css/colors.css" rel="stylesheet" type="text/css">
+
+    <style>
+        body {
+            background: url('/images/main_bg.jpg');
+            background-size: cover;
+        }
+    </style>
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
@@ -28,7 +35,6 @@
     <script type="text/javascript" src="/js/core/app.js"></script>
     <script type="text/javascript" src="/js/pages/login.js"></script>
     <!-- /theme JS files -->
-
 </head>
 
 <body class="login-container bg-slate-800">

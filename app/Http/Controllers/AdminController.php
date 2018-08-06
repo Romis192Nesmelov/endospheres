@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use App\Slide;
 use Session;
 
 class AdminController extends Controller
@@ -18,26 +19,184 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-//    public function getIndex(Request $request)
-//    {
-//        $id = $request->has('id') ? $request->input('id') : 1;
-//        $this->data = Chapter::find($id);
-//        $this->breadcrumbs = ['?id='.$id => $this->data['head_'.App::getLocale()]];
-//        return $this->showView('chapter',['href' => '?id='.$id, 'name' => $this->data['head_'.App::getLocale()]]);
-//    }
-//
-//    private function showView($view)
-//    {
-//        $chapters = Chapter::all();
-//        $menus = [];
-//        foreach ($chapters as $chapter) {
-//            $menus[] = ['id' => $chapter->id, 'href' => '?id='.$chapter->id, 'name' => $chapter['head_'.App::getLocale()], 'icon' => $chapter->icon];
-//        }
-//
-//        return view('admin.'.$view, [
-//            'breadcrumbs' => $this->breadcrumbs,
-//            'data' => $this->data,
-//            'menus' => $menus,
-//        ]);
-//    }
+    public function getIndex(Request $request)
+    {
+        return redirect('/admin/landing');
+    }
+
+    public function getLanding(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = ['landing' => trans('admin_menu.landing')];
+        if ($request->has('id')) {
+            $this->breadcrumbs['landing/add'] = trans('admin_content.slide',['number' => $request->input('id')]);
+            $this->data['slide'] = Slide::find($request->input('id'));
+            return $this->showView('slide');
+        } elseif ($slug && $slug == 'add') {
+            $this->breadcrumbs['landing/add'] = trans('admin_content.add_slide');
+            return $this->showView('slide');
+        } else {
+            $this->data['slides'] = Slide::all();
+            return $this->showView('landing');
+        }
+    }
+
+    public function postLanding(Request $request)
+    {
+        $validateArr = ['description_ru' => 'required|min:10|max:1500',];
+        if ($request->has('id')) {
+            $slide = Slide::find($request->input('id'));
+            if ($slide->is_image) {
+                $validateArr['head_ru'] = 'required|min:1|max:20';
+                $validateArr['image'] = 'image|min:100|max:1000';
+            } else {
+                $validateArr['video'] = 'mimes:mp4|min:10000|max:50000';
+                $validateArr['poster'] = 'image|min:100|max:1000';
+            }
+        } else {
+            $validateArr['image'] = 'required|image|min:100|max:1000';
+            $validateArr['head_ru'] = 'required|min:1|max:20';
+        }
+
+        $this->validate($request, $validateArr);
+
+        $fields = $this->processingFields($request, 'active', ['image','video','poster'], ['background_color','mouse_color']);
+
+        $moveFiles = [];
+        if ($request->has('id')) {
+            $slide->update($fields);
+            if ($request->hasFile('video')) $moveFiles[] = ['file' => 'video','path' => '/video/','name' => 'video'.$slide->id.'.mp4'];
+            elseif ($request->hasFile('image')) $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
+            if ($request->hasFile('poster')) $moveFiles[] = ['file' => 'poster','path' => '/video/','name' => 'video'.$slide->id.'.'.$request->file('poster')->getClientOriginalExtension()];
+        } else {
+            $slide = Slide::create($fields);
+            $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
+        }
+
+        if (count($moveFiles)) {
+            foreach ($moveFiles as $file) {
+                $file = $request->file($file['file']);
+                $file->move(base_path('/public'.$file['path']),$file['name']);
+                if (!$request->has('id')) $slide->update(['path' => $file['path'].$file['name']]);
+            }
+        }
+
+        Session::flash('message',trans('admin_content.save_complete'));
+        return redirect('/admin/landing');
+    }
+
+    private function processingFields(Request $request, $checkboxFields = null, $ignoreFields = null, $colorFields = null, $timeFields = null)
+    {
+        $exceptFields = ['_token','id'];
+        if ($ignoreFields) {
+            if (is_array($ignoreFields)) {
+                foreach ($ignoreFields as $field) {
+                    $exceptFields[] = $field;
+                }
+            } else {
+                $exceptFields[] = $ignoreFields;
+            }
+        }
+
+        $fields = $request->except($exceptFields);
+        if ($checkboxFields) {
+            if (is_array($checkboxFields)) {
+                foreach ($checkboxFields as $field) {
+                    $fields[$field] = isset($fields[$field]) && $fields[$field] == 'on' ? 1 : 0;
+                }
+            } else {
+                $fields[$checkboxFields] = isset($fields[$checkboxFields]) && $fields[$checkboxFields] == 'on' ? 1 : 0;
+            }
+        }
+
+        if ($timeFields) {
+            if (is_array($colorFields)) {
+                foreach ($colorFields as $field) {
+                    $fields[$field] = strtotime($this->convertTime($fields[$field]));
+                }
+            } else {
+                $fields[$timeFields] = strtotime($this->convertTime($fields[$timeFields]));
+            }
+        }
+
+        if ($colorFields) {
+            if (is_array($colorFields)) {
+                foreach ($colorFields as $field) {
+                    $fields[$field] = $this->convertColor($fields[$field]);
+                }
+            } else {
+                $fields[$colorFields] = $this->convertColor($fields[$colorFields]);
+            }
+        }
+        return $fields;
+    }
+
+    private function convertColor($color)
+    {
+        if (preg_match('/^(hsv\(\d+\, \d+\%\, \d+\%\))$/',$color)) {
+            $hsv = explode(',',str_replace(['hsv','(',')','%',' '],'',$color));
+            $color = $this->fGetRGB($hsv[0],$hsv[1],$hsv[2]);
+        }
+        return $color;
+    }
+
+    private function fGetRGB($iH, $iS, $iV)
+    {
+        if($iH < 0)   $iH = 0;   // Hue:
+        if($iH > 360) $iH = 360; //   0-360
+        if($iS < 0)   $iS = 0;   // Saturation:
+        if($iS > 100) $iS = 100; //   0-100
+        if($iV < 0)   $iV = 0;   // Lightness:
+        if($iV > 100) $iV = 100; //   0-100
+        $dS = $iS/100.0; // Saturation: 0.0-1.0
+        $dV = $iV/100.0; // Lightness:  0.0-1.0
+        $dC = $dV*$dS;   // Chroma:     0.0-1.0
+        $dH = $iH/60.0;  // H-Prime:    0.0-6.0
+        $dT = $dH;       // Temp variable
+        while($dT >= 2.0) $dT -= 2.0; // php modulus does not work with float
+        $dX = $dC*(1-abs($dT-1));     // as used in the Wikipedia link
+        switch(floor($dH)) {
+            case 0:
+                $dR = $dC; $dG = $dX; $dB = 0.0; break;
+            case 1:
+                $dR = $dX; $dG = $dC; $dB = 0.0; break;
+            case 2:
+                $dR = 0.0; $dG = $dC; $dB = $dX; break;
+            case 3:
+                $dR = 0.0; $dG = $dX; $dB = $dC; break;
+            case 4:
+                $dR = $dX; $dG = 0.0; $dB = $dC; break;
+            case 5:
+                $dR = $dC; $dG = 0.0; $dB = $dX; break;
+            default:
+                $dR = 0.0; $dG = 0.0; $dB = 0.0; break;
+        }
+        $dM  = $dV - $dC;
+        $dR += $dM; $dG += $dM; $dB += $dM;
+        $dR *= 255; $dG *= 255; $dB *= 255;
+        return 'rgb('.round($dR).', '.round($dG).', '.round($dB).')';
+    }
+
+    private function convertTime($time)
+    {
+        $time = explode('/', $time);
+        return $time[1].'/'.$time[0].'/'.$time[2];
+    }
+
+    private function showView($view)
+    {
+        $slides = Slide::all();
+        $landingSubmenu = [];
+
+        foreach ($slides as $slide) {
+            $landingSubmenu[] = ['href' => '?id='.$slide->id, 'name' => trans('admin_content.slide', ['number' => $slide->id])];
+        }
+
+        return view('admin.'.$view, [
+            'breadcrumbs' => $this->breadcrumbs,
+            'data' => $this->data,
+            'menus' => [
+                ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
+            ]
+        ]);
+    }
 }

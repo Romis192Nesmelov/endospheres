@@ -9,7 +9,7 @@
         <div class="modal-body"><h3>{!! $message !!}</h3></div>
         <!-- Футер модального окна -->
         <div class="modal-footer">
-            @include('admin._button_block', ['type' => 'button', 'text' => trans('content.close'), 'addAttr' => ['data-dismiss' => 'modal']])
+            @include('admin._button_block', ['type' => 'button', 'text' => trans('content.close'), 'mainClass' => 'bg-primary-400', 'addAttr' => ['data-dismiss' => 'modal']])
         </div>
     @elseif (isset($content))
         {!! $content !!}

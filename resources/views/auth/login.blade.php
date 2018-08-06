@@ -7,7 +7,7 @@
     {!! csrf_field() !!}
     <div class="panel panel-body login-form">
         <div class="text-center">
-            <img src="/images/logo_small.png" />
+            <img width="260" src="/images/logo.jpg" />
             <h5 class="content-group-lg">{{ trans('auth.login_to_your_account') }} <small class="display-block">{!! trans('auth.login_head') !!}</small></h5>
         </div>
 
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @include('admin._button_block', ['type' => 'submit', 'mainClass' => 'bg-info-800 btn-block', 'text' => trans('content.enter'), 'icon' => 'icon-circle-right2 position-right'])
+            @include('admin._button_block', ['type' => 'submit', 'text' => trans('content.enter'), 'icon' => 'icon-circle-right2 position-right'])
         </div>
     </div>
 </form>

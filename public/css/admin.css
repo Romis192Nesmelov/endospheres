@@ -1,9 +1,27 @@
+textarea.simple
+{
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+.color-palette
+{
+    float: left;
+    margin-right: 15px;
+}
+
 .id {
     width: 20px;
 }
 
+.table-items.table-striped
+{
+    margin-top: 30px;
+}
+
 td.image {
-    width: 10%;
+    width: 20%;
 }
 
 td.image img,
@@ -11,10 +29,6 @@ td.image img,
 .main-image img {
     width: 100%;
     border: 2px solid grey;
-}
-
-.table th, .table td {
-    text-align: center;
 }
 
 .delete {

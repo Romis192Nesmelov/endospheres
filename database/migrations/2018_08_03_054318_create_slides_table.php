@@ -15,11 +15,11 @@ class CreateSlidesTable extends Migration
         Schema::create('slides', function (Blueprint $table) {
             $table->increments('id');
             $table->string('path');
-            $table->string('poster');
-            $table->string('head_ru');
-            $table->string('head_en');
+            $table->string('poster')->nullable();
+            $table->string('head_ru')->nullable();
+            $table->string('head_en')->nullable();
             $table->text('description_ru');
-            $table->text('description_en');
+            $table->text('description_en')->nullable();
             $table->string('background_color');
             $table->string('mouse_color');
             $table->boolean('is_image');

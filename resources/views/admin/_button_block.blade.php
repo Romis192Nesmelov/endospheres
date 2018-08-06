@@ -4,7 +4,7 @@
         <?php $attrString .= $attr.'='.$val.' '; ?>
     @endforeach
 @endif
-<button {{ isset($disabled) && $disabled ? 'disabled' : '' }} type="{{ $type }}" {{ $attrString }} class="btn {{ isset($mainClass) ? $mainClass : 'btn-primary' }} {{ isset($addClass) ? $addClass : '' }}">
+<button {{ isset($disabled) && $disabled ? 'disabled' : '' }} type="{{ $type }}" {{ $attrString }} class="btn {{ isset($mainClass) ? $mainClass : 'btn-block bg-primary-400' }} {{ isset($addClass) ? $addClass : '' }}">
     @if (isset($icon))
         <span class="{{ $icon }}"></span>
     @endif

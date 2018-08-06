@@ -3,7 +3,6 @@ $(window).ready(function ($) {
     $('html').animate({'opacity':1}, 3000);
 
     window.audio = 'welcome';
-    var mutedButton = $('#hrefs .glyphicon');
     if (!Cookies.get('muted')) {
         setTimeout(function () {
             playAudio();

@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'home' => 'Главная страница',
+    'slide' => 'Слайд №:number',
+    'slide_simple' => 'Слайд',
+    'poster' => 'Постер',
+    
     'welcome' => 'Добро пожаловать!',
     'search' => 'Поиск',
     'number' => '№',
@@ -60,7 +63,10 @@ return [
     'see_portfolio' => 'Посмотреть портфолио',
     'to_left' => 'Выключка влево',
     'to_right' => 'Выключка вправо',
-    'active_chapter' => 'Раздел активен',
+    
+    'status' => 'Статус',
+    'active' => 'Активен',
+    'not_active' => 'Не активен',
 
     'in_russian' => ' по русски',
     'in_english' => ' по по английски',
@@ -72,6 +78,9 @@ return [
 
     'main_image' => 'Главная картинка',
     'change' => 'Изменить',
-    'add_chapter' => 'Добавить раздел',
+    'add_slide' => 'Добавить слайд',
     'new_chapter' => 'Новый раздел',
+
+    'background_color' => 'Цвет фона',
+    'mouse_color' => 'Цвет символа мыши',
 ];
