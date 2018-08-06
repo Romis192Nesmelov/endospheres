@@ -146,6 +146,7 @@ text
     font-size: 25px !important;
     position: relative;
     margin-top: -5px;
+    /*display: none;*/
 }
 
 #hrefs .glyphicon:hover
