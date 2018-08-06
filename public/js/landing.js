@@ -1,12 +1,12 @@
 $(window).ready(function ($) {
 
-    $('html').animate({'opacity':1}, 3000);
+    $('html').animate({'opacity':1}, 1000);
 
     window.audio = 'welcome';
     if (!Cookies.get('muted')) {
         setTimeout(function () {
             playAudio();
-        }, 3000);
+        }, 5000);
         window.mutedFlag = false;
     } else {
         window.mutedFlag = true;

@@ -124,7 +124,6 @@
     <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
     <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="/images/italy_flag.gif" /></a>
     <span class="glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}" style="font-size: 20px; color: white;"></span>
-
 </div>
 
 <div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
