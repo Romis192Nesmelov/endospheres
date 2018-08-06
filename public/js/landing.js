@@ -1,6 +1,6 @@
 $(window).ready(function ($) {
 
-    $('html').animate({'opacity':1}, 1500);
+    $('html').animate({'opacity':1}, 3000);
 
     window.audio = 'welcome';
     if (!Cookies.get('muted')) {
