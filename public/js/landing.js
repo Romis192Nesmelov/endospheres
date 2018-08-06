@@ -1,10 +1,13 @@
-$(document).ready(function ($) {
+$(window).ready(function ($) {
+
+    $('.video-slide').show();
+    $('.video-slide > video').show();
 
     window.audio = 'welcome';
     if (!Cookies.get('muted')) {
         setTimeout(function () {
             playAudio();
-        }, 2000);
+        }, 2500);
         window.mutedFlag = false;
     } else window.mutedFlag = true;
     bindAudioButton();
