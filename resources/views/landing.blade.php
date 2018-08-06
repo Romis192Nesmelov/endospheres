@@ -13,6 +13,7 @@
 
     <!-- Core JS files -->
     <script type="text/javascript" src="/js/core/libraries/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script type="text/javascript" src="/js/jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="/js/landing.js"></script>
 </head>
@@ -29,7 +30,8 @@
             'path':"{{ $slide->path }}",
             'head':"{{ $slide['head_'.App::getLocale()] }}",
             'description':"{!! $slide['description_'.App::getLocale()] !!}",
-            'background':"{{ $slide->background }}",
+            'background_color':"{{ $slide->background_color }}",
+            'mouse_color':"{{ $slide->mouse_color }}",
             'is_image':parseInt("{{ $slide->is_image }}")
         });
         @if ($slide->is_image)
@@ -120,17 +122,17 @@
 <div id="hrefs">
     <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
     <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="/images/italy_flag.gif" /></a>
-    <span class="glyphicon glyphicon-volume-off" style="font-size: 20px; color: white;"></span>
+    <span class="glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}" style="font-size: 20px; color: white;"></span>
 
 </div>
 
 <div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
 
-<audio id="welcome" preload="auto" allow="autoplay">
+<audio id="welcome" preload="auto" muted>
     <source src="/audio/Robot_F_slow2.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="music" loop preload="auto" allow="autoplay">
+<audio id="music" loop preload="auto" muted>
     <source src="/audio/CycleProduction.mp3" type="audio/mpeg">
 </audio>
 

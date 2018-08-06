@@ -20,7 +20,8 @@ class CreateSlidesTable extends Migration
             $table->string('head_en');
             $table->text('description_ru');
             $table->text('description_en');
-            $table->string('background');
+            $table->string('background_color');
+            $table->string('mouse_color');
             $table->boolean('is_image');
             $table->boolean('active');
         });
