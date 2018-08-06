@@ -5,9 +5,9 @@ $(window).ready(function ($) {
 
     window.audio = 'welcome';
     if (!Cookies.get('muted')) {
-        setTimeout(function () {
+        $('audio').on('loadedmetadata', function () {
             playAudio();
-        }, 2500);
+        });
         window.mutedFlag = false;
     } else window.mutedFlag = true;
     bindAudioButton();
@@ -135,11 +135,11 @@ function showFooter() {
 function playAudio() {
     play(window.audio);
     setTimeout(function () {
-        $('#hrefs .glyphicon').unbind();
-    }, 2500);
+        // $('#hrefs .glyphicon').unbind();
+        window.audio = 'music';
+    }, 3000);
 
     setTimeout(function () {
-        window.audio = 'music';
         play(window.audio);
         bindAudioButton();
     }, 5000);
