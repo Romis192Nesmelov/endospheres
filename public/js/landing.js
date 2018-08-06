@@ -1,7 +1,6 @@
-$(window).ready(function ($) {
+$(document).ready(function ($) {
 
-    $('.video-slide').show();
-    $('.video-slide > video').show();
+    $('html').animate({'opacity':1}, 1500);
 
     window.audio = 'welcome';
     if (!Cookies.get('muted')) {

@@ -19,6 +19,7 @@
 </head>
 <body>
 
+<div id="white-field"></div>
 <script>
     window.slides = [];
     window.currentSlide = 0;
@@ -129,7 +130,7 @@
 <div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
 
 <audio id="welcome" preload="auto" muted="muted">
-    <source src="/audio/Robot_F_slow2.mp3" type="audio/mpeg">
+    <source src="/audio/Robot_F_slow2.wav" type="audio/wav">
 </audio>
 
 <audio id="music" loop preload="auto" muted="muted">
