@@ -142,7 +142,7 @@ function playAudio() {
 
     setTimeout(function () {
         play(window.audio);
-        bindAudioButton();
+        // bindAudioButton();
     }, 5000);
 }
 

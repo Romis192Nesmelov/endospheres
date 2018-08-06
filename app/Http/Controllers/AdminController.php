@@ -42,7 +42,7 @@ class AdminController extends Controller
 
     public function postLanding(Request $request)
     {
-        $validateArr = ['description_ru' => 'required|min:10|max:1500',];
+        $validateArr = ['description_ru' => 'required|min:10|max:1500'];
         if ($request->has('id')) {
             $slide = Slide::find($request->input('id'));
             if ($slide->is_image) {
@@ -58,7 +58,6 @@ class AdminController extends Controller
         }
 
         $this->validate($request, $validateArr);
-
         $fields = $this->processingFields($request, 'active', ['image','video','poster'], ['background_color','mouse_color']);
 
         $moveFiles = [];
@@ -68,19 +67,18 @@ class AdminController extends Controller
             elseif ($request->hasFile('image')) $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
             if ($request->hasFile('poster')) $moveFiles[] = ['file' => 'poster','path' => '/video/','name' => 'video'.$slide->id.'.'.$request->file('poster')->getClientOriginalExtension()];
         } else {
+            $fields['is_image'] = 1;
             $slide = Slide::create($fields);
             $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
         }
 
         if (count($moveFiles)) {
             foreach ($moveFiles as $file) {
-                $file = $request->file($file['file']);
-                $file->move(base_path('/public'.$file['path']),$file['name']);
-                if (!$request->has('id')) $slide->update(['path' => $file['path'].$file['name']]);
+                $request->file((string)$file['file'])->move(base_path('/public'.(string)$file['path']),$file['name']);
+                if (!$request->has('id')) $slide->update(['path' => (string)$file['path'].$file['name']]);
             }
         }
-
-        Session::flash('message',trans('admin_content.save_complete'));
+        $this->saveCompleteMessage();
         return redirect('/admin/landing');
     }
 
@@ -180,6 +178,11 @@ class AdminController extends Controller
     {
         $time = explode('/', $time);
         return $time[1].'/'.$time[0].'/'.$time[2];
+    }
+
+    private function saveCompleteMessage()
+    {
+        Session::flash('message',trans('admin_content.save_complete'));
     }
 
     private function showView($view)

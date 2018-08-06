@@ -24,7 +24,7 @@
                         <td class="id">{{ $slide->id }}</td>
                         <td class="image">
                             @if ($slide->is_image)
-                                <a href="{{ $slide->path }}" data-popup="lightbox"><img src="{{ $slide->path }}" /></a>
+                                <a href="{{ $slide->path }}" data-popup="lightbox"><img src="{{ $slide->path.'?dummy='.md5(rand(0,10000)) }}" /></a>
                             @else
                                 <img src="/images/video.jpg" />
                             @endif

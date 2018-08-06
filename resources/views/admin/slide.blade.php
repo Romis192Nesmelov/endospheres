@@ -12,7 +12,7 @@
                     <input type="hidden" name="id" value="{{ $data['slide']->id }}">
                 @endif
 
-                <div class="col-md-{{ $data['slide']->is_image ? '12' : '6' }} col-sm-12 col-xs-12">
+                <div class="col-md-{{ (isset($data['slide']) && $data['slide']->is_image) || !isset($data['slide']) ? '12' : '6' }} col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <div class="panel-title">{{ trans('admin_content.slide_simple') }}</div>
@@ -20,33 +20,30 @@
                         <div class="panel-body edit-image-preview">
                             @if (isset($data['slide']))
                                 @if ($data['slide']->is_image)
-                                    <a href="{{ $data['slide']->path }}" class="img-preview" data-popup="lightbox"><img src="{{ $data['slide']->path }}" /></a>
+                                    <a href="{{ $data['slide']->path }}" class="img-preview" data-popup="lightbox"><img src="{{ $data['slide']->path.'?dummy='.md5(rand(0,10000)) }}" /></a>
+                                    @include('admin._input_file_block', ['label' => '', 'name' => 'image'])
                                 @else
                                     <video width="100%" controls="controls" muted="muted" preload="auto" loop="loop" preload="auto" {{ $data['slide']->poster ? 'poster='.$data['slide']->poster : '' }}>
                                         <source src="{{ $data['slide']->path }}" type="video/mp4">
                                     </video>
+                                    @include('admin._input_file_block', ['label' => '', 'name' => 'video'])
                                 @endif
-                                @include('admin._input_file_block', ['label' => '', 'name' => 'video'])
                             @else
-                                <img src="/images/placeholder.jpg" />
+                                <img height="900" src="/images/placeholder.jpg" />
                                 @include('admin._input_file_block', ['label' => '', 'name' => 'image'])
                             @endif
                         </div>
                     </div>
                 </div>
 
-                @if (!$data['slide']->is_image)
+                @if ((isset($data['slide']) && !$data['slide']->is_image))
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="panel panel-flat">
                             <div class="panel-heading">
                                 <div class="panel-title">{{ trans('admin_content.poster') }}</div>
                             </div>
                             <div class="panel-body edit-image-preview">
-                                @if ($data['slide']->poster)
-                                    <a href="{{ $data['slide']->poster }}" class="img-preview" data-popup="lightbox"><img src="{{ $data['slide']->poster }}" /></a>
-                                @else
-                                    <img src="/images/placeholder.jpg" />
-                                @endif
+                                <a href="{{ $data['slide']->poster }}" class="img-preview" data-popup="lightbox"><img src="{{ $data['slide']->poster }}" /></a>
                                 @include('admin._input_file_block', ['label' => '', 'name' => 'poster'])
                             </div>
                         </div>
@@ -56,7 +53,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-body">
-                            @if ($data['slide']->is_image)
+                            @if ((isset($data['slide']) && $data['slide']->is_image) || !isset($data['slide']))
                                 @include('admin._input_block', [
                                     'label' => trans('admin_content.head'),
                                     'name' => 'head_ru',
@@ -94,13 +91,12 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-flat">
-                        @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => isset($data['slide']) ? $data['slide']->active : 1])
-                    </div>
-
-
+                    @if (!isset($data['slide']) || $data['slide']->is_image)
+                        <div class="panel panel-flat">
+                            @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => isset($data['slide']) ? $data['slide']->active : 1])
+                        </div>
+                    @endif
                 </div>
-
                 @include('admin._button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
             </form>
         </div>

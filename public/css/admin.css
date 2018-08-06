@@ -71,3 +71,7 @@ td.image img,
     border: 1px solid #eaeaea;
     margin-bottom: 20px;
 }
+
+.error {
+    color: red;
+}
