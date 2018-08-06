@@ -6,7 +6,7 @@ $(window).ready(function ($) {
     if (!Cookies.get('muted')) {
         setTimeout(function () {
             playAudio();
-        }, 5000);
+        }, 1000);
         window.mutedFlag = false;
     } else {
         window.mutedFlag = true;
