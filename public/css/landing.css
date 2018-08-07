@@ -12,8 +12,7 @@ body
     padding: 0;
     margin: 0;
     background-color: white;
-    font-family: 'Roboto Condensed', sans-serif;
-    letter-spacing: -0.03em;
+    font-family: 'Roboto', sans-serif;
     overflow: hidden;
 }
 
@@ -21,8 +20,10 @@ a
 {
     text-decoration: none;
     font-style: italic;
+    font-weight: bold;
+    letter-spacing: 0.03em;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 a:hover
@@ -45,11 +46,11 @@ a:hover
 
 #ten-reasons-container
 {
-    width: 200px;
+    width: 240px;
     color: white;
     position: absolute;
-    top: 50%;
-    left: 10%;
+    top: 290px;
+    left: 130px;
     margin-left: -400px;
     transform: translateY(-50%);
     z-index: 999;
@@ -58,14 +59,14 @@ a:hover
 #ten-reasons-container .reasons-text
 {
     width: 100%;
-    font-size: 15px;
+    font-size: 18px;
     text-align: center;
     font-style: italic;
 }
 
 #ten-reasons-container .reasons-text.top
 {
-    font-size: 25px;
+    font-size: 34px;
     font-weight: 200;
     font-style: normal;
     text-transform: lowercase;
@@ -74,7 +75,7 @@ a:hover
 #ten-reasons-container .big-digits
 {
     width: 100%;
-    height: 170px;
+    height: 200px;
     margin-top: 5px;
     margin-bottom: 10px;
     overflow: hidden;
@@ -84,16 +85,19 @@ a:hover
 #ten-reasons-container .big-digits .units
 {
     display: table-cell;
+    text-align: left;
 }
 
 #ten-reasons-container .big-digits .decades div,
 #ten-reasons-container .big-digits .units div
 {
-    height: 170px;
-    font-size: 200px;
+    height: 200px;
+    font-size: 250px;
+    font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
+    letter-spacing: -0.03em;
     text-align: left;
-    transform: translateY(-60px);
+    transform: translate(-5px,-80px);
 }
 
 text
@@ -102,34 +106,24 @@ text
     font-weight: bold;
 }
 
-#footer
-{
-    display: table;
-    position: absolute;
-    left: 55px;
-    bottom: 100px;
-    z-index: 999;
-    color: white;
-}
-
 #hrefs
 {
     position: absolute;
-    left: 55px;
-    bottom: 20px;
+    left: 45px;
+    bottom: 25px;
     z-index: 999;
     color: white;
 }
 
 #hrefs a.skip
 {
-    margin-right: 30px;
+    margin-right: 75px;
 }
 
 #hrefs img
 {
     margin-left: 20px;
-    margin-right: 30px;
+    margin-right: 50px;
     position: relative;
     margin-top: -5px;
 }
@@ -145,7 +139,7 @@ text
     cursor: pointer;
     font-size: 25px !important;
     position: relative;
-    margin-top: -5px;
+    margin-top: -2px;
     /*display: none;*/
 }
 
@@ -166,35 +160,53 @@ text
     border: 0 !important;
 }
 
+#footer
+{
+    display: table;
+    position: absolute;
+    left: 45px;
+    bottom: 70px;
+    z-index: 999;
+    color: white;
+}
+
 #footer .slide-number
 {
-    font-size: 65px;
-    padding: 0 20px;
-    vertical-align: top;
+    font-size: 60px;
+    padding: 0 13px;
     text-align: left;
+}
+
+#reasons .slide-number
+{
+    vertical-align: top;
+}
+
+#reasons .slide-number
+{
+    font-size: 70px;
+    /*transform: translateY(-15px);*/
 }
 
 #footer .slide-number.current
 {
-    border-right: 10px solid white;
+    border-right: 8px solid white;
     font-weight: bold;
     padding-left: 0;
 }
 
 #footer .text
 {
-    max-width: 600px;
+    width: 600px;
     line-height: 1.5;
     font-size: 14px;
-    padding-left: 20px;
+    padding: 0 13px;
 }
 
-#footer .text h1
+#footer .text > div
 {
     font-size: 16px;
-    font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 5px;
 }
 
 #footer .text p
@@ -313,11 +325,12 @@ svg mask rect
 
 #button
 {
-    width: 180px;
-    padding: 15px 0;
+    width: 226px;
+    height: 42px;
+    padding-top: 25px;
     color: white;
-    background-color: #02507e;
-    font-size: 17px;
+    background-color: #00a1de;
+    font-size: 19px;
     font-weight: bold;
     text-align: center;
     border: 1px solid white;
@@ -394,6 +407,12 @@ svg mask rect
     {
         max-width: 450px;
     }
+
+    #hrefs .skip,
+    #hrefs img
+    {
+        margin-right: 20px !important;
+    }
 }
 
 @media screen and (max-width: 550px)
@@ -408,6 +427,17 @@ svg mask rect
     #footer .text
     {
         max-width: 400px;
+    }
+
+    #hrefs a
+    {
+        margin-right: 10px;
+        font-size: 10px;
+    }
+
+    #hrefs img
+    {
+        display: none;
     }
 }
 

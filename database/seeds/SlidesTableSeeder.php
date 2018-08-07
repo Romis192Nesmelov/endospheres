@@ -37,7 +37,7 @@ class SlidesTableSeeder extends Seeder
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
-                'description_ru' => '– это оригинальная методика, созданная в Италии в 2007 году и не имеющая аналогов.<br>Метод компрессионной микровибрации® зарегистрирован в 2007 году и принадлежит компании FenixSr (Италия). Оборудование производится на фабрике компании Fenix в Италии.',
+                'description_ru' => '– это оригинальная методика, созданная в Италии в 2007 году и не имеющая аналогов. Метод компрессионной микровибрации® зарегистрирован в 2007 году и принадлежит компании FenixSr (Италия). Оборудование производится на фабрике компании Fenix в Италии.',
                 'description_en' => '',
                 'background_color' => 'rgb(255,255,255)',
                 'mouse_color' => 'rgb(255,255,255)',
@@ -63,7 +63,7 @@ class SlidesTableSeeder extends Seeder
                 'head_en' => '',
                 'description_ru' => '– это, прежде всего, научная методика, эффективность которой подтверждена клиническими испытаниями в лучших университетских клиниках Европы, а так-же имеющая Регистрационное удостоверение Росздравнадзора Российской Федерации.',
                 'description_en' => '',
-                'background_color' => 'rgb(189,178,212)',
+                'background_color' => 'rgb(54,86,152)',
                 'mouse_color' => 'rgb(0,66,119)',
                 'is_image' => true,
                 'active' => true
@@ -75,7 +75,7 @@ class SlidesTableSeeder extends Seeder
                 'head_en' => '',
                 'description_ru' => '– не инвазивна, безопасна, безболезненна, максимально физиологочна, практически не имеет противопоказания и не требует реабилитации.',
                 'description_en' => '',
-                'background_color' => 'rgb(54,86,152)',
+                'background_color' => 'rgb(189,178,212)',
                 'mouse_color' => 'rgb(12,17,49)',
                 'is_image' => true,
                 'active' => true
@@ -124,7 +124,7 @@ class SlidesTableSeeder extends Seeder
                 'description_ru' => '– это надежная инвестиция в Ваш бизнес.',
                 'description_en' => '',
                 'background_color' => 'rgb(64,150,108)',
-                'mouse_color' => 'rgb(255,255,255)',
+                'mouse_color' => 'rgb(19,36,45)',
                 'is_image' => true,
                 'active' => true
             ],

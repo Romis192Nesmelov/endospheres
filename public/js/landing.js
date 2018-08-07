@@ -1,17 +1,22 @@
 $(window).ready(function ($) {
-
     $('html').animate({'opacity':1}, 500);
 
-    window.audio = 'music';
-    if (!Cookies.get('muted')) {
-        setTimeout(function () {
-            play(window.audio);
-        }, 4000);
-        window.mutedFlag = false;
-    } else {
-        window.mutedFlag = true;
-    }
-    bindAudioButton();
+    // Bind mute icon
+    $('#hrefs .glyphicon').click(function () {
+        var audioId = 'music';
+        if ($(this).hasClass('glyphicon-volume-off')) {
+            var removeClass = 'glyphicon-volume-off',
+                addClass = 'glyphicon-volume-up';
+            Cookies.set('muted', 1, { expires: 365 });
+            pause(audioId);
+        } else {
+            removeClass = 'glyphicon-volume-up';
+            addClass = 'glyphicon-volume-off';
+            play(audioId);
+            Cookies.remove('muted');
+        }
+        $(this).removeClass(removeClass).addClass(addClass);
+    });
 
     // Mouse wheel
     window.mouseAnim = setInterval(function () {
@@ -27,7 +32,7 @@ $(window).ready(function ($) {
     }, 2000);
 
     // Digit flashes
-    var digitsCoordinates = [{'x':773,'y':772},{'x':862,'y':790},{'x':956,'y':790},{'x':1043,'y':770},{'x':1115,'y':740},{'x':1180,'y':695},{'x':1228,'y':640},{'x':1270,'y':580},{'x':1300,'y':495},{'x':1314,'y':410}],
+    var digitsCoordinates = [{'x':773,'y':850},{'x':865,'y':870},{'x':958,'y':865},{'x':1045,'y':850},{'x':1118,'y':820},{'x':1185,'y':770},{'x':1231,'y':720},{'x':1270,'y':650},{'x':1300,'y':570},{'x':1318,'y':490}],
         digitsCounter = 0;
     window.digitFlashes = setInterval(function () {
         $('#digits-mask rect').attr({
@@ -37,7 +42,7 @@ $(window).ready(function ($) {
         $('#digits').animate({'opacity':1}, 1000, function () {
             $(this).animate({'opacity':0}, 1000);
         });
-
+    
         digitsCounter = digitsCounter == digitsCoordinates.length - 1 ? 0 : digitsCounter + 1;
     }, 2000);
 
@@ -64,26 +69,6 @@ function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCo
     }, 5);
 }
 
-function bindAudioButton() {
-    $('#hrefs .glyphicon').click(function () {
-        if ($(this).hasClass('glyphicon-volume-off')) {
-            var removeClass = 'glyphicon-volume-off',
-                addClass = 'glyphicon-volume-up';
-            Cookies.set('muted', 1, { expires: 365 });
-            pause(window.audio);
-        } else {
-            removeClass = 'glyphicon-volume-up';
-            addClass = 'glyphicon-volume-off';
-            if (window.mutedFlag) play(window.audio);
-            else play(window.audio);
-
-            Cookies.remove('muted');
-            window.mutedFlag = false;
-        }
-        $(this).removeClass(removeClass).addClass(addClass);
-    });
-}
-
 function hideMouse(newColor) {
     $('#mouse-container').animate({'opacity':0}, 500, function () {
         if (newColor) {
@@ -101,7 +86,7 @@ function showMouse() {
         clearInterval(window.mouseAnim);
         mouseContainer.remove();
         $('#button').removeClass('hidden').animate({
-            'opacity':0.8
+            'opacity':0.75
         });
     } else {
         setTimeout(function () {
@@ -121,7 +106,7 @@ function hideFooter(currentSlide, reasonNumber) {
             var reasonsFooter = $('#reasons');
             reasonsFooter.find('.slide-number.total').html(window.imagesCount);
             reasonsFooter.find('.slide-number.current').html(reasonNumber < 10 ? '0'+reasonNumber : reasonNumber);
-            reasonsFooter.find('.text').html(window.slides[currentSlide].description);
+            reasonsFooter.find('.text').html('<div>'+window.slides[currentSlide].head+'</div>'+window.slides[currentSlide].description);
         } else $('#all-truth .text').html(window.slides[currentSlide].description);
     });
 }
@@ -179,7 +164,7 @@ function digitMoving(useDecades=false) {
                 unitCount = 1;
             }
 
-            if (offset <= (170 * count)) container.css({'transform':'translateY('+ (offset * -1) +'px)'});
+            if (offset <= (200 * count)) container.css({'transform':'translateY('+ (offset * -1) +'px)'});
             else {
                 clearInterval(digitMove);
             }

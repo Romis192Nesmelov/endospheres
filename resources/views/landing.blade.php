@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Endospheres therapy</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/core.css') }}" rel="stylesheet" type="text/css">
@@ -53,14 +54,12 @@
 <svg id="digits-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
     <defs>
         <mask id="digits-mask" x="0" y="0" width="100%" height="100%">
-            <rect x="0" y="0" width="55" height="80" />
+            <rect x="773" y="772" width="55" height="80" />
         </mask>
     </defs>
     <image id="digits" width='100%' height='100%' xlink:href="{{ asset('images/landing/digits.png') }}" />
 </svg>
 <!--/Цифры-->
-
-<div class="flash"></div>
 
 <!--Прямая маска (прилетающие сверху цифры)-->
 <svg id='linear1-mask-svg' viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
@@ -105,14 +104,14 @@
     <table id="all-truth" class="text hidden">
         <tr>
             <td class="slide-number current">!</td>
-            <td class="text">{{ trans('landing.all_truth_about') }}</td>
+            <td class="text"></td>
         </tr>
     </table>
 
     <table class="hidden" id="reasons">
         <tr>
-            <td class="slide-number current" rowspan="2"></td>
-            <td class="slide-number total"></td>
+            <td class="slide-number current" rowspan="2">01</td>
+            <td class="slide-number total">10</td>
         </tr>
         <tr>
             <td class="text"></td>
@@ -128,13 +127,8 @@
 
 <div id="logo" class="hidden"><img src="{{ asset('images/logo_white.png') }}" /></div>
 
-<audio id="welcome" preload="auto" {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'muted' : 'autoplay=autoplay' }} >
-    <source src="{{ asset('audio/Robot_F_slow2.wav') }}" type="audio/wav">
-    <source src="{{ asset('audio/Robot_F_slow2.mp3') }}" type="audio/mpeg">
-</audio>
-
-<audio id="music" loop preload="auto" muted>
-    <source src="{{ asset('audio/CycleProduction.mp3') }}" type="audio/mpeg">
+<audio id="music" loop preload="auto" {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'muted' : 'autoplay=autoplay' }}>
+    <source src="{{ asset('audio/music.mp3') }}" type="audio/mpeg">
 </audio>
 
 
