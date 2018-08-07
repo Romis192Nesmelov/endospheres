@@ -203,8 +203,8 @@ class AdminController extends Controller
         $slides = Slide::all();
         $landingSubmenu = [];
 
-        foreach ($slides as $slide) {
-            $landingSubmenu[] = ['href' => '?id='.$slide->id, 'name' => trans('admin_content.slide', ['number' => $slide->id])];
+        foreach ($slides as $k => $slide) {
+            $landingSubmenu[] = ['href' => '?id='.$slide->id, 'name' => trans('admin_content.slide', ['number' => ($k+1)])];
         }
 
         return view('admin.'.$view, [
