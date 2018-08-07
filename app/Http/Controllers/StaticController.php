@@ -44,7 +44,7 @@ class StaticController extends Controller
 
         Mail::send('auth.emails.sendmessage', ['creds' => $creds], function($message) use ($request, $pathToFile) {
             $message->subject(trans('content.message_from').$request->server->get('SERVER_NAME'));
-            $message->from(Config::get('app.mail_to'), 'Tessart');
+            $message->from(Config::get('app.mail_to'), Config::get('app.title'));
             $message->to(Config::get('app.mail_to'));
             if ($pathToFile) $message->attach($pathToFile);
         });

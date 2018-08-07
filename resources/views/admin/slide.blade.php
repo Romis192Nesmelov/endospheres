@@ -20,16 +20,16 @@
                         <div class="panel-body edit-image-preview">
                             @if (isset($data['slide']))
                                 @if ($data['slide']->is_image)
-                                    <a href="{{ $data['slide']->path }}" class="img-preview" data-popup="lightbox"><img src="{{ $data['slide']->path.'?dummy='.md5(rand(0,10000)) }}" /></a>
+                                    <a href="{{ asset($data['slide']->path) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['slide']->path).'?dummy='.md5(rand(0,10000)) }}" /></a>
                                     @include('admin._input_file_block', ['label' => '', 'name' => 'image'])
                                 @else
-                                    <video width="100%" controls="controls" muted="muted" preload="auto" loop="loop" preload="auto" {{ $data['slide']->poster ? 'poster='.$data['slide']->poster : '' }}>
-                                        <source src="{{ $data['slide']->path }}" type="video/mp4">
+                                    <video width="100%" controls="controls" muted="muted" preload="auto" loop="loop" preload="auto" {{ $data['slide']->poster ? 'poster='.asset($data['slide']->poster) : '' }}>
+                                        <source src="{{ asset($data['slide']->path) }}" type="video/mp4">
                                     </video>
                                     @include('admin._input_file_block', ['label' => '', 'name' => 'video'])
                                 @endif
                             @else
-                                <img height="900" src="/images/placeholder.jpg" />
+                                <img height="900" src="{{ asset('images/placeholder.jpg') }}" />
                                 @include('admin._input_file_block', ['label' => '', 'name' => 'image'])
                             @endif
                         </div>
@@ -43,7 +43,7 @@
                                 <div class="panel-title">{{ trans('admin_content.poster') }}</div>
                             </div>
                             <div class="panel-body edit-image-preview">
-                                <a href="{{ $data['slide']->poster }}" class="img-preview" data-popup="lightbox"><img src="{{ $data['slide']->poster }}" /></a>
+                                <a href="{{ asset($data['slide']->poster) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['slide']->poster) }}" /></a>
                                 @include('admin._input_file_block', ['label' => '', 'name' => 'poster'])
                             </div>
                         </div>

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Slide;
+use Config;
 use Session;
 
 class AdminController extends Controller
@@ -62,10 +62,14 @@ class AdminController extends Controller
 
         $moveFiles = [];
         if ($request->has('id')) {
+            $fields['active'] = !$slide->is_image ? 1 : $fields['active'];
             $slide->update($fields);
-            if ($request->hasFile('video')) $moveFiles[] = ['file' => 'video','path' => '/video/','name' => 'video'.$slide->id.'.mp4'];
-            elseif ($request->hasFile('image')) $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
-            if ($request->hasFile('poster')) $moveFiles[] = ['file' => 'poster','path' => '/video/','name' => 'video'.$slide->id.'.'.$request->file('poster')->getClientOriginalExtension()];
+            foreach (['image','video','poster'] as $name) {
+                if ($request->hasFile($name)) {
+                    $info = pathinfo($name == 'poster' ? $slide->poster : $slide->path);
+                    $moveFiles[] = ['file' => $name, 'path' => $info['dirname'], 'name' => $info['basename']];
+                }
+            }
         } else {
             $fields['is_image'] = 1;
             $slide = Slide::create($fields);
@@ -80,6 +84,15 @@ class AdminController extends Controller
         }
         $this->saveCompleteMessage();
         return redirect('/admin/landing');
+    }
+
+    public function postDeleteSlide(Request $request)
+    {
+        $this->validate($request, ['id' => 'required|integer|exists:slides']);
+        $slide = Slide::find($request->input('id'));
+        $slide->delete();
+        if (file_exists(base_path('/public'.$slide->path))) unlink(base_path('/public'.$slide->path));
+        return response()->json(['success' => true]);
     }
 
     private function processingFields(Request $request, $checkboxFields = null, $ignoreFields = null, $colorFields = null, $timeFields = null)

@@ -33,10 +33,10 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide1.jpg',
+                'path' => '/images/landing/slide3.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
-                'head_en' => 'rgb(255,255,255)',
+                'head_en' => '',
                 'description_ru' => '– это оригинальная методика, созданная в Италии в 2007 году и не имеющая аналогов.<br>Метод компрессионной микровибрации® зарегистрирован в 2007 году и принадлежит компании FenixSr (Италия). Оборудование производится на фабрике компании Fenix в Италии.',
                 'description_en' => '',
                 'background_color' => 'rgb(255,255,255)',
@@ -45,7 +45,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide2.jpg',
+                'path' => '/images/landing/slide4.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -57,7 +57,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide3.jpg',
+                'path' => '/images/landing/slide5.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -69,7 +69,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide4.jpg',
+                'path' => '/images/landing/slide6.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -81,7 +81,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide5.jpg',
+                'path' => '/images/landing/slide7.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -93,7 +93,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide6.jpg',
+                'path' => '/images/landing/slide8.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -105,7 +105,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide7.jpg',
+                'path' => '/images/landing/slide9.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -117,7 +117,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide8.jpg',
+                'path' => '/images/landing/slide10.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -129,7 +129,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide9.jpg',
+                'path' => '/images/landing/slide11.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',
@@ -141,7 +141,7 @@ class SlidesTableSeeder extends Seeder
                 'active' => true
             ],
             [
-                'path' => '/images/landing/slide10.jpg',
+                'path' => '/images/landing/slide12.jpg',
                 'poster' => '',
                 'head_ru' => 'Эндосфера терапия®',
                 'head_en' => '',

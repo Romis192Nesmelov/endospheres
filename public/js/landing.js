@@ -1,12 +1,12 @@
 $(window).ready(function ($) {
 
-    $('html').animate({'opacity':1}, 1000);
+    $('html').animate({'opacity':1}, 500);
 
-    window.audio = 'welcome';
+    window.audio = 'music';
     if (!Cookies.get('muted')) {
         setTimeout(function () {
-            playAudio();
-        }, 1000);
+            play(window.audio);
+        }, 4000);
         window.mutedFlag = false;
     } else {
         window.mutedFlag = true;
@@ -74,7 +74,7 @@ function bindAudioButton() {
         } else {
             removeClass = 'glyphicon-volume-up';
             addClass = 'glyphicon-volume-off';
-            if (window.mutedFlag) playAudio();
+            if (window.mutedFlag) play(window.audio);
             else play(window.audio);
 
             Cookies.remove('muted');
@@ -131,19 +131,6 @@ function showFooter() {
         'margin-bottom':0,
         'opacity':1
     }, 1000);
-}
-
-function playAudio() {
-    play(window.audio);
-    setTimeout(function () {
-        // $('#hrefs .glyphicon').unbind();
-        window.audio = 'music';
-    }, 3000);
-
-    setTimeout(function () {
-        play(window.audio);
-        // bindAudioButton();
-    }, 5000);
 }
 
 function play(id) {

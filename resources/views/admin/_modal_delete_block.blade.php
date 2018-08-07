@@ -4,7 +4,7 @@
 </div>
 <!-- Футер модального окна -->
 <div class="modal-footer">
-    @include('admin._button_block', ['type' => 'button', 'text' => 'Да', 'addClass' => 'delete-yes'])
-    @include('admin._button_block', ['type' => 'button', 'text' => 'Нет', 'addAttr' => ['data-dismiss' => 'modal']])
+    @include('admin._button_block', ['type' => 'button', 'text' => trans('content.yes'), 'mainClass' => 'bg-primary-400', 'addClass' => 'delete-yes'])
+    @include('admin._button_block', ['type' => 'button', 'text' => trans('content.no'), 'mainClass' => 'bg-primary-400', 'addAttr' => ['data-dismiss' => 'modal']])
 </div>
-@include('layouts._modal_block',['id' => $modalId, 'title' => trans('admin_content.warning'), 'content' => ob_get_clean()])
+@include('layouts._modal_block',['id' => $modalId, 'title' => trans('content.warning'), 'content' => ob_get_clean()])

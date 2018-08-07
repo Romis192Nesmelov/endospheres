@@ -7,15 +7,15 @@
     <title>Endospheres therapy</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="/css/core.css" rel="stylesheet" type="text/css">
-    <link href="/css/landing.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/core.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/landing.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Core JS files -->
-    <script type="text/javascript" src="/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.mousewheel.min.js"></script>
-    <script type="text/javascript" src="/js/landing.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/landing.js') }}"></script>
 </head>
 <body>
 
@@ -28,7 +28,7 @@
     @foreach($slides as $slide)
         window.slides.push({
             'id':"{{ $slide->id }}",
-            'path':"{{ $slide->path }}",
+            'path':"{{ asset($slide->path) }}",
             'head':"{{ $slide['head_'.App::getLocale()] }}",
             'description':"{!! $slide['description_'.App::getLocale()] !!}",
             'background_color':"{{ $slide->background_color }}",
@@ -38,14 +38,14 @@
         @if ($slide->is_image)
             window.imagesCount++;
         @else
-            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.$slide->poster : '' }}><source src="{{ $slide->path }}" type="video/mp4"></video></div>');
+            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.asset($slide->poster) : '' }}><source src="{{ asset($slide->path) }}" type="video/mp4"></video></div>');
         @endif
     @endforeach
 </script>
 
 <!--Подложка (предыдущий слайд)-->
 <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-    <image id="background-image" width='100%' height='100%' xlink:href='/images/landing/main.jpg' />
+    <image id="background-image" width='100%' height='100%' xlink:href="{{ asset('images/landing/main.jpg') }}" />
 </svg>
 <!--/Подложка-->
 
@@ -53,10 +53,10 @@
 <svg id="digits-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
     <defs>
         <mask id="digits-mask" x="0" y="0" width="100%" height="100%">
-            <rect x="0" y="0" width="55" height="80"/>
+            <rect x="0" y="0" width="55" height="80" />
         </mask>
     </defs>
-    <image id="digits" width='100%' height='100%' xlink:href='/images/landing/digits.png' />
+    <image id="digits" width='100%' height='100%' xlink:href="{{ asset('images/landing/digits.png') }}" />
 </svg>
 <!--/Цифры-->
 
@@ -122,18 +122,19 @@
 
 <div id="hrefs">
     <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
-    <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="/images/italy_flag.gif" /></a>
+    <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
     <span class="glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}" style="font-size: 20px; color: white;"></span>
 </div>
 
-<div id="logo" class="hidden"><img src="/images/logo_white.png" /></div>
+<div id="logo" class="hidden"><img src="{{ asset('images/logo_white.png') }}" /></div>
 
-<audio id="welcome" preload="auto" muted>
-    <source src="/audio/Robot_F_slow2.wav" type="audio/wav">
+<audio id="welcome" preload="auto" {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'muted' : 'autoplay=autoplay' }} >
+    <source src="{{ asset('audio/Robot_F_slow2.wav') }}" type="audio/wav">
+    <source src="{{ asset('audio/Robot_F_slow2.mp3') }}" type="audio/mpeg">
 </audio>
 
 <audio id="music" loop preload="auto" muted>
-    <source src="/audio/CycleProduction.mp3" type="audio/mpeg">
+    <source src="{{ asset('audio/CycleProduction.mp3') }}" type="audio/mpeg">
 </audio>
 
 
