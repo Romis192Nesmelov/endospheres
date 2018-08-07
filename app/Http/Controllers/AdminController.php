@@ -62,7 +62,7 @@ class AdminController extends Controller
 
         $moveFiles = [];
         if ($request->has('id')) {
-            $fields['active'] = !$slide->is_image ? 1 : $fields['active'];
+//            $fields['active'] = !$slide->is_image ? 1 : $fields['active'];
             $slide->update($fields);
             foreach (['image','video','poster'] as $name) {
                 if ($request->hasFile($name)) {

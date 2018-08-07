@@ -91,11 +91,11 @@
                         </div>
                     </div>
 
-                    @if (!isset($data['slide']) || $data['slide']->is_image)
+
                         <div class="panel panel-flat">
                             @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => isset($data['slide']) ? $data['slide']->active : 1])
                         </div>
-                    @endif
+
                 </div>
                 @include('admin._button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
             </form>
