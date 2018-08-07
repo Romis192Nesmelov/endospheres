@@ -172,7 +172,9 @@ function digitMoving(useDecades=false) {
 }
 
 function nextSlide() {
-    var digits = $('#digits');
+    var digits = $('#digits'),
+        currentSlide = window.currentSlide;
+
     if (digits.length) {
         digits.animate({
             'opacity':0
@@ -181,7 +183,6 @@ function nextSlide() {
         });
     }
 
-    var currentSlide = window.currentSlide;
     hideMouse(window.slides[currentSlide].mouse_color);
     hideFooter(currentSlide, window.reasonsCount);
     removeTimeout();
@@ -273,9 +274,9 @@ function nextSlide() {
 
     if (currentSlide || window.slides[currentSlide].is_image) {
         $('#ten-reasons-container').animate({'opacity':0}, 500, function () {
-            window.timeout = setTimeout(function(){
-                nextSlide();
-            },16000);
+            // window.timeout = setTimeout(function(){
+            //     nextSlide();
+            // },16000);
         });
     }
 

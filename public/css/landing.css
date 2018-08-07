@@ -326,8 +326,8 @@ svg mask rect
 #button
 {
     width: 226px;
-    height: 42px;
-    padding-top: 25px;
+    height: 50px;
+    padding-top: 10px;
     color: white;
     background-color: #00a1de;
     font-size: 19px;
