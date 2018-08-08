@@ -1,11 +1,11 @@
 $(window).ready(function ($) {
     $('html').animate({'opacity':1}, 500);
 
-    if (!Cookies.get('muted')) {
-        setTimeout(function () {
-            play('music');
-        },2000);
-    }
+    // if (!Cookies.get('muted')) {
+    //     setTimeout(function () {
+    //         play('music');
+    //     },2000);
+    // }
 
     // Bind mute icon
     $('#hrefs .glyphicon').click(function () {
@@ -83,7 +83,7 @@ function hideMouse(newColor) {
             $('#mouse > div').css('background-color',newColor);
         }
     });
-    $(window).unbind();
+    $(document).unbind();
 }
 
 function showMouse() {
@@ -96,8 +96,8 @@ function showMouse() {
         });
     } else {
         setTimeout(function () {
-            mouseContainer.animate({'opacity':1}, 500);
-            $(window).mousewheel(function () { nextSlide(); });
+            if (!window.currentSlide) mouseContainer.animate({'opacity':1}, 500);
+            $(document).mousewheel(function () { nextSlide(); });
         }, 2000);
     }
 }
@@ -188,6 +188,8 @@ function nextSlide() {
             $('#digits-mask-svg').remove();
         });
     }
+
+    if (!currentSlide) play('music');
 
     hideMouse(window.slides[currentSlide].mouse_color);
     hideFooter(currentSlide, window.reasonsCount);
