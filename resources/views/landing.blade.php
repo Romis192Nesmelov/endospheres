@@ -8,6 +8,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/core.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet" type="text/css">
@@ -94,8 +95,15 @@
 </div>
 
 <div class="hidden" id="mouse-container">
-    <div id="mouse"><div></div></div>
-    {!! trans('landing.move_mouse_wheel_to_continue') !!}
+    <div id="mouse-click-container">
+        <div class="icon-mouse-left"></div>
+        {!! trans('landing.click_mouse_button_to_continue') !!}
+    </div>
+
+    <div class="hidden" id="mouse-scroll-container">
+        <div  id="mouse-scroll"><div></div></div>
+        {!! trans('landing.move_mouse_wheel_to_continue') !!}
+    </div>
 </div>
 
 <a href="#"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
@@ -122,7 +130,7 @@
 <div id="hrefs">
     <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
     <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
-    <span class="glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}" style="font-size: 20px; color: white;"></span>
+    <span class="hidden glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}"></span>
 </div>
 
 <div id="logo" class="hidden"><img src="{{ asset('images/logo_white.png') }}" /></div>

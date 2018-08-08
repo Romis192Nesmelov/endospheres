@@ -137,10 +137,12 @@ text
 #hrefs .glyphicon
 {
     cursor: pointer;
-    font-size: 25px !important;
+    font-size: 25px;
+    color: white;
     position: relative;
     margin-top: -2px;
-    /*display: none;*/
+    opacity: 0.5;
+    filter: alpha(opacity=50);
 }
 
 #hrefs .glyphicon:hover
@@ -303,7 +305,7 @@ svg mask rect
     z-index: 999;
 }
 
-#mouse
+#mouse-scroll
 {
     width: 20px;
     height: 37px;
@@ -312,7 +314,7 @@ svg mask rect
     border: 3px solid white;
 }
 
-#mouse > div
+#mouse-scroll > div
 {
     width: 10px;
     height: 10px;
@@ -321,6 +323,13 @@ svg mask rect
     margin-left: auto;
     margin-right: auto;
     margin-top: 5px;
+}
+
+.icon-mouse-left
+{
+    font-size: 40px;
+    color: white;
+    display: block;
 }
 
 #button

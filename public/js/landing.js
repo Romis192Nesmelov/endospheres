@@ -1,42 +1,6 @@
 $(window).ready(function ($) {
     $('html').animate({'opacity':1}, 500);
 
-    // if (!Cookies.get('muted')) {
-    //     setTimeout(function () {
-    //         play('music');
-    //     },2000);
-    // }
-
-    // Bind mute icon
-    $('#hrefs .glyphicon').click(function () {
-        var audioId = 'music';
-        if ($(this).hasClass('glyphicon-volume-off')) {
-            var removeClass = 'glyphicon-volume-off',
-                addClass = 'glyphicon-volume-up';
-            Cookies.set('muted', 1, { expires: 365 });
-            pause(audioId);
-        } else {
-            removeClass = 'glyphicon-volume-up';
-            addClass = 'glyphicon-volume-off';
-            play(audioId);
-            Cookies.remove('muted');
-        }
-        $(this).removeClass(removeClass).addClass(addClass);
-    });
-
-    // Mouse wheel
-    window.mouseAnim = setInterval(function () {
-        $('#mouse > div').animate({
-            'margin-top':25,
-            'opacity':0
-        }, 1000, function () {
-            $(this).css({
-                'margin-top':5,
-                'opacity':1
-            });
-        });
-    }, 2000);
-
     // Digit flashes
     var digitsCoordinates = [{'x':773,'y':850},{'x':865,'y':870},{'x':958,'y':865},{'x':1045,'y':850},{'x':1118,'y':820},{'x':1185,'y':770},{'x':1231,'y':720},{'x':1270,'y':650},{'x':1300,'y':570},{'x':1318,'y':490}],
         digitsCounter = 0;
@@ -89,16 +53,68 @@ function hideMouse(newColor) {
 function showMouse() {
     var mouseContainer = $('#mouse-container');
     if (window.currentSlide == window.slides.length) {
-        clearInterval(window.mouseAnim);
         mouseContainer.remove();
         $('#button').removeClass('hidden').animate({
             'opacity':0.75
         });
     } else {
-        setTimeout(function () {
-            if (!window.currentSlide) mouseContainer.animate({'opacity':1}, 500);
-            $(document).mousewheel(function () { nextSlide(); });
-        }, 2000);
+        if (!window.currentSlide) {
+            window.mouseClickAnim = setInterval(function () {
+                $('.icon-mouse-left').animate({'opacity': 0}, 1000, function () {
+                    $(this).animate({'opacity': 1}, 1000);
+                });
+            }, 2000);
+
+            setTimeout(function () {
+                mouseContainer.animate({'opacity':1}, 500);
+                $(document).click(function () { nextSlide(); });
+            }, 1000);
+        } else if (window.currentSlide == 1) {
+            clearInterval(window.mouseClickAnim);
+            $('#mouse-click-container').remove();
+
+            $('#mouse-scroll-container').removeClass('hidden');
+            $('#hrefs .glyphicon').removeClass('hidden').animate({'opacity':1}, 200, function () {
+                // Bind mute icon
+                $(this).click(function () {
+                    var audioId = 'music';
+                    if ($(this).hasClass('glyphicon-volume-off')) {
+                        var removeClass = 'glyphicon-volume-off',
+                            addClass = 'glyphicon-volume-up';
+                        Cookies.set('muted', 1, { expires: 365 });
+                        pause(audioId);
+                    } else {
+                        removeClass = 'glyphicon-volume-up';
+                        addClass = 'glyphicon-volume-off';
+                        play(audioId);
+                        Cookies.remove('muted');
+                    }
+                    $(this).removeClass(removeClass).addClass(addClass);
+                });
+            });
+
+            window.mouseScrollAnim = setInterval(function () {
+                $('#mouse > div').animate({
+                    'margin-top':25,
+                    'opacity':0
+                }, 1000, function () {
+                    $(this).css({
+                        'margin-top':5,
+                        'opacity':1
+                    });
+                });
+            }, 2000);
+
+            setTimeout(function () {
+                mouseContainer.animate({'opacity':1}, 500);
+                $(document).mousewheel(function () { nextSlide(); });
+            }, 2000);
+        } else {
+            clearInterval(window.mouseScrollAnim);
+            setTimeout(function () {
+                $(document).mousewheel(function () { nextSlide(); });
+            }, 700);
+        }
     }
 }
 
@@ -140,11 +156,6 @@ function removeVideo(currentSlide) {
     }
 }
 
-function removeAllTruthFooter() {
-    var secondFooter = $('#all-truth');
-    if (secondFooter.length) secondFooter.remove();
-}
-
 function removeTimeout() {
     if (window.timeout) clearTimeout(window.timeout);
     if (window.digitFlashes) clearInterval(window.digitFlashes);
@@ -179,6 +190,8 @@ function digitMoving(useDecades=false) {
 
 function nextSlide() {
     var digits = $('#digits'),
+        tenReasonsContainer = $('#ten-reasons-container'),
+        secondFooter = $('#all-truth'),
         currentSlide = window.currentSlide;
 
     if (digits.length) {
@@ -189,7 +202,12 @@ function nextSlide() {
         });
     }
 
-    if (!currentSlide) play('music');
+    if (!currentSlide && !Cookies.get('muted')) play('music');
+    else if (currentSlide && tenReasonsContainer.length) {
+        tenReasonsContainer.animate({'opacity':0}, 500, function () {
+            $(this).remove();
+        });
+    }
 
     hideMouse(window.slides[currentSlide].mouse_color);
     hideFooter(currentSlide, window.reasonsCount);
@@ -199,7 +217,9 @@ function nextSlide() {
     $('body').css('background-color',window.slides[currentSlide].background_color);
 
     if (window.slides[currentSlide].is_image) {
-        removeAllTruthFooter();
+
+        if (secondFooter.length) secondFooter.remove();
+
         var decade = window.reasonsCount < 10 ? 0 : Math.ceil(window.reasonsCount / 10),
             unit = window.reasonsCount - (decade * 10),
             maskLinearSwg = $('#linear1-mask-svg'),
@@ -254,9 +274,9 @@ function nextSlide() {
             showMouse();
 
             if (!currentSlide) {
-                $('#all-truth').removeClass('hidden');
+                secondFooter.removeClass('hidden');
                 showFooter();
-                $('#ten-reasons-container').animate({
+                tenReasonsContainer.animate({
                     'margin-left':0
                 }, 500, function () {
                     var self = $(this);
@@ -279,14 +299,5 @@ function nextSlide() {
             }
         });
     }
-
-    if (currentSlide || window.slides[currentSlide].is_image) {
-        $('#ten-reasons-container').animate({'opacity':0}, 500, function () {
-            // window.timeout = setTimeout(function(){
-            //     nextSlide();
-            // },16000);
-        });
-    }
-
     window.currentSlide++;
 }
