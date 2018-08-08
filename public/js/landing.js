@@ -1,6 +1,12 @@
 $(window).ready(function ($) {
     $('html').animate({'opacity':1}, 500);
 
+    if (!Cookies.get('muted')) {
+        setTimeout(function () {
+            play('music');
+        },2000);
+    }
+
     // Bind mute icon
     $('#hrefs .glyphicon').click(function () {
         var audioId = 'music';
