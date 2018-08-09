@@ -135,6 +135,10 @@
 
 <div id="logo" class="hidden"><img src="{{ asset('images/logo_white.png') }}" /></div>
 
+<audio id="welcome" preload="auto" muted="muted">
+    <source src="{{ asset('audio/welcome.mp3') }}" type="audio/mpeg">
+</audio>
+
 <audio id="music" loop preload="auto" muted="muted">
     <source src="{{ asset('audio/music.mp3') }}" type="audio/mpeg">
 </audio>

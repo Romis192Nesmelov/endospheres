@@ -1,6 +1,7 @@
 $(window).ready(function ($) {
     $('html').animate({'opacity':1}, 500);
 
+    window.audio = 'welcome';
     // Digit flashes
     var digitsCoordinates = [{'x':773,'y':850},{'x':865,'y':870},{'x':958,'y':865},{'x':1045,'y':850},{'x':1118,'y':820},{'x':1185,'y':770},{'x':1231,'y':720},{'x':1270,'y':650},{'x':1300,'y':570},{'x':1318,'y':490}],
         digitsCounter = 0;
@@ -77,16 +78,16 @@ function showMouse() {
             $('#hrefs .glyphicon').removeClass('hidden').animate({'opacity':1}, 200, function () {
                 // Bind mute icon
                 $(this).click(function () {
-                    var audioId = 'music';
                     if ($(this).hasClass('glyphicon-volume-off')) {
                         var removeClass = 'glyphicon-volume-off',
                             addClass = 'glyphicon-volume-up';
                         Cookies.set('muted', 1, { expires: 365 });
-                        pause(audioId);
+                        pause(window.audio);
                     } else {
                         removeClass = 'glyphicon-volume-up';
                         addClass = 'glyphicon-volume-off';
-                        play(audioId);
+                        if (window.audio == 'welcome') playAudio();
+                        else play(window.audio);
                         Cookies.remove('muted');
                     }
                     $(this).removeClass(removeClass).addClass(addClass);
@@ -108,7 +109,7 @@ function showMouse() {
             setTimeout(function () {
                 mouseContainer.animate({'opacity':1}, 500);
                 $(document).mousewheel(function () { nextSlide(); });
-            }, 2000);
+            }, 1000);
         } else {
             clearInterval(window.mouseScrollAnim);
             setTimeout(function () {
@@ -138,6 +139,14 @@ function showFooter() {
         'margin-bottom':0,
         'opacity':1
     }, 1000);
+}
+
+function playAudio() {
+    play(window.audio);
+    setTimeout(function () {
+        window.audio = 'music';
+        play(window.audio);
+    },4000);
 }
 
 function play(id) {
@@ -202,7 +211,7 @@ function nextSlide() {
         });
     }
 
-    if (!currentSlide && !Cookies.get('muted')) play('music');
+    if (!currentSlide && !Cookies.get('muted')) playAudio();
     else if (currentSlide && tenReasonsContainer.length) {
         tenReasonsContainer.animate({'opacity':0}, 500, function () {
             $(this).remove();
