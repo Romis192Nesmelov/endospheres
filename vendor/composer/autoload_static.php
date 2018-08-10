@@ -4,11 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
+class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
@@ -54,7 +54,6 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         'P' => 
         array (
             'Psy\\' => 4,
-            'Psr\\Log\\' => 8,
             'PhpParser\\' => 10,
         ),
         'M' => 
@@ -80,7 +79,8 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         ),
         'C' => 
         array (
-            'Cron\\' => 5,
+            'Cviebrock\\EloquentSluggable\\' => 28,
+            'Cocur\\Slugify\\' => 14,
             'ClassPreloader\\' => 15,
             'Carbon\\' => 7,
         ),
@@ -177,10 +177,6 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src/Psy',
         ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -209,9 +205,13 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
-        'Cron\\' => 
+        'Cviebrock\\EloquentSluggable\\' => 
         array (
-            0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
+            0 => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src',
+        ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
         ),
         'ClassPreloader\\' => 
         array (
@@ -230,6 +230,10 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
     public static $prefixesPsr0 = array (
         'P' => 
         array (
+            'Psr\\Log\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/psr/log',
+            ),
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
@@ -260,9 +264,18 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
             ),
         ),
+        'C' => 
+        array (
+            'Cron' => 
+            array (
+                0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
+        'ChaptersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ChaptersTableSeeder.php',
+        'CreateChaptersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_10_054818_create_chapters_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_03_054318_create_slides_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
@@ -670,7 +683,6 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         'PHP_Token_NEW' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_C' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_SEPARATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
-        'PHP_Token_NULLSAFE_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NUM_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -708,7 +720,6 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         'PHP_Token_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_VARNAME' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
-        'PHP_Token_SUPER' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_SWITCH' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_Stream' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream.php',
         'PHP_Token_Stream_CachingFactory' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream/CachingFactory.php',
@@ -723,7 +734,6 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
         'PHP_Token_UNSET' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_UNSET_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_USE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
-        'PHP_Token_USE_FUNCTION' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VAR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VARIABLE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_WHERE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -786,10 +796,10 @@ class ComposerStaticInit86f194668355f5df5b83318abbaeaee3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit86f194668355f5df5b83318abbaeaee3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit86f194668355f5df5b83318abbaeaee3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit86f194668355f5df5b83318abbaeaee3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit86f194668355f5df5b83318abbaeaee3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0674485ffe5725389d5044d1db1d2bda::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0674485ffe5725389d5044d1db1d2bda::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0674485ffe5725389d5044d1db1d2bda::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit0674485ffe5725389d5044d1db1d2bda::$classMap;
 
         }, null, ClassLoader::class);
     }

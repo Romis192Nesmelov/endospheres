@@ -103,10 +103,6 @@ class MessageBag implements Arrayable, Countable, Jsonable, JsonSerializable, Me
      */
     public function has($key = null)
     {
-        if (is_null($key)) {
-            return $this->any();
-        }
-
         $keys = is_array($key) ? $key : func_get_args();
 
         foreach ($keys as $key) {

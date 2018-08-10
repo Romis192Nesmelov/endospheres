@@ -4,7 +4,6 @@ namespace Illuminate\Support;
 
 use Countable;
 use ArrayAccess;
-use Traversable;
 use ArrayIterator;
 use CachingIterator;
 use JsonSerializable;
@@ -1242,8 +1241,6 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             return json_decode($items->toJson(), true);
         } elseif ($items instanceof JsonSerializable) {
             return $items->jsonSerialize();
-        } elseif ($items instanceof Traversable) {
-            return iterator_to_array($items);
         }
 
         return (array) $items;

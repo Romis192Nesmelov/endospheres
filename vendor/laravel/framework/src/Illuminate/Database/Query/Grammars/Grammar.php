@@ -461,18 +461,6 @@ class Grammar extends BaseGrammar
     }
 
     /**
-     * Compile a "where time" clause.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  array  $where
-     * @return string
-     */
-    protected function whereTime(Builder $query, $where)
-    {
-        return $this->dateBasedWhere('time', $query, $where);
-    }
-
-    /**
      * Compile a "where day" clause.
      *
      * @param  \Illuminate\Database\Query\Builder  $query

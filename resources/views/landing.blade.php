@@ -106,7 +106,7 @@
     </div>
 </div>
 
-<a href="#"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
+<a href="{{ url('/home') }}"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
 
 <div id="footer">
     <table id="all-truth" class="text hidden">
@@ -129,7 +129,7 @@
 
 <div id="hrefs">
     <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
-    <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
+    <a href="{{ url('/home') }}">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
     <span class="hidden glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}"></span>
 </div>
 

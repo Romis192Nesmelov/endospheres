@@ -401,9 +401,13 @@ class Filesystem
     public function moveDirectory($from, $to, $overwrite = false)
     {
         if ($overwrite && $this->isDirectory($to)) {
-            if (! $this->deleteDirectory($to)) {
-                return false;
-            }
+            $this->deleteDirectory($to);
+
+            $this->copyDirectory($from, $to);
+
+            $this->deleteDirectory($from);
+
+            return true;
         }
 
         return @rename($from, $to) === true;

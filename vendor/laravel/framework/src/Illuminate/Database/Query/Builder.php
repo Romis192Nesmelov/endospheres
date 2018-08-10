@@ -1079,33 +1079,6 @@ class Builder
     }
 
     /**
-     * Add a "where time" statement to the query.
-     *
-     * @param  string  $column
-     * @param  string   $operator
-     * @param  int   $value
-     * @param  string   $boolean
-     * @return \Illuminate\Database\Query\Builder|static
-     */
-    public function whereTime($column, $operator, $value, $boolean = 'and')
-    {
-        return $this->addDateBasedWhere('Time', $column, $operator, $value, $boolean);
-    }
-
-    /**
-     * Add an "or where time" statement to the query.
-     *
-     * @param  string  $column
-     * @param  string   $operator
-     * @param  int   $value
-     * @return \Illuminate\Database\Query\Builder|static
-     */
-    public function orWhereTime($column, $operator, $value)
-    {
-        return $this->whereTime($column, $operator, $value, 'or');
-    }
-
-    /**
      * Add a "where day" statement to the query.
      *
      * @param  string  $column
@@ -1148,7 +1121,7 @@ class Builder
     }
 
     /**
-     * Add a date based (year, month, day, time) statement to the query.
+     * Add a date based (year, month, day) statement to the query.
      *
      * @param  string  $type
      * @param  string  $column
@@ -1783,14 +1756,11 @@ class Builder
      * @param  int  $count
      * @param  callable  $callback
      * @param  string  $column
-     * @param  string  $alias
      * @return bool
      */
-    public function chunkById($count, callable $callback, $column = 'id', $alias = null)
+    public function chunkById($count, callable $callback, $column = 'id')
     {
         $lastId = null;
-
-        $alias = $alias ?: $column;
 
         $results = $this->forPageAfterId($count, 0, $column)->get();
 
@@ -1799,7 +1769,7 @@ class Builder
                 return false;
             }
 
-            $lastId = last($results)->{$alias};
+            $lastId = last($results)->{$column};
 
             $results = $this->forPageAfterId($count, $lastId, $column)->get();
         }
@@ -1928,7 +1898,7 @@ class Builder
      * Retrieve the minimum value of a given column.
      *
      * @param  string  $column
-     * @return mixed
+     * @return float|int
      */
     public function min($column)
     {
@@ -1939,7 +1909,7 @@ class Builder
      * Retrieve the maximum value of a given column.
      *
      * @param  string  $column
-     * @return mixed
+     * @return float|int
      */
     public function max($column)
     {
@@ -1950,18 +1920,20 @@ class Builder
      * Retrieve the sum of the values of a given column.
      *
      * @param  string  $column
-     * @return mixed
+     * @return float|int
      */
     public function sum($column)
     {
-        return $this->aggregate(__FUNCTION__, [$column]);
+        $result = $this->aggregate(__FUNCTION__, [$column]);
+
+        return $result ?: 0;
     }
 
     /**
      * Retrieve the average of the values of a given column.
      *
      * @param  string  $column
-     * @return mixed
+     * @return float|int
      */
     public function avg($column)
     {
@@ -1972,7 +1944,7 @@ class Builder
      * Alias for the "avg" method.
      *
      * @param  string  $column
-     * @return mixed
+     * @return float|int
      */
     public function average($column)
     {
@@ -1984,7 +1956,7 @@ class Builder
      *
      * @param  string  $function
      * @param  array   $columns
-     * @return mixed
+     * @return float|int
      */
     public function aggregate($function, $columns = ['*'])
     {
@@ -2011,34 +1983,10 @@ class Builder
         $this->bindings['select'] = $previousSelectBindings;
 
         if (isset($results[0])) {
-            return array_change_key_case((array) $results[0])['aggregate'];
+            $result = array_change_key_case((array) $results[0]);
+
+            return $result['aggregate'];
         }
-    }
-
-    /**
-     * Execute a numeric aggregate function on the database.
-     *
-     * @param  string  $function
-     * @param  array   $columns
-     * @return float|int
-     */
-    public function numericAggregate($function, $columns = ['*'])
-    {
-        $result = $this->aggregate($function, $columns);
-
-        if (! $result) {
-            return 0;
-        }
-
-        if (is_int($result) || is_float($result)) {
-            return $result;
-        }
-
-        if (strpos((string) $result, '.') === false) {
-            return (int) $result;
-        }
-
-        return (float) $result;
     }
 
     /**
@@ -2150,10 +2098,6 @@ class Builder
      */
     public function increment($column, $amount = 1, array $extra = [])
     {
-        if (! is_numeric($amount)) {
-            throw new InvalidArgumentException('Non-numeric value passed to increment method.');
-        }
-
         $wrapped = $this->grammar->wrap($column);
 
         $columns = array_merge([$column => $this->raw("$wrapped + $amount")], $extra);
@@ -2171,10 +2115,6 @@ class Builder
      */
     public function decrement($column, $amount = 1, array $extra = [])
     {
-        if (! is_numeric($amount)) {
-            throw new InvalidArgumentException('Non-numeric value passed to decrement method.');
-        }
-
         $wrapped = $this->grammar->wrap($column);
 
         $columns = array_merge([$column => $this->raw("$wrapped - $amount")], $extra);

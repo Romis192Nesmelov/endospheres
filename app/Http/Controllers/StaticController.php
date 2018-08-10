@@ -11,9 +11,16 @@ use Config;
 
 class StaticController extends Controller
 {
+    private $data;
+    
     public function index()
     {
         return view('landing', ['slides' => Slide::where('active',1)->get()]);
+    }
+
+    public function home()
+    {
+        return $this->showView('home');
     }
 
     public function feedback(Request $request)
@@ -50,4 +57,29 @@ class StaticController extends Controller
         });
     }
 
+    private function showView($view)
+    {
+        if (!isset($this->data['slider'])) {
+            for ($i=1;$i<=5;$i++) {
+                $this->data['slider'][] = 'slide'.$i.'.jpg';
+            }
+        }
+
+        return view($view, [
+            'mainMenu' => [
+                ['href' => '#', 'name' => trans('menu.about')],
+                ['href' => '#', 'name' => trans('menu.faq')],
+                ['href' => 'news', 'name' => trans('menu.news')],
+                ['href' => '#', 'name' => trans('menu.contacts')]
+            ],
+
+//            'homeBlocks' => [
+//                ['head' => trans('content.home_block1'), 'text' => trans('content.home_block1_subscribe'), 'image' => '/images/home_images/cloud.jpg', 'href' => '/cloud-mining'],
+//                ['head' => trans('content.home_block2'), 'text' => trans('content.home_block2_subscribe'), 'image' => '/images/home_images/exchange.jpg', 'href' => '/exchange'],
+//                ['head' => trans('content.home_block3'), 'text' => trans('content.home_block3_subscribe'), 'image' => '/images/home_images/hardware.jpg', 'href' => '/mining-hardware'],
+//            ],
+
+            'data' => $this->data
+        ]);
+    }
 }

@@ -231,9 +231,7 @@ class Ftp extends AbstractFtpAdapter
             $this->setVisibility($path, $visibility);
         }
 
-        $type = 'file';
-
-        return compact('type', 'path', 'visibility');
+        return compact('path', 'visibility');
     }
 
     /**
@@ -309,7 +307,7 @@ class Ftp extends AbstractFtpAdapter
 
         $this->setConnectionRoot();
 
-        return ['type' => 'dir', 'path' => $dirname];
+        return ['path' => $dirname];
     }
 
     /**
@@ -331,7 +329,7 @@ class Ftp extends AbstractFtpAdapter
             }
         }
 
-        if (in_array($directory, $listing, true)) {
+        if (in_array($directory, $listing)) {
             return true;
         }
 
@@ -393,7 +391,7 @@ class Ftp extends AbstractFtpAdapter
     {
         $timestamp = ftp_mdtm($this->getConnection(), $path);
 
-        return ($timestamp !== -1) ? ['path' => $path, 'timestamp' => $timestamp] : false;
+        return ($timestamp !== -1) ? ['timestamp' => $timestamp] : false;
     }
 
     /**
@@ -427,7 +425,7 @@ class Ftp extends AbstractFtpAdapter
             return false;
         }
 
-        return ['type' => 'file', 'path' => $path, 'stream' => $stream];
+        return compact('stream');
     }
 
     /**
@@ -441,7 +439,7 @@ class Ftp extends AbstractFtpAdapter
             return false;
         }
 
-        return compact('path', 'visibility');
+        return compact('visibility');
     }
 
     /**
@@ -494,7 +492,7 @@ class Ftp extends AbstractFtpAdapter
         try {
             return is_resource($this->connection) && ftp_rawlist($this->connection, '/') !== false;
         } catch (ErrorException $e) {
-            is_resource($this->connection) && fclose($this->connection);
+            fclose($this->connection);
             $this->connection = null;
 
             if (strpos($e->getMessage(), 'ftp_rawlist') === false) {

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
 use Imagick;
+use Config;
 
 /**
  * A file uploaded through a form.
@@ -225,10 +226,15 @@ class UploadedFile extends File
         }
 
         $im->cropImage($width, $height, 0, 0);
-        $im->writeImage($_SERVER['DOCUMENT_ROOT'].$fileName);
+        $im->writeImage($_SERVER['DOCUMENT_ROOT'].Config::get('app.root').$fileName);
         $im->destroy();
 
         return $fileName;
+    }
+
+    public function generateImgName()
+    {
+        return md5(uniqid(rand()+time(), true)).'.'.$this->getClientOriginalExtension();
     }
 
     /**
