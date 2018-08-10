@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\App;
 use App\Slide;
+use App\Chapter;
 use Session;
 use Config;
 
@@ -59,19 +61,15 @@ class StaticController extends Controller
 
     private function showView($view)
     {
-        if (!isset($this->data['slider'])) {
-            for ($i=1;$i<=5;$i++) {
-                $this->data['slider'][] = 'slide'.$i.'.jpg';
-            }
+        $chapters = Chapter::where('active',1)->get();
+        $mainMenu = [];
+        foreach ($chapters as $chapter) {
+            $mainMenu[] = ['href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
         }
+        $mainMenu[] = ['href' => 'contacts', 'name' => trans('menu.contacts')];
 
         return view($view, [
-            'mainMenu' => [
-                ['href' => '#', 'name' => trans('menu.about')],
-                ['href' => '#', 'name' => trans('menu.faq')],
-                ['href' => 'news', 'name' => trans('menu.news')],
-                ['href' => '#', 'name' => trans('menu.contacts')]
-            ],
+            'mainMenu' => $mainMenu,
 
 //            'homeBlocks' => [
 //                ['head' => trans('content.home_block1'), 'text' => trans('content.home_block1_subscribe'), 'image' => '/images/home_images/cloud.jpg', 'href' => '/cloud-mining'],

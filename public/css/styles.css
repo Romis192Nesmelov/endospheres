@@ -1,0 +1,98 @@
+html,body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+a,
+.navbar-nav > li > a {
+    font-size: 14px;
+    color: #1897d9 !important;
+    font-weight: 300;
+    padding: 0 10px 3px 10px !important;
+}
+
+.navbar-nav > li.active > a {
+    font-weight: bold !important;
+    background-color: white !important;
+}
+
+a:hover {
+    color: #7cc9f1 !important;
+}
+
+.navbar-nav > li > a:hover {
+    color: #7cc9f1 !important;
+    background-color: white !important;
+}
+
+.navbar-static-top {
+    background: url("../images/nav_background.gif") repeat-x 0 45px #ffffff;
+}
+
+.navbar-static-top .container {
+    padding-top: 20px;
+}
+
+.logo img {
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .logo {
+        width: 220px;
+        margin-left: 28px;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        display: table;
+        margin-top: 25px;
+        margin-bottom: 8px;
+        margin-left: 0 !important;
+    }
+
+    .navbar-nav > li {
+        display: table-cell;
+        float: none;
+        text-align: center;
+        border-right: 1px solid #1897d9;
+    }
+
+    .navbar-nav > li:last-child {
+        border: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar-nav > li > a {
+        font-size: 10px;
+        padding: 0 2px 3px 2px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-static-top .container {
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .logo {
+        width: 150px;
+        margin-left: 0;
+        margin-bottom: 10px;
+        float: left;
+    }
+
+    .navbar-nav {
+        padding: 20px;
+    }
+
+    .navbar-static-top {
+        background-image: none;
+    }
+
+    .navbar-toggle {
+        margin-top: 15px;
+    }
+}

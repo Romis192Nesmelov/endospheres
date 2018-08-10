@@ -10,7 +10,7 @@ class Chapter extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['slug','head_ru','head_en','content_ru','content_en','active'];
+    protected $fillable = ['head_ru','head_en','content_ru','content_en','active'];
 
     protected $sluggable = [
         'build_from' => 'head_en',
