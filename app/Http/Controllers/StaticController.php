@@ -22,17 +22,20 @@ class StaticController extends Controller
 
     public function home()
     {
+        $this->data['slider'] = ['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
         return $this->showView('home');
     }
 
     public function feedback(Request $request)
     {
         $this->validate($request, [
-            'feedback_name' => 'required|min:5|max:50',
-            'feedback_email' => 'required|email',
-            'feedback' => 'required|min:5|max:500',
+            'name' => 'required|min:5|max:50',
+            'email' => 'required|email',
+            'message' => 'required|min:5|max:500',
+            'phone' => 'string|regex:/^((\+)?(\d)(\s)?(\()?9[0-9]{2}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/'
         ]);
-        $this->sendMessage($request, trans('content.thanks_for_your_message'));
+        $this->sendMessage($request);
+        return response()->json(['success' => true]);
     }
 
 //    public function changeLang(Request $request)
@@ -42,21 +45,21 @@ class StaticController extends Controller
 //        return redirect()->back();
 //    }
 
-    private function sendMessage(Request $request, $sessionMessage, $pathToFile=null)
+    private function sendMessage(Request $request, $pathToFile=null)
     {
         $creds = [
-            'name' => $request->input('feedback_name'),
-            'email' => $request->input('feedback_email'),
-            'phone' => $request->has('feedback_phone') ? $request->input('feedback_phone') : '',
-            'content' => $request->input('feedback')
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->has('phone') ? $request->input('phone') : '',
+            'content' => $request->input('message')
         ];
 
-        Mail::send('auth.emails.sendmessage', ['creds' => $creds], function($message) use ($request, $pathToFile) {
-            $message->subject(trans('content.message_from').$request->server->get('SERVER_NAME'));
-            $message->from(Config::get('app.mail_to'), Config::get('app.title'));
-            $message->to(Config::get('app.mail_to'));
-            if ($pathToFile) $message->attach($pathToFile);
-        });
+//        Mail::send('auth.emails.sendmessage', ['creds' => $creds], function($message) use ($request, $pathToFile) {
+//            $message->subject(trans('content.message_from').$request->server->get('SERVER_NAME'));
+//            $message->from(Config::get('app.mail_to'), Config::get('app.title'));
+//            $message->to(Config::get('app.mail_to'));
+//            if ($pathToFile) $message->attach($pathToFile);
+//        });
     }
 
     private function showView($view)

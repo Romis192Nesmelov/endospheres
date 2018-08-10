@@ -1,27 +1,40 @@
+<div class="container">
+    <h2>{{ trans('content.answer_question') }}</h2>
+</div>
 <div id="footer">
+    {{ csrf_field() }}
     <div class="container">
-        <div id="contacts" class="col-md-4 col-xs-12 col-sm-12">
-            <img id="footer_image" class="hidden-sm hidden-xs" src="/images/bitcoin.png">
-            <div>
-                {{ trans('content.tel') }}: <a href="tel:+74955075579">+7 495 333-22-11</a><br>
-                {{ trans('content.tel') }}: <a href="tel:+74955075257">+7 495 333-22-11</a><br>
-                {!! trans('content.address') !!}
-            </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="title">{{ trans('content.feedback_form') }}</div>
+            @include('_input_block',['name' => 'name', 'type' => 'text', 'placeholder' => trans('content.your_name'), 'icon' => 'icon-user', 'useAjax' => true])
+            @include('_input_block',['name' => 'email', 'type' => 'email', 'placeholder' => trans('content.your_email'), 'icon' => 'icon-mail-read', 'useAjax' => true])
+            @include('_input_block',['name' => 'phone', 'type' => 'text', 'placeholder' => trans('content.your_phone'), 'icon' => 'icon-iphone', 'useAjax' => true])
         </div>
-
-        <div class="col-md-8 footer_part hidden-xs hidden-sm">
-            <div class="articles">
-                <h3>{{ trans('content.recommended_articles') }}:</h3>
-                @include('layouts._articles_links_block',['start' => 0, 'finish' => ceil(count($articles)/3)])
-                @include('layouts._articles_links_block',['start' => ceil(count($articles)/3), 'finish' => (ceil(count($articles)/3))*2])
-                @include('layouts._articles_links_block',['start' => (ceil(count($articles)/3))*2, 'finish' => count($articles)])
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="title">{{ trans('content.feedback_form') }}</div>
+            @include('_textarea_block', ['name' => 'message', 'placeholder' => trans('content.message'), 'icon' => 'icon-bubble-dots4', 'simple' => true, 'useAjax' => true])
+            @include('_button_block', ['type' => 'button', 'id' => 'send_message', 'text' => trans('content.send'), 'addClass' => 'pull-right', 'icon' => 'icon-upload'])
+        </div>
+        <div class="col-md-12">
+            <div class="feed-back-man">
+                <div>{!! trans('content.do_answer_your_question') !!}</div>
+                <img src="{{ asset('images/feed_back_man.jpg') }}" />
             </div>
         </div>
     </div>
 </div>
-
-<div id="copyright">
+<div id="all-truth-about">
     <div class="container">
-        © <a href="#">My Real Coin</a> — All rights reserved, 2018.
+        <h1>{{ trans('content.all_truth_about') }}</h1>
+        {!! trans('content.all_truth_about_answer') !!}
+    </div>
+</div>
+<div id="copyright-line">
+    <div class="container">
+        <div class="copyright hidden-xs">{{ trans('content.copyright') }}</div>
+        <div class="soc-icon" style="margin-right: 30px;"><a href="#"><img src="{{ asset('images/insta.png') }}" /></a> </div>
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/fb.png') }}" /></a> </div>
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/youtube.png') }}" /></a> </div>
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/vk.png') }}" /></a> </div>
     </div>
 </div>

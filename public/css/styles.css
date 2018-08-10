@@ -4,7 +4,27 @@ html,body {
     font-family: 'Roboto', sans-serif;
 }
 
-a,
+h1, h2, h3, h4, h5, h6 {
+    color: #3180a8;
+    letter-spacing: 0.02em;
+}
+
+h1 {
+    font-size: 31px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+textarea {
+    resize: none;
+}
+
+a {
+    color: #1897d9 !important;
+}
+
 .navbar-nav > li > a {
     font-size: 14px;
     color: #1897d9 !important;
@@ -38,6 +58,141 @@ a:hover {
     width: 100%;
 }
 
+#slideshow p {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin-top: 395px;
+    z-index: 999;
+}
+
+.row {
+    margin: 0 !important;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.href-image {
+    width: 32.9%;
+    max-height: 143px;
+    overflow: hidden;
+    float: left;
+    text-align: center;
+    text-transform: uppercase;
+    margin-right: 4px;
+}
+
+.href-image:last-child {
+    margin-right: 0;
+}
+
+.href-image:hover {
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+}
+
+.href-image a {
+    font-size: 18px;
+    color: #9e9b99 !important;
+}
+
+.href-image span {
+    font-size: 14px;
+}
+
+.href-image .image-frame {
+    margin-bottom: 10px;
+}
+
+.href-image .image-frame > img {
+    width: 100%;
+}
+
+#footer {
+    width: 100%;
+    display: table;
+    background-color: #e4f5ff;
+}
+
+#footer .title {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 5px;
+    font-size: 19px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: white;
+    background-color: #1697d8;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+#footer textarea
+{
+    height: 110px;
+}
+
+#footer .col-md-12 {
+    margin-top: 10px;
+}
+
+#footer .feed-back-man {
+    width: 215px;
+    background-color: #eeeeee;
+    font-size: 20px;
+    padding-top: 35px;
+    padding-left: 25px;
+    float: right;
+    display: table-cell;
+    vertical-align: bottom;
+    letter-spacing: 0.02em;
+}
+
+#footer .feed-back-man > div {
+    float: left;
+}
+
+#footer .feed-back-man img {
+    float: right;
+}
+
+#all-truth-about {
+    width: 100%;
+    height: 250px;
+    background-color: #eeeeee;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    font-style: italic;
+    padding: 0 10px 10px 25px;
+}
+
+#copyright-line {
+    width: 100%;
+    height: 80px;
+    background-color: #747474;
+    padding-top: 30px;
+    z-index: 999;
+    position: fixed;
+    bottom: 0;
+}
+
+#copyright-line .copyright {
+    float: left;
+    font-size: 18px;
+    color: white;
+    margin-left: 80px;
+    letter-spacing: 0.02em;
+}
+
+#copyright-line .soc-icon {
+    padding: 0;
+    width: 30px;
+    height: 29px;
+    float: right;
+    margin-left: 10px;
+}
+
 @media (min-width: 769px) {
     .logo {
         width: 220px;
@@ -69,6 +224,18 @@ a:hover {
         font-size: 10px;
         padding: 0 2px 3px 2px !important;
     }
+
+    .href-image a {
+        font-size: 14px;
+    }
+
+    #all-truth-about {
+        font-size: 18px;
+    }
+
+    #copyright-line .copyright {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -82,6 +249,14 @@ a:hover {
         margin-left: 0;
         margin-bottom: 10px;
         float: left;
+    }
+
+    .href-image {
+        width: 98% !important;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        float: none;
     }
 
     .navbar-nav {

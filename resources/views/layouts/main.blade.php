@@ -14,7 +14,7 @@
     <link href="{{ asset('css/core.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/components.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/colors.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/rSlider.min.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/dm3Slideshow.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
 
     <!-- Core JS files -->
@@ -28,7 +28,7 @@
 
     <script type="text/javascript" src="{{ asset('js/pages/components_thumbnails.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/rSlider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dm3Slideshow.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/feedback.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
@@ -39,9 +39,11 @@
 @include('layouts._feedback_modal_block')
 
 @include('layouts._nav_block', ['items' => $mainMenu])
-
+@include('layouts._slider_block',['slides' => $data['slider']])
 
 @yield('content')
+
+@include('layouts._footer_block')
 
 </body>
 </html>

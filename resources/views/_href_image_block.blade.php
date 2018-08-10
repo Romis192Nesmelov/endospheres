@@ -1,0 +1,6 @@
+<div class="href-image" {{ isset($width) ? 'style=width:'.$width : '' }}>
+    <a href="{{ $href }}">
+        <div class="image-frame"><img src="{{ $image }}" /></div>
+        {{ $description }}
+    </a>
+</div> 
