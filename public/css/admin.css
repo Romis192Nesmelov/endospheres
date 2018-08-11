@@ -11,6 +11,11 @@ textarea.simple
     margin-right: 15px;
 }
 
+.new-video
+{
+    display: none;
+}
+
 .id {
     width: 20px;
 }

@@ -30,22 +30,33 @@
                         </div>
                     </div>
 
-                    @if (count($data['chapter']->videos))
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">{{ trans('admin_content.chapter_video') }}</h4>
-                            </div>
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">{{ trans('admin_content.chapter_video') }}</h4>
+                        </div>
+                        @if (count($data['chapter']->videos))
                             <div class="panel-body">
                                 @foreach($data['chapter']->videos as $video)
-                                    {{--<input type="hidden" name="video_id[]" value="{{ $video->id }}">--}}
-                                    @include('admin._video_input_block', [
-                                        'value' => $video->url,
-                                        'error' => null
-                                    ])
+                                    @include('admin._video_input_block', ['video' => $video])
                                 @endforeach
                             </div>
+                        @endif
+                            <div class="panel-body">
+                                @for($i=0;$i<10;$i++)
+                                    @include('admin._video_input_block', ['video' => '', 'addClass' => 'new-video'])
+                                @endfor
+
+                                @include('admin._button_block', [
+                                    'addAttr' => ['id' => 'addVideo'],
+                                    'type' => 'button',
+                                    'icon' => 'icon-database-add',
+                                    'text' => trans('admin_content.add_video'),
+                                    'mainClass' => 'bg-primary-400',
+                                    'addClass' => 'pull-right'
+                                ])
+                            </div>
                         </div>
-                    @endif
+
 
                     <div class="panel panel-flat">
                         @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => $data['chapter']->active])

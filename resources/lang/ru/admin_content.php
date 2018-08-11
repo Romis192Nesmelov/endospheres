@@ -20,6 +20,7 @@ return [
     'date_created' => 'Дата создания',
     'change' => 'Изменить',
     'add_slide' => 'Добавить слайд',
+    'add_video' => 'Добавить видео',
     'background_color' => 'Цвет фона',
     'mouse_color' => 'Цвет символа мыши',
     'chapter_video' => 'Видео раздела',

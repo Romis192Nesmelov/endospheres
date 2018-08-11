@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Slide;
 use App\Chapter;
+use App\Video;
 use Config;
 use Session;
 
@@ -110,13 +111,29 @@ class AdminController extends Controller
         ]);
         
         $chapter = Chapter::find($request->input('id'));
-        $fields = $this->processingFields($request, 'active', 'video_url');
+        $fields = $this->processingFields($request, 'active', ['video_head_ru','video_url','video_description_ru']);
         $chapter->update($fields);
-        if (count($chapter->videos) && $request->has('video_url') && count($request->input('video_url'))) {
-            $videos = $request->input('video_url');
-            for($i=0;$i<count($chapter->videos);$i++) {
-                $chapter->videos[$i]->url = $videos[$i];
-                $chapter->videos[$i]->save();
+
+        if ($request->has('video_url') && count($request->input('video_url'))) {
+            $videosHeads = $request->input('video_head_ru');
+            $videosUrl = $request->input('video_url');
+            $videosDescriptions = $request->input('video_description_ru');
+
+            for($i=0;$i<count($videosUrl);$i++) {
+                $video = [
+                    'url' => $videosUrl[$i],
+                    'head_ru' => $videosHeads[$i],
+                    'description_ru' => $videosDescriptions[$i]
+                ];
+
+                if ($chapter->videos && $i < count($chapter->videos)) {
+                    if (!$video['url']) $chapter->videos[$i]->delete();
+                    else $chapter->videos[$i]->update($video);
+
+                } elseif ($video['url']) {
+                    $video['chapter_id'] = $chapter->id;
+                    Video::create($video);
+                }
             }
         }
         $this->saveCompleteMessage();

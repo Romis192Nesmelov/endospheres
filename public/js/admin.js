@@ -35,6 +35,13 @@ $(document).ready(function ($) {
             }
         });
     });
+
+    // Click add video button
+    $('#addVideo').click(function () {
+        var inputs = $('.new-video');
+        if (inputs.length == 1) $(this).remove();
+        $(inputs[0]).removeClass('new-video');
+    });
 });
 
 function deleteItem(obj) {
