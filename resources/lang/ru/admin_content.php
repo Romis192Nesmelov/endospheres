@@ -22,4 +22,6 @@ return [
     'add_slide' => 'Добавить слайд',
     'background_color' => 'Цвет фона',
     'mouse_color' => 'Цвет символа мыши',
+    'chapter_video' => 'Видео раздела',
+    'video_url' => 'Ссылка на видео',
 ];

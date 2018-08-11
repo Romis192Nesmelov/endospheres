@@ -28,8 +28,8 @@
                                 <img src="{{ asset('images/video.jpg') }}" />
                             @endif
                         </td>
-                        <td class="text-center">{{ $slide->head_ru }}</td>
-                        <td class="text-left"><a href="/admin/landing/?id={{ $slide->id }}">{!! $slide->description_ru !!}</a></td>
+                        <td class="text-center">{{ $slide['head_'.App::getLocale()] }}</td>
+                        <td class="text-left"><a href="/admin/landing/?id={{ $slide->id }}">{!! $slide['description_'.App::getLocale()] !!}</a></td>
                         <td class="text-center">@include('admin._slide_status_block')</td>
                         <td class="delete">
                             @if ($slide->is_image)

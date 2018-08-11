@@ -16,4 +16,9 @@ class Chapter extends Model implements SluggableInterface
         'build_from' => 'head_en',
         'save_to'    => 'slug',
     ];
+
+    public function videos()
+    {
+        return $this->hasMany('App\Video');
+    }
 }

@@ -23,6 +23,7 @@ class StaticController extends Controller
     public function home()
     {
         $this->data['slider'] = ['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
+        $this->data['chapter'] = Chapter::find(1);
         return $this->showView('home');
     }
 
@@ -54,12 +55,12 @@ class StaticController extends Controller
             'content' => $request->input('message')
         ];
 
-//        Mail::send('auth.emails.sendmessage', ['creds' => $creds], function($message) use ($request, $pathToFile) {
-//            $message->subject(trans('content.message_from').$request->server->get('SERVER_NAME'));
-//            $message->from(Config::get('app.mail_to'), Config::get('app.title'));
-//            $message->to(Config::get('app.mail_to'));
-//            if ($pathToFile) $message->attach($pathToFile);
-//        });
+        Mail::send('auth.emails.sendmessage', ['creds' => $creds], function($message) use ($request, $pathToFile) {
+            $message->subject(trans('content.message_from').$request->server->get('SERVER_NAME'));
+            $message->from(Config::get('app.mail_to'), Config::get('app.title'));
+            $message->to(Config::get('app.mail_to'));
+            if ($pathToFile) $message->attach($pathToFile);
+        });
     }
 
     private function showView($view)
@@ -73,13 +74,6 @@ class StaticController extends Controller
 
         return view($view, [
             'mainMenu' => $mainMenu,
-
-//            'homeBlocks' => [
-//                ['head' => trans('content.home_block1'), 'text' => trans('content.home_block1_subscribe'), 'image' => '/images/home_images/cloud.jpg', 'href' => '/cloud-mining'],
-//                ['head' => trans('content.home_block2'), 'text' => trans('content.home_block2_subscribe'), 'image' => '/images/home_images/exchange.jpg', 'href' => '/exchange'],
-//                ['head' => trans('content.home_block3'), 'text' => trans('content.home_block3_subscribe'), 'image' => '/images/home_images/hardware.jpg', 'href' => '/mining-hardware'],
-//            ],
-
             'data' => $this->data
         ]);
     }

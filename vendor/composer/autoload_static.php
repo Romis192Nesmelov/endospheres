@@ -274,11 +274,13 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
     );
 
     public static $classMap = array (
+        'AddChapterIdToVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_083506_add_chapter_id_to_videos_table.php',
         'ChaptersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ChaptersTableSeeder.php',
         'CreateChaptersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_10_054818_create_chapters_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_03_054318_create_slides_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_082949_create_videos_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
@@ -791,6 +793,7 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
+        'VideosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/VideosTableSeeder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

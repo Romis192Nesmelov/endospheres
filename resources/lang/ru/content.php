@@ -44,4 +44,5 @@ return [
     'for_face' => 'для лица',
     'for_body' => 'для тела',
     'for_body_and_face' => 'для тела и лица',
+    'all_about_endospheres_therapy' => 'Всё о процедуре L’Endosphères Therapy®',
 ];

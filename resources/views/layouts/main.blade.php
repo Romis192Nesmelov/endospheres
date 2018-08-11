@@ -45,5 +45,7 @@
 
 @include('layouts._footer_block')
 
+<script>window.assetImages = "{{ asset('images') }}"</script>
+
 </body>
 </html>

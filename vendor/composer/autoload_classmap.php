@@ -6,11 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddChapterIdToVideosTable' => $baseDir . '/database/migrations/2018_08_11_083506_add_chapter_id_to_videos_table.php',
     'ChaptersTableSeeder' => $baseDir . '/database/seeds/ChaptersTableSeeder.php',
     'CreateChaptersTable' => $baseDir . '/database/migrations/2018_08_10_054818_create_chapters_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateSlidesTable' => $baseDir . '/database/migrations/2018_08_03_054318_create_slides_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateVideosTable' => $baseDir . '/database/migrations/2018_08_11_082949_create_videos_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -523,4 +525,5 @@ return array(
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UsersTableSeeder' => $baseDir . '/database/seeds/UsersTableSeeder.php',
+    'VideosTableSeeder' => $baseDir . '/database/seeds/VideosTableSeeder.php',
 );

@@ -10,11 +10,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 31px;
+    font-size: 36px;
 }
 
 h2 {
     font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
 }
 
 textarea {
@@ -72,6 +76,23 @@ a:hover {
     padding-bottom: 25px;
 }
 
+.row.black {
+    background-color: #303030;
+}
+
+.row.black h1, .row.black h2, .row.black h3, .row.black h4, .row.black h5, .row.black h6 {
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.row.black p {
+    color: white;
+}
+
 .href-image {
     width: 32.9%;
     max-height: 143px;
@@ -80,15 +101,11 @@ a:hover {
     text-align: center;
     text-transform: uppercase;
     margin-right: 4px;
+    position: relative;
 }
 
 .href-image:last-child {
     margin-right: 0;
-}
-
-.href-image:hover {
-    opacity: 0.7;
-    filter: alpha(opacity=70);
 }
 
 .href-image a {
@@ -106,6 +123,32 @@ a:hover {
 
 .href-image .image-frame > img {
     width: 100%;
+    position: relative;
+}
+
+.shade {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #c1bcb9;
+    position: absolute;
+    z-index: 999;
+}
+
+.subscribe {
+    padding: 20px 38px;
+}
+
+.subscribe h1, .subscribe h2, .subscribe h3, .subscribe h4, .subscribe h5, .subscribe h6 {
+    font-style: italic;
+    font-weight: bold;
+    text-align: left !important;
+    margin-bottom: 20px !important;
+}
+
+.subscribe p {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 #footer {

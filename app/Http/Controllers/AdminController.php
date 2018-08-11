@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Slide;
+use App\Chapter;
 use Config;
 use Session;
 
@@ -37,6 +39,19 @@ class AdminController extends Controller
         } else {
             $this->data['slides'] = Slide::all();
             return $this->showView('landing');
+        }
+    }
+
+    public function getChapters($slug=null)
+    {
+        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
+        if ($slug) {
+            $this->data['chapter'] = Chapter::findBySlug($slug);
+            $this->breadcrumbs['chapters/'.$this->data['chapter']->slug] = $this->data['chapter']['head_'.App::getLocale()];
+            return $this->showView('chapter');
+        } else {
+            $this->data['chapters'] = Chapter::all();
+            return $this->showView('chapters');
         }
     }
 
@@ -84,6 +99,28 @@ class AdminController extends Controller
         }
         $this->saveCompleteMessage();
         return redirect('/admin/landing');
+    }
+
+    public function postChapter(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|integer|exists:chapters',
+            'head_ru' => 'required|min:1|max:20',
+            'content_ru' => 'required|min:10|max:5000'
+        ]);
+        
+        $chapter = Chapter::find($request->input('id'));
+        $fields = $this->processingFields($request, 'active', 'video_url');
+        $chapter->update($fields);
+        if (count($chapter->videos) && $request->has('video_url') && count($request->input('video_url'))) {
+            $videos = $request->input('video_url');
+            for($i=0;$i<count($chapter->videos);$i++) {
+                $chapter->videos[$i]->url = $videos[$i];
+                $chapter->videos[$i]->save();
+            }
+        }
+        $this->saveCompleteMessage();
+        return redirect('/admin/chapters');
     }
 
     public function postDeleteSlide(Request $request)
@@ -202,9 +239,14 @@ class AdminController extends Controller
     {
         $slides = Slide::all();
         $landingSubmenu = [];
-
         foreach ($slides as $k => $slide) {
             $landingSubmenu[] = ['href' => '?id='.$slide->id, 'name' => trans('admin_content.slide', ['number' => ($k+1)])];
+        }
+
+        $chapters = Chapter::all();
+        $chaptersMenu = [];
+        foreach ($chapters as $chapter) {
+            $chaptersMenu[] = ['href' => 'chapters/'.$chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
         }
 
         return view('admin.'.$view, [
@@ -212,6 +254,7 @@ class AdminController extends Controller
             'data' => $this->data,
             'menus' => [
                 ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
+                ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu]
             ]
         ]);
     }

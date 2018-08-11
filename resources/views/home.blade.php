@@ -8,4 +8,19 @@
             @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body_and_face.jpg'), 'description' => trans('content.endosphere').' '.trans('content.for_body_and_face')])
         </div>
     </div>
+    @if (count($data['chapter']->videos))
+        <div class="row black">
+            <div class="container">
+                <h1>{{ trans('content.all_about_endospheres_therapy') }}</h1>
+                @foreach($data['chapter']->videos as $video)
+                    @include('_video_block',['video' => $video])
+                @endforeach
+            </div>
+        </div>
+    @endif
+    <div class="row">
+        <div class="container">
+            {!! $data['chapter']['content_'.App::getLocale()] !!}
+        </div>
+    </div>
 @endsection
