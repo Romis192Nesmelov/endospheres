@@ -40,7 +40,7 @@
         @if ($slide->is_image)
             window.imagesCount++;
         @else
-            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.asset($slide->poster) : '' }}><source src="{{ asset($slide->path) }}" type="video/mp4"></video></div>');
+            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.asset($slide->poster) : '' }}><source src="{{ asset($slide->path) }}.mp4" type="video/mp4"><source src="{{ asset($slide->path) }}.3gp" type=\'video/3gpp; codecs="mp4v.20.8, samr"\'><source src="{{ asset($slide->path) }}.mov" type="video/mov"><source src="{{ asset($slide->path) }}.avi" type="video/avi"></video></div>');
         @endif
     @endforeach
 </script>
@@ -101,8 +101,9 @@
     </div>
 
     <div class="hidden" id="mouse-scroll-container">
-        <div  id="mouse-scroll"><div></div></div>
-        {!! trans('landing.move_mouse_wheel_to_continue') !!}
+        <div id="mouse-scroll"><div></div></div>
+        <div id="wheel-to-continue">{!! trans('landing.move_mouse_wheel_to_continue') !!}</div>
+        <div id="scroll-to-continue">{!! trans('landing.move_mouse_scroll_to_continue') !!}</div>
     </div>
 </div>
 
@@ -128,8 +129,8 @@
 </div>
 
 <div id="hrefs">
-    <a class="skip" href="#">{{ trans('landing.skip_intro') }}</a>
-    <a href="{{ url('/home') }}">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
+    <a class="skip" href="/home">{{ trans('landing.skip_intro') }}</a>
+    <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
     <span class="hidden glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}"></span>
 </div>
 

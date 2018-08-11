@@ -94,7 +94,7 @@ function showMouse() {
                 });
             });
 
-            window.mouseScrollAnim = setInterval(function () {
+            window.mouseClickAnim = setInterval(function () {
                 $('#mouse > div').animate({
                     'margin-top':25,
                     'opacity':0
@@ -108,15 +108,23 @@ function showMouse() {
 
             setTimeout(function () {
                 mouseContainer.animate({'opacity':1}, 500);
-                $(document).mousewheel(function () { nextSlide(); });
+                mouseMoveBind();
             }, 1000);
         } else {
-            clearInterval(window.mouseScrollAnim);
+            clearInterval(window.mouseClickAnim);
             setTimeout(function () {
-                $(document).mousewheel(function () { nextSlide(); });
+                mouseMoveBind();
             }, 700);
         }
     }
+}
+
+function mouseMoveBind() {
+    $(document).mousewheel(function () {
+        nextSlide();
+    }).on('touchmove',function () {
+        nextSlide();
+    });
 }
 
 function hideFooter(currentSlide, reasonNumber) {

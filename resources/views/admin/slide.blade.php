@@ -12,7 +12,7 @@
                     <input type="hidden" name="id" value="{{ $data['slide']->id }}">
                 @endif
 
-                <div class="col-md-{{ (isset($data['slide']) && $data['slide']->is_image) || !isset($data['slide']) ? '12' : '6' }} col-sm-12 col-xs-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <div class="panel-title">{{ trans('admin_content.slide_simple') }}</div>
@@ -26,7 +26,7 @@
                                     <video width="100%" controls="controls" muted="muted" preload="auto" loop="loop" preload="auto" {{ $data['slide']->poster ? 'poster='.asset($data['slide']->poster) : '' }}>
                                         <source src="{{ asset($data['slide']->path) }}" type="video/mp4">
                                     </video>
-                                    @include('admin._input_file_block', ['label' => '', 'name' => 'video'])
+{{--                                    @include('admin._input_file_block', ['label' => '', 'name' => 'video'])--}}
                                 @endif
                             @else
                                 <img height="900" src="{{ asset('images/placeholder.jpg') }}" />
@@ -36,19 +36,19 @@
                     </div>
                 </div>
 
-                @if ((isset($data['slide']) && !$data['slide']->is_image))
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <div class="panel-title">{{ trans('admin_content.poster') }}</div>
-                            </div>
-                            <div class="panel-body edit-image-preview">
-                                <a href="{{ asset($data['slide']->poster) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['slide']->poster) }}" /></a>
-                                @include('admin._input_file_block', ['label' => '', 'name' => 'poster'])
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                {{--@if ((isset($data['slide']) && !$data['slide']->is_image))--}}
+                    {{--<div class="col-md-6 col-sm-12 col-xs-12">--}}
+                        {{--<div class="panel panel-flat">--}}
+                            {{--<div class="panel-heading">--}}
+                                {{--<div class="panel-title">{{ trans('admin_content.poster') }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="panel-body edit-image-preview">--}}
+                                {{--<a href="{{ asset($data['slide']->poster) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['slide']->poster) }}" /></a>--}}
+                                {{--@include('admin._input_file_block', ['label' => '', 'name' => 'poster'])--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--@endif--}}
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">

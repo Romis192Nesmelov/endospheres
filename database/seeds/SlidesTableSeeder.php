@@ -9,25 +9,25 @@ class SlidesTableSeeder extends Seeder
     {
         $data = [
             [
-                'path' => '/video/video1.mp4',
+                'path' => '/video/video1',
                 'poster' => '/video/video1.jpg',
                 'head_ru' => '',
                 'head_en' => '',
                 'description_ru' => 'Вся правда о ...',
                 'description_en' => '',
-                'background_color' => 'rgb(255,255,255)',
+                'background_color' => 'rgb(99,173,223)',
                 'mouse_color' => 'rgb(255,255,255)',
                 'is_image' => false,
                 'active' => true
             ],
             [
-                'path' => '/video/video2.mp4',
+                'path' => '/video/video2',
                 'poster' => '/video/video2.jpg',
                 'head_ru' => '',
                 'head_en' => '',
                 'description_ru' => 'Вся правда о ...',
                 'description_en' => '',
-                'background_color' => 'rgb(255,255,255)',
+                'background_color' => 'rgb(0,0,0)',
                 'mouse_color' => 'rgb(255,255,255)',
                 'is_image' => false,
                 'active' => true

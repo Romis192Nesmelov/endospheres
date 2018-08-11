@@ -51,7 +51,7 @@ a:hover
     position: absolute;
     top: 290px;
     left: 130px;
-    margin-left: -400px;
+    margin-left: -600px;
     transform: translateY(-50%);
     z-index: 999;
 }
@@ -332,6 +332,11 @@ svg mask rect
     display: block;
 }
 
+#scroll-to-continue
+{
+    display: none;
+}
+
 #button
 {
     width: 226px;
@@ -360,12 +365,38 @@ svg mask rect
     /*filter: alpha(opacity=0);*/
 }
 
+@media screen and (max-width: 1400px) and (max-height: 1400px)
+{
+    #wheel-to-continue
+    {
+        display: none;
+    }
+
+    #scroll-to-continue
+    {
+        display: block;
+    }
+}
+
 @media screen and (max-width: 1024px)
 {
     #logo
     {
         width: 130px;
         right: 50px;
+    }
+
+    #ten-reasons-container
+    {
+        top: 7%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #mouse-container
+    {
+        bottom: 20% !important;
+        line-height: 1.2em;
     }
 
     #footer .text
@@ -388,20 +419,9 @@ svg mask rect
 
 @media screen and (max-width: 750px)
 {
-    #footer
-    {
-        bottom: 50px;
-    }
-
     #footer .text
     {
         max-width: 430px;
-        padding-left: 0;
-    }
-
-    .slide-number
-    {
-        display: none;
     }
 }
 
@@ -415,6 +435,9 @@ svg mask rect
     #footer .text
     {
         max-width: 450px;
+        padding-left: 10px;
+        line-height: 1.3em;
+        font-weight: bold;
     }
 
     #hrefs .skip,
@@ -426,11 +449,25 @@ svg mask rect
 
 @media screen and (max-width: 550px)
 {
-    #ten-reasons-container
+    .icon-mouse-left
     {
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
+        font-size: 30px;
+    }
+
+    #reasons .slide-number
+    {
+        font-size: 40px;
+        padding: 0 5px;
+    }
+
+    #footer
+    {
+        left: 20px;
+    }
+
+    #footer .slide-number.current
+    {
+        border-right: 3px solid white;
     }
 
     #footer .text
@@ -440,8 +477,13 @@ svg mask rect
 
     #hrefs a
     {
+        font-size: 12px;
         margin-right: 10px;
-        font-size: 10px;
+    }
+
+    #hrefs a.skip
+    {
+        margin-right: 10px !important;
     }
 
     #hrefs img
@@ -452,6 +494,11 @@ svg mask rect
 
 @media screen and (max-width: 500px)
 {
+    #hrefs
+    {
+        left: 20px;
+    }
+
     #footer .text
     {
         max-width: 350px;
@@ -468,6 +515,12 @@ svg mask rect
 
 @media screen and (max-width: 400px)
 {
+    #ten-reasons-container .reasons-text
+    {
+        font-size: 16px;
+        line-height: 1.2em;
+    }
+
     #hrefs img
     {
         display: none;
@@ -476,11 +529,6 @@ svg mask rect
 
 @media screen and (max-width: 370px)
 {
-    #mouse-container
-    {
-        display: none;
-    }
-
     #footer .text
     {
         max-width: 250px;
@@ -500,12 +548,65 @@ svg mask rect
     }
 }
 
-@media (min-aspect-ratio: 16/9)
+@media only screen and (max-device-width : 900px) and (orientation : landscape)
 {
+    #mouse-container
+    {
+        font-size: 10px;
+    }
+
+    .icon-mouse-left
+    {
+        font-size: 30px;
+    }
+
     .video-slide > video
     {
-        height: 300%;
-        top: -100%;
+        width: 100% !important;
+        left: 0 !important;
+    }
+
+    #ten-reasons-container
+    {
+        zoom: 0.6;
+        left: 15%;
+    }
+
+    #footer
+    {
+        bottom: 50px;
+    }
+
+    #footer .slide-number
+    {
+        font-size: 40px;
+        padding: 0 5px;
+    }
+
+    #footer .slide-number.current
+    {
+        border-right: 3px solid white;
+    }
+
+    #footer .text
+    {
+        font-size: 10px;
+    }
+
+    #hrefs a
+    {
+        font-size: 10px;
+    }
+
+    #hrefs img
+    {
+        display: none;
+    }
+
+    #hrefs .glyphicon
+    {
+        font-size: 20px;
+        margin-left: 30px;
     }
 }
 
@@ -513,7 +614,7 @@ svg mask rect
 {
     .video-slide > video
     {
-        width: 300%;
-        left: -100%;
+        width: 400%;
+        left: -150%;
     }
 }
