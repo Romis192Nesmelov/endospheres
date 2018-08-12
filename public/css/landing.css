@@ -278,17 +278,17 @@ svg mask rect
 }
 
 /* Если есть поддержка object-fit (Chrome/Chrome для Android, Safari в iOS 8 и Opera), используем его: */
-/*@supports (object-fit: cover)*/
-/*{*/
-    /*.video-slide > video*/
-    /*{*/
-        /*top: 0;*/
-        /*left: 0;*/
-        /*width: 100%;*/
-        /*height: 100%;*/
-        /*object-fit: cover;*/
-    /*}*/
-/*}*/
+@supports (object-fit: cover)
+{
+    .video-slide > video
+    {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
 
 /* Mouse wheel */
 #mouse-container

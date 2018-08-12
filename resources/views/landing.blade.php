@@ -40,7 +40,7 @@
         @if ($slide->is_image)
             window.imagesCount++;
         @else
-            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.asset($slide->poster) : '' }}><source src="{{ asset($slide->path) }}.mp4" type="video/mp4"><source src="{{ asset($slide->path) }}.3gp" type=\'video/3gpp; codecs="mp4v.20.8, samr"\'><source src="{{ asset($slide->path) }}.mov" type="video/mov"><source src="{{ asset($slide->path) }}.avi" type="video/avi"></video></div>');
+            $('body').prepend('<div id="video-container-{{ $slide->id }}" class="video-slide"><video id="video-{{ $slide->id }}" muted="muted" preload="auto" loop="loop" preload="auto" {{ $slide->poster ? 'poster='.asset($slide->poster) : '' }}><source src="{{ asset($slide->path) }}.mp4"><source src="{{ asset($slide->path) }}.3gp"><source src="{{ asset($slide->path) }}.mov"><source src="{{ asset($slide->path) }}.avi"></video></div>');
         @endif
     @endforeach
 </script>
