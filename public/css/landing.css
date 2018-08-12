@@ -436,8 +436,13 @@ svg mask rect
     {
         max-width: 450px;
         padding-left: 10px;
-        line-height: 1.3em;
+        line-height: 1.5em;
         font-weight: bold;
+    }
+
+    #footer .text > div
+    {
+        line-height: 1.8em;
     }
 
     #hrefs .skip,
@@ -542,9 +547,50 @@ svg mask rect
 
 @media screen and (max-width: 325px)
 {
+    #ten-reasons-container
+    {
+        zoom: 0.6;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #mouse-container
+    {
+        font-size: 10px;
+        bottom: 30% !important;
+    }
+
+    .icon-mouse-left
+    {
+        font-size: 30px;
+    }
+
+    #footer .slide-number
+    {
+        font-size: 40px;
+        padding: 0 5px;
+    }
+
+    #footer .slide-number.current
+    {
+        border-right: 3px solid white;
+    }
+
     #footer .text
     {
         max-width: 200px;
+        font-size: 10px;
+    }
+
+    #hrefs a
+    {
+        font-size: 10px;
+    }
+
+    #hrefs .glyphicon
+    {
+        font-size: 20px;
+        margin-left: 30px;
     }
 }
 
