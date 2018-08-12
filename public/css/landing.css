@@ -454,99 +454,6 @@ svg mask rect
 
 @media screen and (max-width: 550px)
 {
-    .icon-mouse-left
-    {
-        font-size: 30px;
-    }
-
-    #reasons .slide-number
-    {
-        font-size: 40px;
-        padding: 0 5px;
-    }
-
-    #footer
-    {
-        left: 20px;
-    }
-
-    #footer .slide-number.current
-    {
-        border-right: 3px solid white;
-    }
-
-    #footer .text
-    {
-        max-width: 400px;
-    }
-
-    #hrefs a
-    {
-        font-size: 12px;
-        margin-right: 10px;
-    }
-
-    #hrefs a.skip
-    {
-        margin-right: 10px !important;
-    }
-
-    #hrefs img
-    {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 500px)
-{
-    #hrefs
-    {
-        left: 20px;
-    }
-
-    #footer .text
-    {
-        max-width: 350px;
-    }
-}
-
-@media screen and (max-width: 450px)
-{
-    #footer .text
-    {
-        max-width: 300px;
-    }
-}
-
-@media screen and (max-width: 400px)
-{
-    #ten-reasons-container .reasons-text
-    {
-        font-size: 16px;
-        line-height: 1.2em;
-    }
-
-    #hrefs img
-    {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 370px)
-{
-    #footer .text
-    {
-        max-width: 250px;
-    }
-
-    #hrefs .skip
-    {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 325px)
-{
     #ten-reasons-container
     {
         zoom: 0.6;
@@ -565,6 +472,17 @@ svg mask rect
         font-size: 30px;
     }
 
+    #reasons .slide-number
+    {
+        font-size: 40px;
+        padding: 0 5px;
+    }
+
+    #footer
+    {
+        left: 20px;
+    }
+
     #footer .slide-number
     {
         font-size: 40px;
@@ -578,19 +496,78 @@ svg mask rect
 
     #footer .text
     {
-        max-width: 200px;
+        max-width: 400px;
         font-size: 10px;
+    }
+
+    #hrefs
+    {
+        left: 20px;
     }
 
     #hrefs a
     {
         font-size: 10px;
+        margin-right: 10px;
+    }
+
+    #hrefs a.skip
+    {
+        margin-right: 10px !important;
+    }
+
+    #hrefs img
+    {
+        display: none;
     }
 
     #hrefs .glyphicon
     {
         font-size: 20px;
-        margin-left: 30px;
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 500px)
+{
+    #footer .text
+    {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 450px)
+{
+    #ten-reasons-container .reasons-text
+    {
+        font-size: 16px;
+        line-height: 1.2em;
+    }
+
+    #footer .text
+    {
+        max-width: 300px;
+    }
+
+    #hrefs img
+    {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 370px)
+{
+    #footer .text
+    {
+        max-width: 250px;
+    }
+}
+
+@media screen and (max-width: 325px)
+{
+    #footer .text
+    {
+        max-width: 200px;
     }
 }
 
