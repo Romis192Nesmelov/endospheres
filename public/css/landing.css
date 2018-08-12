@@ -419,41 +419,6 @@ svg mask rect
 
 @media screen and (max-width: 750px)
 {
-    #footer .text
-    {
-        max-width: 430px;
-    }
-}
-
-@media screen and (max-width: 650px)
-{
-    #logo
-    {
-        display: none;
-    }
-
-    #footer .text
-    {
-        max-width: 450px;
-        padding-left: 10px;
-        line-height: 1.5em;
-        font-weight: bold;
-    }
-
-    #footer .text > div
-    {
-        line-height: 1.8em;
-    }
-
-    #hrefs .skip,
-    #hrefs img
-    {
-        margin-right: 20px !important;
-    }
-}
-
-@media screen and (max-width: 550px)
-{
     #ten-reasons-container
     {
         zoom: 0.6;
@@ -470,12 +435,6 @@ svg mask rect
     .icon-mouse-left
     {
         font-size: 30px;
-    }
-
-    #reasons .slide-number
-    {
-        font-size: 40px;
-        padding: 0 5px;
     }
 
     #footer
@@ -496,8 +455,16 @@ svg mask rect
 
     #footer .text
     {
-        max-width: 400px;
+        max-width: 430px;
         font-size: 10px;
+        font-weight: bold;
+        padding-left: 10px;
+        line-height: 1.5em;
+    }
+
+    #footer .text > div
+    {
+        line-height: 1.8em;
     }
 
     #hrefs
@@ -525,6 +492,27 @@ svg mask rect
     {
         font-size: 20px;
         margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 650px)
+{
+    #logo
+    {
+        display: none;
+    }
+
+    #footer .text
+    {
+        max-width: 450px;
+    }
+}
+
+@media screen and (max-width: 550px)
+{
+    #footer .text
+    {
+        max-width: 400px;
     }
 }
 
