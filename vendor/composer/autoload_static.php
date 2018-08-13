@@ -274,9 +274,11 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
     );
 
     public static $classMap = array (
+        'AddChapterIdToFilesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_13_144505_add_chapter_id_to_files_table.php',
         'AddChapterIdToVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_083506_add_chapter_id_to_videos_table.php',
         'ChaptersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ChaptersTableSeeder.php',
         'CreateChaptersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_10_054818_create_chapters_table.php',
+        'CreateFilesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_13_144144_create_files_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_03_054318_create_slides_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
@@ -285,6 +287,7 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'FilesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/FilesTableSeeder.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
         'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',

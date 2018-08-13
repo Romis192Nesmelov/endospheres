@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddChapterIdToVideosTable extends Migration
+class AddChapterIdToFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class AddChapterIdToVideosTable extends Migration
      */
     public function up()
     {
-        Schema::table('videos', function (Blueprint $table) {
+        Schema::table('files', function (Blueprint $table) {
             $table->integer('chapter_id', false, true);
             $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -25,8 +25,8 @@ class AddChapterIdToVideosTable extends Migration
      */
     public function down()
     {
-        Schema::table('videos', function (Blueprint $table) {
-            $table->dropForeign('videos_chapter_id_foreign');
+        Schema::table('files', function (Blueprint $table) {
+            $table->dropForeign('files_chapter_id_foreign');
             $table->dropColumn('chapter_id');
         });
     }

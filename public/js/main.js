@@ -8,17 +8,24 @@ $(window).ready(function ($) {
     window.shadeMoving = false;
     setTimeout(function () {
         $('.href-image').each(function () {
-            var logo = $('<img src="'+window.assetImages+'/sroface_logo.png" />').css('margin-top',($(this).height()/2-37));
-            var shade = $('<div></div>').append(logo).addClass('shade').css({
-                'width':$(this).width(),
-                'height':$(this).height(),
-                'margin-top':$(this).height()*(-1)
-            });
-            $(this).find('.image-frame').prepend(shade);
-        }).hover(function () {
-            $(this).find('.shade').animate({'margin-top':0});
-        }, function () {
-            $(this).find('.shade').animate({'margin-top':$(this).height()*(-1)});
+            addShade($(this),$(this).attr('data-logo'));
         });
     }, 500);
 });
+
+function addShade(obj, logo) {
+    var shadeContainer = obj.find('.image-frame');
+    var logoImg = $('<img src="'+window.assetImages+'/'+logo+'" />');
+    var shade = $('<div></div>').append(logoImg).addClass('shade').css({
+        'width':shadeContainer.width(),
+        'height':shadeContainer.height(),
+        'margin-top':shadeContainer.height()*(-1)
+    });
+
+    shadeContainer.prepend(shade);
+    obj.hover(function () {
+        $(this).find('.shade').animate({'margin-top':0});
+    }, function () {
+        $(this).find('.shade').animate({'margin-top':$(this).height()*(-1)});
+    });
+}

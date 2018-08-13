@@ -17,24 +17,31 @@ class ChaptersTableSeeder extends Seeder
                     <h2>МЕТОД ENDOSPHERES THERAPY®</h2>
                     <p>Метод ENDOSPHERES THERAPY® безопасен и неинвазивен, не вызывает повреждения венозных и лимфатических сосудов, рекомендуется в качестве болеутоляющей терапии. Новая технология «Эндосфера» для моделирования, снижения веса, решения проблем целлюлита, улучшения кровообращения и лимфотока. Дает хорошие результаты в лечении крупных мышц спины, ягодиц. Микровибрация ENDOSPHERES THERAPY® позволяет активизировать микроциркуляцию, улучшая трофику кожи и мышечной ткани. Работает по принципу «компрессия и вибрация» за счет вращения силиконовых сфер. Вибрация сфер совпадает с вибрацией жировых клеток, что дает активацию обмена веществ адипоцитов.</p>
                 ',
+                'have_a_video' => true,
+                'have_a_files' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'Научная информация',
                 'head_en' => 'Science information',
                 'content_ru' => '',
+                'have_a_video' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'Аппараты',
                 'head_en' => 'Devises',
                 'content_ru' => '',
+                'have_a_video' => false,
+                'have_a_files' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'Вопросы и ответы',
                 'head_en' => 'FAQ',
                 'content_ru' => '',
+                'have_a_video' => false,
+                'have_a_files' => false,
                 'active' => true
             ],
             [
@@ -47,18 +54,24 @@ class ChaptersTableSeeder extends Seeder
                 'head_ru' => 'Новости',
                 'head_en' => 'News',
                 'content_ru' => '',
+                'have_a_video' => false,
+                'have_a_files' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'Сервис и обучение',
                 'head_en' => 'Service & Training',
                 'content_ru' => '',
+                'have_a_video' => false,
+                'have_a_files' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'СМИ о нас',
                 'head_en' => 'Mass media about us',
                 'content_ru' => '',
+                'have_a_video' => false,
+                'have_a_files' => false,
                 'active' => true
             ],
         ];

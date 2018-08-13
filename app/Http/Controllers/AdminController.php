@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Slide;
 use App\Chapter;
 use App\Video;
+use App\File;
 use Config;
 use Session;
 
@@ -49,11 +51,27 @@ class AdminController extends Controller
         if ($slug) {
             $this->data['chapter'] = Chapter::findBySlug($slug);
             $this->breadcrumbs['chapters/'.$this->data['chapter']->slug] = $this->data['chapter']['head_'.App::getLocale()];
+            Session::put('chapter',$slug);
             return $this->showView('chapter');
         } else {
             $this->data['chapters'] = Chapter::all();
             return $this->showView('chapters');
         }
+    }
+    
+    public function getFile(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
+        $this->data['type'] = 'file';
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['file/add'] = trans('admin_content.add_file');
+            return $this->showView('file');
+        } elseif ($request->has('id')) {
+            $this->data['file'] = File::find($request->input('id'));
+            $this->data['name'] = pathinfo($this->data['file']->path)['basename'];
+            $this->breadcrumbs['file/?id='.$this->data['file']->id] = $this->data['name'];
+            return $this->showView('file');
+        } else return false;
     }
 
     public function postLanding(Request $request)
@@ -106,7 +124,7 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'id' => 'required|integer|exists:chapters',
-            'head_ru' => 'required|min:1|max:20',
+            'head_ru' => 'required|min:1|max:200',
             'content_ru' => 'required|min:10|max:5000'
         ]);
         
@@ -139,13 +157,67 @@ class AdminController extends Controller
         $this->saveCompleteMessage();
         return redirect('/admin/chapters');
     }
+    
+    public function postFile(Request $request)
+    {
+        $validateArr = [
+            'head_ru' => 'min:1|max:200',
+            'description_ru' => 'min:10|max:1500'
+        ];
+        if ($request->has('id')) {
+            $file = File::find($request->input('id'));
+            if ($request->hasFile('file') && file_exists(base_path('/public'.$file->path))) unlink(base_path('/public'.$file->path));
+            $validateArr['file'] = 'mimes:'.$file->type.'|max:3000';
+        } else {
+            $validateArr['file'] = 'required|min:2|max:3000';
+        }
+
+        $this->validate($request, $validateArr);
+
+        if ($request->hasFile('file')) {
+            switch ($request->file('file')->getClientMimeType()) {
+                case 'application/pdf':
+                    $type = 'pdf';
+                    $path = '/pdfs/';
+                    break;
+                default:
+                    $type = 'image';
+                    $path = '/images/';
+                    break;
+            }
+            $request->file('file')->move(base_path('/public'.$path),$request->file('file')->getClientOriginalName());
+        }
+
+        if ($request->has('id')) {
+            $fields = $this->processingFields($request, null, 'file');
+            $file->update($fields);
+        } else {
+            $chapter = Chapter::findBySlug(Session::get('chapter'));
+            $fields['type'] = $type;
+            $fields['path'] = $path.$request->file('file')->getClientOriginalName();
+            $fields['chapter_id'] = $chapter->id;
+            $file = File::create($fields);
+        }
+        $this->saveCompleteMessage();
+        return redirect('/admin/chapters/'.$file->chapter->slug);
+    }
 
     public function postDeleteSlide(Request $request)
     {
-        $this->validate($request, ['id' => 'required|integer|exists:slides']);
-        $slide = Slide::find($request->input('id'));
-        $slide->delete();
-        if (file_exists(base_path('/public'.$slide->path))) unlink(base_path('/public'.$slide->path));
+        return $this->deleteSomething($request, new Slide());
+    }
+
+    public function postDeleteFile(Request $request)
+    {
+        return $this->deleteSomething($request, new File());
+    }
+
+    private function deleteSomething(Request $request, Model $model, $addValidation=null)
+    {
+        $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
+        $table = $model->find($request->input('id'));
+        $table->delete();
+        if (file_exists(base_path('/public'.$table->path))) unlink(base_path('/public'.$table->path));
         return response()->json(['success' => true]);
     }
 
@@ -263,7 +335,7 @@ class AdminController extends Controller
         $chapters = Chapter::all();
         $chaptersMenu = [];
         foreach ($chapters as $chapter) {
-            $chaptersMenu[] = ['href' => 'chapters/'.$chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
+            $chaptersMenu[] = ['href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
         }
 
         return view('admin.'.$view, [

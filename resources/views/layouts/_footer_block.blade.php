@@ -15,12 +15,6 @@
             @include('_textarea_block', ['name' => 'message', 'placeholder' => trans('content.message'), 'icon' => 'icon-bubble-dots4', 'simple' => true, 'useAjax' => true])
             @include('_button_block', ['type' => 'button', 'id' => 'send_message', 'text' => trans('content.send'), 'addClass' => 'pull-right', 'icon' => 'icon-upload'])
         </div>
-        <div class="col-md-12">
-            <div class="feed-back-man">
-                <div>{!! trans('content.do_answer_your_question') !!}</div>
-                <img src="{{ asset('images/feed_back_man.jpg') }}" />
-            </div>
-        </div>
     </div>
 </div>
 <div id="all-truth-about">

@@ -18,6 +18,4 @@ Route::get('/register', function() {
 
 Route::controllers(['admin' => 'AdminController']);
 Route::post('/feedback', 'StaticController@feedback');
-Route::get('/', 'StaticController@index');
-Route::get('/home', 'StaticController@home');
-//Route::get('/change-lang', 'StaticController@changeLang');
+Route::get('/{slug?}', 'StaticController@chapter');

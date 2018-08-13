@@ -5,7 +5,7 @@ html,body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #3180a8;
+    color: #1797d8;
     letter-spacing: 0.02em;
 }
 
@@ -26,12 +26,12 @@ textarea {
 }
 
 a {
-    color: #1897d9 !important;
+    color: #1797d8 !important;
 }
 
 .navbar-nav > li > a {
     font-size: 14px;
-    color: #1897d9 !important;
+    color: #1797d8 !important;
     font-weight: 300;
     padding: 0 10px 3px 10px !important;
 }
@@ -95,13 +95,11 @@ a:hover {
 
 .href-image {
     width: 32.9%;
-    max-height: 143px;
-    overflow: hidden;
     float: left;
     text-align: center;
     text-transform: uppercase;
     margin-right: 4px;
-    position: relative;
+
 }
 
 .href-image:last-child {
@@ -118,6 +116,9 @@ a:hover {
 }
 
 .href-image .image-frame {
+    max-height: 143px;
+    overflow: hidden;
+    position: relative;
     margin-bottom: 10px;
 }
 
@@ -127,11 +128,15 @@ a:hover {
 }
 
 .shade {
-    display: table-cell;
-    vertical-align: middle;
     background-color: #c1bcb9;
     position: absolute;
     z-index: 999;
+}
+
+.shade img {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .subscribe {
@@ -153,7 +158,7 @@ a:hover {
 
 #footer {
     width: 100%;
-    display: table;
+    min-height: 610px;
     background-color: #e4f5ff;
 }
 
@@ -173,41 +178,23 @@ a:hover {
 
 #footer textarea
 {
-    height: 110px;
+    height: 148px;
 }
 
 #footer .col-md-12 {
     margin-top: 10px;
 }
 
-#footer .feed-back-man {
-    width: 215px;
-    background-color: #eeeeee;
-    font-size: 20px;
-    padding-top: 35px;
-    padding-left: 25px;
-    float: right;
-    display: table-cell;
-    vertical-align: bottom;
-    letter-spacing: 0.02em;
-}
-
-#footer .feed-back-man > div {
-    float: left;
-}
-
-#footer .feed-back-man img {
-    float: right;
-}
-
 #all-truth-about {
     width: 100%;
-    height: 250px;
+    height: 170px;
     background-color: #eeeeee;
     font-size: 20px;
     letter-spacing: 0.02em;
-    font-style: italic;
     padding: 0 10px 10px 25px;
+    position: fixed;
+    bottom: 80px;
+    z-index: 999;
 }
 
 #copyright-line {
@@ -215,9 +202,9 @@ a:hover {
     height: 80px;
     background-color: #747474;
     padding-top: 30px;
-    z-index: 999;
     position: fixed;
     bottom: 0;
+    z-index: 999;
 }
 
 #copyright-line .copyright {
@@ -254,7 +241,7 @@ a:hover {
         display: table-cell;
         float: none;
         text-align: center;
-        border-right: 1px solid #1897d9;
+        border-right: 1px solid #1797d8;
     }
 
     .navbar-nav > li:last-child {

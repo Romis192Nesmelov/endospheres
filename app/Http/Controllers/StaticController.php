@@ -15,16 +15,14 @@ class StaticController extends Controller
 {
     private $data;
     
-    public function index()
+    public function chapter($slug=null)
     {
-        return view('landing', ['slides' => Slide::where('active',1)->get()]);
-    }
-
-    public function home()
-    {
-        $this->data['slider'] = ['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
-        $this->data['chapter'] = Chapter::find(1);
-        return $this->showView('home');
+        if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get()]);
+        else {
+            $this->data['slider'] = ['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
+            $this->data['chapter'] = Chapter::find(1);
+            return $this->showView($slug);
+        }
     }
 
     public function feedback(Request $request)

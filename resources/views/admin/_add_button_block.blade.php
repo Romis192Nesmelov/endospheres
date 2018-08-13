@@ -1,5 +1,5 @@
 <a href="/admin/{{ $href }}">@include('admin._button_block', [
-    'type' => 'submit',
+    'type' => 'button',
     'icon' => 'icon-database-add',
     'text' => $text,
     'mainClass' => 'bg-primary-400',

@@ -2,12 +2,17 @@
 
 return [
     'slide' => 'Слайд №:number',
+    'file' => 'Файл <b>:name</b>',
     'slide_simple' => 'Слайд',
+    'file_simple' => 'Файл',
+    'type' => 'Тип',
     'poster' => 'Постер',
     'welcome' => 'Добро пожаловать!',
     'add_image' => 'Добавить картинку',
     'del' => 'Удалить',
+    'add_file' => 'Добавить файл',
     'do_you_really_want_to_delete_this_slide' => 'Вы действительно хотите удалить этот слайд?',
+    'do_you_really_want_to_delete_this_file' => 'Вы действительно хотите удалить этот файл?',
     'save' => 'Сохранить',
     'save_complete' => 'Сохранение произведено.',
     'status' => 'Статус',
@@ -25,4 +30,5 @@ return [
     'mouse_color' => 'Цвет символа мыши',
     'chapter_video' => 'Видео раздела',
     'video_url' => 'Ссылка на видео',
+    'chapter_files' => 'Файлы раздела',
 ];

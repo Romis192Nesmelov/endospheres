@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
+    @include('admin._modal_delete_block',['modalId' => 'delete-modal', 'function' => 'delete-file', 'head' => trans('admin_content.do_you_really_want_to_delete_this_file')])
+    {{ csrf_field() }}
+
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h4 class="panel-title">{{ $data['chapter']['head_'.App::getLocale()] }}</h4>
@@ -30,17 +33,18 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">{{ trans('admin_content.chapter_video') }}</h4>
-                        </div>
-                        @if (count($data['chapter']->videos))
-                            <div class="panel-body">
-                                @foreach($data['chapter']->videos as $video)
-                                    @include('admin._video_input_block', ['video' => $video])
-                                @endforeach
+                    @if ($data['chapter']->have_a_video)
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">{{ trans('admin_content.chapter_video') }}</h4>
                             </div>
-                        @endif
+                            @if (count($data['chapter']->videos))
+                                <div class="panel-body">
+                                    @foreach($data['chapter']->videos as $video)
+                                        @include('admin._video_input_block', ['video' => $video])
+                                    @endforeach
+                                </div>
+                            @endif
                             <div class="panel-body">
                                 @for($i=0;$i<10;$i++)
                                     @include('admin._video_input_block', ['video' => '', 'addClass' => 'new-video'])
@@ -56,7 +60,38 @@
                                 ])
                             </div>
                         </div>
+                    @endif
 
+                    @if ($data['chapter']->have_a_files)
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">{{ trans('admin_content.chapter_files') }}</h4>
+                                @include('admin._add_button_block',['href' => 'file/add', 'text' => trans('admin_content.add_file')])
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped table-items">
+                                    <tr>
+                                        <th class="id">Id</th>
+                                        <th width="15%" class="image text-center">{{ trans('admin_content.file_simple') }}</th>
+                                        <th width="20%" class="text-center">{{ trans('admin_content.head') }}</th>
+                                        <th class="text-center">{{ trans('admin_content.description') }}</th>
+                                        <th class="delete">{{ trans('admin_content.del') }}</th>
+                                    </tr>
+                                    @foreach ($data['chapter']->files as $file)
+                                        <tr role="row" id="{{ 'file_'.$file->id }}">
+                                            <td class="id">{{ $file->id }}</td>
+                                            <td class="text-center"><a href="/admin/file/?id={{ $file->id }}"><i class="{{ $file->type == 'pdf' ? 'icon-file-pdf' : 'icon-file-word' }}"></i> {{ pathinfo($file->path)['basename'] }}</a></td>
+                                            <td class="text-center">{{ $file->head_ru }}</td>
+                                            <td class="text-left">{{ str_limit($file->description_ru, 500) }}</td>
+                                            <td class="delete"><span del-data="{{ $file->id }}" modal-data="delete-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+
+                                @include('admin._add_button_block',['href' => 'file/add', 'text' => trans('admin_content.add_file')])
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="panel panel-flat">
                         @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => $data['chapter']->active])
