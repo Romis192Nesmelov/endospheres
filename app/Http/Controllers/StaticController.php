@@ -19,7 +19,7 @@ class StaticController extends Controller
     {
         if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get()]);
         else {
-            $this->data['slider'] = ['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
+            $this->data['slider'] = ['slide1.jpg','slide2.jpg'];
             $this->data['chapter'] = Chapter::find(1);
             return $this->showView($slug);
         }

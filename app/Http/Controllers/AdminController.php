@@ -61,17 +61,8 @@ class AdminController extends Controller
     
     public function getFile(Request $request, $slug=null)
     {
-        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
         $this->data['type'] = 'file';
-        if ($slug && $slug == 'add') {
-            $this->breadcrumbs['file/add'] = trans('admin_content.add_file');
-            return $this->showView('file');
-        } elseif ($request->has('id')) {
-            $this->data['file'] = File::find($request->input('id'));
-            $this->data['name'] = pathinfo($this->data['file']->path)['basename'];
-            $this->breadcrumbs['file/?id='.$this->data['file']->id] = $this->data['name'];
-            return $this->showView('file');
-        } else return false;
+        return $this->showFile($request, $slug);
     }
 
     public function postLanding(Request $request)
@@ -210,6 +201,20 @@ class AdminController extends Controller
     public function postDeleteFile(Request $request)
     {
         return $this->deleteSomething($request, new File());
+    }
+
+    private function showFile(Request $request, $slug)
+    {
+        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['file/add'] = trans('admin_content.add_file');
+            return $this->showView('file');
+        } elseif ($request->has('id')) {
+            $this->data['file'] = File::find($request->input('id'));
+            $this->data['name'] = pathinfo($this->data['file']->path)['basename'];
+            $this->breadcrumbs['file/?id='.$this->data['file']->id] = $this->data['name'];
+            return $this->showView('file');
+        } else return false;
     }
 
     private function deleteSomething(Request $request, Model $model, $addValidation=null)

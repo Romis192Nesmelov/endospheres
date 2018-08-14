@@ -4,8 +4,8 @@
     <div class="row">
         <div class="container">
             @include('_href_image_block', ['href' => '#', 'width' => '18.3%', 'image' => asset('images/endospheres_for_face.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_face'), 'logo' => 'sroface_logo.png'])
-            @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_body'), 'logo' => 'sroface_logo.png'])
-            @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body_and_face.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_body_and_face'), 'logo' => 'sroface_logo.png'])
+            @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_body'), 'logo' => 'ak_sensorbody_logo.png'])
+            @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body_and_face.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_body_and_face'), 'logo' => 'ak_sensor_logo.png'])
         </div>
     </div>
     @if (count($data['chapter']->videos))

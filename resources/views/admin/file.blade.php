@@ -20,7 +20,9 @@
                         <div class="panel-body edit-image-preview">
                             @if ($data['type'] == 'image')
                                 @if (isset($data['file']))
-                                    <a href="{{ asset($data['slide']->path) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['slide']->path).'?dummy='.md5(rand(0,10000)) }}" /></a>
+                                    <a href="{{ asset($data['file']->path) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['file']->path).'?dummy='.md5(rand(0,10000)) }}" /></a>
+                                @else
+                                    <img src="{{ asset('images/placeholder.jpg') }}" />
                                 @endif
                             @endif
                             @include('admin._input_file_block', ['label' => trans('admin_content.file_simple'), 'name' => 'file'])
