@@ -280,6 +280,7 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
         'CreateChaptersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_10_054818_create_chapters_table.php',
         'CreateFilesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_13_144144_create_files_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreateSlidersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_15_102018_create_sliders_table.php',
         'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_03_054318_create_slides_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_082949_create_videos_table.php',

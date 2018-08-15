@@ -30,10 +30,15 @@ td.image {
 }
 
 td.image img,
+td.slide img,
 .edit-image-preview img,
 .main-image img {
     width: 100%;
     border: 2px solid grey;
+}
+
+.edit-image-preview img {
+    margin-bottom: 10px;
 }
 
 .delete {

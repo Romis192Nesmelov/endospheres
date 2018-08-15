@@ -45,6 +45,13 @@ class AdminController extends Controller
         }
     }
 
+    public function getSlider()
+    {
+        $this->breadcrumbs = ['slider' => trans('admin_menu.slider')];
+        $this->slider();
+        return $this->showView('slider');
+    }
+
     public function getChapters($slug=null)
     {
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
@@ -149,6 +156,15 @@ class AdminController extends Controller
         return redirect('/admin/chapters');
     }
     
+    public function postAddSlide(Request $request)
+    {
+        $this->validate($request, ['file' => 'image|min:10|max:1000']);
+        $this->slider();
+        $request->file('file')->move(base_path('/public/images/slider/'),'slide'.(count($this->data['slider'])+1).'.'.$request->file('file')->getClientOriginalExtension());
+        $this->saveCompleteMessage();
+        return redirect()->back();
+    }
+    
     public function postFile(Request $request)
     {
         $validateArr = [
@@ -193,6 +209,14 @@ class AdminController extends Controller
         return redirect('/admin/chapters/'.$file->chapter->slug);
     }
 
+    public function postDeleteSlider(Request $request)
+    {
+        $this->slider();
+        $path = base_path('/public/images/slider/'.$this->data['slider'][$request->input('id')]);
+        if (file_exists($path)) unlink($path);
+        return response()->json(['success' => true]);
+    }
+    
     public function postDeleteSlide(Request $request)
     {
         return $this->deleteSomething($request, new Slide());
@@ -203,6 +227,14 @@ class AdminController extends Controller
         return $this->deleteSomething($request, new File());
     }
 
+    private function slider()
+    {
+        $this->data['slider'] = [];
+        foreach (glob(base_path('/public/images/slider/*')) as $file) {
+            $this->data['slider'][] = pathinfo($file)['basename'];
+        }
+    }
+    
     private function showFile(Request $request, $slug)
     {
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
@@ -348,6 +380,7 @@ class AdminController extends Controller
             'data' => $this->data,
             'menus' => [
                 ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
+                ['href' => 'slider', 'name' => trans('admin_menu.slider'), 'icon' => 'icon-images3'],
                 ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu]
             ]
         ]);

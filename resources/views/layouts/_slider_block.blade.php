@@ -14,7 +14,7 @@
             @foreach ($slides as $slide)
                 <li>
                     {{--<img src="/images/slider/{{ $slide }}" width="1600" height="{{ Request::path() == '/' ? '500' : '350'  }}" />--}}
-                    <img src="/images/slider/{{ $slide }}" width="1920" height="414" />
+                    <img src="{{ asset('images/slider/'.$slide) }}" width="1920" height="414" />
                     {{--<div class="slideshow_info col-md-offset-2 col-sm-offset-1 hidden-xs">--}}
                         {{--<div class="slideshow_info_top">--}}
                             {{--<h2>{{ trans('content.slider_main_header') }}</h2>--}}

@@ -16,7 +16,7 @@ return [
     'message_from_user' => 'От пользователя :name',
     'with_email' => 'С e-mail :email',
     'with_phone' => 'С телефоном :phone',
-    'thanks_for_your_message' => 'Спасибо за ваше сообщение! Мы обязательно свяжемся с Вами в ближайшее время',
+    'thanks_for_your_message' => 'Спасибо за ваше сообщение! Мы обязательно свяжемся с Вами в ближайшее время.',
 
     'details' => 'Подробнее',
     'read_more' => 'Читать полностью',

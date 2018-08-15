@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-
     @include('admin._modal_delete_block',['modalId' => 'delete-modal', 'function' => 'delete-slide', 'head' => trans('admin_content.do_you_really_want_to_delete_this_slide')])
     {{ csrf_field() }}
     <div class="panel panel-flat">
