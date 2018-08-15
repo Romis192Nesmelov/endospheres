@@ -30,8 +30,6 @@ $(document).ready(function ($) {
             'id': localStorage.getItem('delete_id'),
         }, function (data) {
             if (data.success) {
-                console.log(data);
-                
                 var row = localStorage.getItem('delete_row');
                 $('#'+row).remove();
             }

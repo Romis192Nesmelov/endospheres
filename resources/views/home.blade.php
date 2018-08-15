@@ -3,9 +3,9 @@
 @section('content')
     <div class="row">
         <div class="container">
-            @include('_href_image_block', ['href' => '#', 'width' => '18.3%', 'image' => asset('images/endospheres_for_face.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_face'), 'logo' => 'sroface_logo.png'])
-            @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_body'), 'logo' => 'ak_sensorbody_logo.png'])
-            @include('_href_image_block', ['href' => '#', 'width' => '40.5%', 'image' => asset('images/endospheres_for_body_and_face.jpg'), 'description' => '<span>'.trans('content.endosphere').'</span> '.trans('content.for_body_and_face'), 'logo' => 'ak_sensor_logo.png'])
+            @foreach($data['devices'] as $k => $device)
+                @include('_href_image_block', ['href' => '/devices/'.$device->slug, 'width' => (!$k || !$k%3 ? '18.3%' : '40.5%'), 'image' => asset('images/'.$device->home_page_image), 'description' => '<span>'.trans('content.endosphere').'</span> '.$device['head_'.App::getLocale()], 'logo' => $device->menu_logo])
+            @endforeach
         </div>
     </div>
     @if (count($data['chapter']->videos))

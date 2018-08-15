@@ -30,7 +30,7 @@ class ChaptersTableSeeder extends Seeder
             ],
             [
                 'head_ru' => 'Аппараты',
-                'head_en' => 'Devises',
+                'head_en' => 'Devices',
                 'content_ru' => '',
                 'have_a_video' => false,
                 'have_a_files' => false,

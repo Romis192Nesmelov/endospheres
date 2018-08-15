@@ -39,7 +39,10 @@
 @include('layouts._feedback_modal_block')
 
 @include('layouts._nav_block', ['items' => $mainMenu])
-@include('layouts._slider_block',['slides' => $data['slider']])
+
+@if (Request::path() == 'home')
+    @include('layouts._slider_block',['slides' => $data['slider']])
+@endif
 
 @yield('content')
 

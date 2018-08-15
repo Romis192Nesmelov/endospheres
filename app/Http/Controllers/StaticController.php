@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use App\Slide;
 use App\Chapter;
+use App\Device;
 use Session;
 use Config;
 
@@ -15,17 +16,28 @@ class StaticController extends Controller
 {
     private $data;
     
-    public function chapter($slug=null)
+    public function chapter($slug=null, $subSlug=null)
     {
         if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get()]);
         else {
-            $this->data['slider'] = [];
-            foreach (glob(base_path('/public/images/slider/*')) as $file) {
-                $this->data['slider'][] = pathinfo($file)['basename'];
+            if ($slug == 'home') {
+                $this->data['devices'] = Device::where('active',1)->get();
+                $this->data['slider'] = [];
+                foreach (glob(base_path('/public/images/slider/*')) as $file) {
+                    $this->data['slider'][] = pathinfo($file)['basename'];
+                }
+            } elseif ($slug == 'devices' && $subSlug) {
+                $this->data['device'] = Device::findBySlug($subSlug);
             }
-            $this->data['chapter'] = Chapter::find(1);
+
+            $this->data['chapter'] = Chapter::findBySlug($slug);
             return $this->showView($slug);
         }
+    }
+
+    public function devices()
+    {
+        var_dump(1111);
     }
 
     public function feedback(Request $request)

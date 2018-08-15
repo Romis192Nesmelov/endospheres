@@ -274,17 +274,19 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
     );
 
     public static $classMap = array (
+        'AddChapterIdToDevicesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_15_120441_add_chapter_id_to_devices_table.php',
         'AddChapterIdToFilesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_13_144505_add_chapter_id_to_files_table.php',
         'AddChapterIdToVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_083506_add_chapter_id_to_videos_table.php',
         'ChaptersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ChaptersTableSeeder.php',
         'CreateChaptersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_10_054818_create_chapters_table.php',
+        'CreateDevicesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_15_115649_create_devices_table.php',
         'CreateFilesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_13_144144_create_files_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-        'CreateSlidersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_15_102018_create_sliders_table.php',
         'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_03_054318_create_slides_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_082949_create_videos_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'DevicesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DevicesTableSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',

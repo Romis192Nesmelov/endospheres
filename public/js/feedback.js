@@ -1,9 +1,13 @@
 jQuery(document).ready(function ($) {
-    $('#send_message').click(function(e) {
+    $('#order_offer').click(function () {
+        $('#feedback_modal').modal('show');
+    });
+
+    $('#send_message, #feedback_modal button').click(function(e) {
         e.preventDefault();
 
         var self = $(this);
-        var container = self.parents('.container');
+        var container = self.parents('.feedback-container');
         var textarea = container.find('textarea');
 
         var fields = {};
@@ -17,6 +21,7 @@ jQuery(document).ready(function ($) {
                 clearErrors(container);
                 container.find('input').val('');
                 textarea.val('');
+                $('#feedback_modal').modal('hide');
                 $('#message').modal('show');
             })
             .fail(function(jqXHR, textStatus, errorThrown) {

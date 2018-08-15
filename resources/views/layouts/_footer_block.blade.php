@@ -3,7 +3,7 @@
 </div>
 <div id="footer">
     {{ csrf_field() }}
-    <div class="container">
+    <div class="container feedback-container">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="title">{{ trans('content.feedback_form') }}</div>
             @include('_input_block',['name' => 'name', 'type' => 'text', 'placeholder' => trans('content.your_name'), 'icon' => 'icon-user', 'useAjax' => true])
