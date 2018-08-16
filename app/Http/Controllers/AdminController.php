@@ -179,8 +179,6 @@ class AdminController extends Controller
         ];
 
         $imagesFields = ['home_page_image','image','slide'];
-        $countSliders = count(glob(base_path('/public/images/chapters_slides/*'))) + 1;
-
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:devices';
         else {
             $countDevices = Device::count() + 1;
@@ -217,7 +215,7 @@ class AdminController extends Controller
                         break;
                     case 'slide':
                         $folder = '/images/chapters_slides/';
-                        $newFileName = $newFileName ? $newFileName : 'device'.$countSliders.'.'.$extension;
+                        $newFileName = $newFileName ? $newFileName : 'device'.$countDevices.'.'.$extension;
                         break;
                     default:
                         $folder = '/images/';

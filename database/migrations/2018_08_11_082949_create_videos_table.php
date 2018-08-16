@@ -19,6 +19,7 @@ class CreateVideosTable extends Migration
             $table->string('head_en')->nullable();
             $table->longText('description_ru');
             $table->longText('description_en')->nullable();
+            $table->timestamps();
         });
     }
 

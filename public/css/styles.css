@@ -132,6 +132,7 @@ a:hover {
 .shadow-container .logo-container {
     width: 100%;
     height: 140px;
+    margin-bottom: 10px;
 }
 
 .shadow-container .logo-container img {
@@ -149,8 +150,15 @@ a:hover {
 }
 
 .shadow-container .device-description {
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: lighter;
+    line-height: 1.2em;
     color: grey;
+}
+
+.shadow-container .device-description span {
+    color: #1797d8;
+    text-transform: uppercase;
 }
 
 .shadow-container .device-img img {
@@ -181,6 +189,98 @@ a:hover {
     margin: 0 !important;
     padding-top: 25px;
     padding-bottom: 25px;
+}
+
+.row.main {
+    padding-bottom: 270px;
+}
+
+.quote {
+    margin-top: 25px;
+    margin-bottom: 40px;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: #5587a0;
+    padding-left: 50px;
+}
+
+ul.hrefs li {
+    width: 100%;
+    border-left: 5px solid #eaeaea;
+    display: table;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #6e6c6c;
+    list-style-type: none;
+}
+
+ul.hrefs li > div {
+    display: table-cell;
+    border-bottom: 2px dotted #8d8c8c;
+    vertical-align: middle;
+}
+
+ul.hrefs li > .label {
+    width: 140px;
+    border: 0;
+}
+
+ul.hrefs li > .label > div {
+    width: 128px;
+    height: 29px;
+    text-align: left;
+    font-weight: bolder;
+    padding-left: 12px;
+    padding-top: 9px;
+    color: white;
+    background-color: #eaeaea;
+}
+
+ul.hrefs li > .label > div .icon-pdf {
+    width: 32px;
+    height: 33px;
+    float: right;
+    margin-right: 7px;
+    margin-top: -12px;
+    position: relative;
+    background: url("../images/pdf_icon_gray.png") no-repeat;
+}
+
+ul.hrefs li > .label > div .icon-utube {
+    width: 53px;
+    height: 21px;
+    float: right;
+    margin-right: 3px;
+    margin-top: -4px;
+    position: relative;
+    background: url("../images/utube_icon_gray.png") no-repeat;
+}
+
+ul.hrefs li a {
+    color: #6e6c6c !important;
+    font-size: 17px;
+}
+
+ul.hrefs li:hover {
+    border-left: 5px solid #e63737;
+}
+
+ul.hrefs li:hover > .label > div {
+    background: linear-gradient(to left, #e03434, #980606);
+}
+
+ul.hrefs li:hover > .label > div .icon-pdf {
+    background: url("../images/pdf_icon_color.png") no-repeat;
+}
+
+ul.hrefs li:hover > .label > div .icon-utube {
+    background: url("../images/utube_icon_color.png") no-repeat;
+}
+
+ul.hrefs li:hover a {
+    color: #000 !important;
 }
 
 .row.black {

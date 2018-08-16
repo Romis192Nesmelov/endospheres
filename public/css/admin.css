@@ -73,6 +73,8 @@ td.device img {
 }
 
 .delete {
+    width: 20px;
+    text-align: center;
     cursor: pointer;
 }
 

@@ -20,24 +20,32 @@ class StaticController extends Controller
     {
         if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get()]);
         else {
-            if ($slug == 'home') {
+            $this->data['chapter'] = Chapter::findBySlug($slug);
+            if (!$this->data['chapter']) abort(404,'Page not found');
+            else if ($this->data['chapter']->id == 1) {
                 $this->data['devices'] = Device::where('active',1)->get();
                 $this->data['slider'] = [];
                 foreach (glob(base_path('/public/images/slider/*')) as $file) {
                     $this->data['slider'][] = pathinfo($file)['basename'];
                 }
-            } elseif ($slug == 'devices' && $subSlug) {
+            } elseif ($this->data['chapter']->id == 2) {
+                $hrefs = [];
+                foreach ($this->data['chapter']->files as $file) {
+                    $hrefs[] = ['head' => $file['head_'.App::getLocale()], 'link' => $file->path, 'is_video' => false, 'time' => $file->created_at->timestamp];
+                }
+
+                foreach ($this->data['chapter']->videos as $video) {
+                    $hrefs[] = ['head' => $video['head_'.App::getLocale()], 'link' => $video->url, 'is_video' => true, 'time' => $file->created_at->timestamp];
+                }
+                
+                $collection = collect($hrefs);
+                $this->data['hrefs'] = count($collection) ? $collection->sortByDesc('time') : [];
+
+            } elseif ($this->data['chapter']->id == 3 && $subSlug) {
                 $this->data['device'] = Device::findBySlug($subSlug);
             }
-
-            $this->data['chapter'] = Chapter::findBySlug($slug);
             return $this->showView($slug);
         }
-    }
-
-    public function devices()
-    {
-        var_dump(1111);
     }
 
     public function feedback(Request $request)

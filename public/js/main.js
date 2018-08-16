@@ -11,6 +11,17 @@ $(window).ready(function ($) {
             addShade($(this),$(this).attr('data-logo'));
         });
     }, 500);
+    
+    $('a[data-video=1]').click(function (e) {
+        e.preventDefault();
+        var modal = $('#message');
+        modal.find('.modal-header').html('<h3 class="text-center">'+$(this).html()+'</h3>');
+        modal.find('.modal-body').html($(this).attr('href'));
+        modal.on('hidden.bs.modal', function () {
+            $(this).find('.modal-body').html('');
+        });
+        $('#message').modal('show');
+    });
 });
 
 function addShade(obj, logo) {

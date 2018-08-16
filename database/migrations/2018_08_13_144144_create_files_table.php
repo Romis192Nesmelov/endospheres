@@ -20,6 +20,7 @@ class CreateFilesTable extends Migration
             $table->longText('description_ru');
             $table->longText('description_en')->nullable();
             $table->string('type');
+            $table->timestamps();
         });
     }
 

@@ -18,7 +18,7 @@
             <ul class="nav navbar-nav dropdown">
                 @foreach ($items as $item)
                     <li class="{{ ( preg_match('/^'.str_replace('/','\/',$item['href']).'/',Request::path()) ) ? 'active ' : ''}}">
-                        <a href="{{ $item['href'] }}">{{ $item['name'] }}</a>
+                        <a href="/{{ $item['href'] }}">{{ $item['name'] }}</a>
                         @if (isset($item['submenu']) && count($item['submenu']))
                             <ul class="dropdown-menu">
                                 @foreach($item['submenu'] as $submenu)

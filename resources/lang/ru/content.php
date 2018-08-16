@@ -50,4 +50,6 @@ return [
     'view_catalog' => 'Посмотреть каталог',
     'view_booklet' => 'Посмотреть буклет',
     'order_the_commercial_offer' => 'Заказать коммерческое предложение',
+    'download' => 'Скачать',
+    'play' => 'Смотреть',
 ];

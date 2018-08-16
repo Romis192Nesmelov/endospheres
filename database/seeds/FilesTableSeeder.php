@@ -7,16 +7,23 @@ class FilesTableSeeder extends Seeder
 {
     public function run()
     {
-        $data = [];
-        for ($i=0;$i<10;$i++) {
-            $data[] = [
-                'path' => '/pdfs/a4.pdf',
-                'head_ru' => 'AK SENSOR ENDOSPHERES THERAPY',
-                'description_ru' => 'ENDOSPHERES THERAPY® – компрессионная микровибрация – инновационный метод лечения целлюлита. Основа метода – компрессия вместо вакуума, а, следовательно, отсутствие травм и быстрое решение проблем.',
-                'type' => 'pdf',
-                'chapter_id' => 1
+        $data =
+            [
+                [
+                    'path' => '/pdfs/1_nauchnaya_infa.pdf',
+                    'head_ru' => 'Научные исследования метода Endospheres Therapy®',
+                    'description_ru' => '',
+                    'type' => 'pdf',
+                    'chapter_id' => 2
+                ],
+                [
+                    'path' => '/pdfs/anamnez.pdf',
+                    'head_ru' => 'ЦЕНТР ДОКУМЕНТИРОВАНИЯ ЭСТЕТИЧЕСКИХ ПАТОЛОГИЙ – АРЕЦЦО Международный центр изучения эстетических патологий ног',
+                    'description_ru' => '',
+                    'type' => 'pdf',
+                    'chapter_id' => 2
+                ],
             ];
-        }
 
         foreach ($data as $item) {
             File::create($item);
