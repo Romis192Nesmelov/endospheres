@@ -13,9 +13,9 @@
                 @foreach ($data['chapters'] as $chapter)
                     <tr role="row">
                         <td class="id">{{ $chapter->id }}</td>
-                        <td class="text-center">{{ $chapter['head_'.App::getLocale()] }}</td>
-                        <td class="text-left"><a href="/admin/chapters/{{ $chapter->slug }}">{!! str_limit($chapter['content_'.App::getLocale()], 500) !!}</a></td>
-                        <td class="text-center">@include('admin._chapter_status_block')</td>
+                        <td class="text-center"><a href="/admin/chapters/{{ $chapter->slug }}">{{ $chapter['head_'.App::getLocale()] }}</a></td>
+                        <td class="text-left">{!! str_limit($chapter['content_'.App::getLocale()], 500) !!}</td>
+                        <td class="text-center">@include('admin._active_status_block', ['item' => $chapter])</td>
                     </tr>
                 @endforeach
             </table>

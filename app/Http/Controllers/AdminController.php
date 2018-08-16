@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Device;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -52,20 +53,31 @@ class AdminController extends Controller
         return $this->showView('slider');
     }
 
-    public function getChapters($slug=null)
+    public function getChapters($slug=null, $subSlug=null)
     {
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
         if ($slug) {
             $this->data['chapter'] = Chapter::findBySlug($slug);
             $this->breadcrumbs['chapters/'.$this->data['chapter']->slug] = $this->data['chapter']['head_'.App::getLocale()];
-            Session::put('chapter',$slug);
-            return $this->showView('chapter');
+            Session::flash('chapter',$slug);
+
+            if ($this->data['chapter']->id == 3 && $subSlug) {
+                if ($subSlug != 'add') {
+                    $this->data['device'] = Device::findBySlug($subSlug);
+                    $this->breadcrumbs[$this->data['device']->slug] = $this->data['device']->name;
+                } else {
+                    $this->breadcrumbs['add'] = trans('admin_content.add_device');
+                }
+                return $this->showView('device');
+            } else {
+                return $this->showView('chapter');
+            }
         } else {
             $this->data['chapters'] = Chapter::all();
             return $this->showView('chapters');
         }
     }
-    
+
     public function getFile(Request $request, $slug=null)
     {
         $this->data['type'] = 'file';
@@ -123,7 +135,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'id' => 'required|integer|exists:chapters',
             'head_ru' => 'required|min:1|max:200',
-            'content_ru' => 'required|min:10|max:5000'
+            'content_ru' => 'min:10|max:5000'
         ]);
         
         $chapter = Chapter::find($request->input('id'));
@@ -154,6 +166,72 @@ class AdminController extends Controller
         }
         $this->saveCompleteMessage();
         return redirect('/admin/chapters');
+    }
+
+    public function postDevice(Request $request)
+    {
+        $validateArr = [
+            'menu_logo' => 'required|in:sroface_logo.png,ak_sensorbody_logo.png,ak_sensor_logo.png',
+            'name' => 'required|min:3|max:200',
+            'head_ru' => 'required|min:1|max:20',
+            'description_ru' => 'required|min:5|max:200',
+            'content_ru' => 'required|min:10|max:5000'
+        ];
+
+        $imagesFields = ['home_page_image','image','slide'];
+        $countSliders = count(glob(base_path('/public/images/chapters_slides/*'))) + 1;
+
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:devices';
+        else {
+            $countDevices = Device::count() + 1;
+            foreach ($imagesFields as $field) {
+                $validateArr[$field] = 'required|image|min:10|max:1000';
+            }
+        }
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request, ['is_new','active'], $imagesFields);
+        $fields['chapter_id'] = 3;
+
+        if ($request->has('id')) {
+            $device = Device::find($request->input('id'));
+            $device->update($fields);
+        } else {
+            $fields['slide'] = '';
+            $fields['home_page_image'] = '';
+            $fields['image'] = '';
+            $device = Device::create($fields);
+        }
+
+        foreach ($imagesFields as $field) {
+            if ($request->hasFile($field)) {
+                $extension = $request->file($field)->getClientOriginalExtension();
+                if ($request->has('id')) {
+                    $fileInfo = pathinfo($device[$field]);
+                    $newFileName = $fileInfo['filename'].'.'.$extension;
+                } else $newFileName = null;
+
+                switch ($field) {
+                    case 'image':
+                        $folder = '/images/devices/';
+                        $newFileName = $newFileName ? $newFileName : 'device'.$countDevices.'.'.$extension;
+                        break;
+                    case 'slide':
+                        $folder = '/images/chapters_slides/';
+                        $newFileName = $newFileName ? $newFileName : 'device'.$countSliders.'.'.$extension;
+                        break;
+                    default:
+                        $folder = '/images/';
+                        $newFileName = $request->has('id') ? $fileInfo['filename'].'.'.$extension : $request->file($field)->getClientOriginalName();
+                        break;
+                }
+                $path = base_path('/public'.$folder);
+                if ($request->has('id') && file_exists($path.$device[$field])) unlink($path.$device[$field]);
+                $request->file($field)->move($path,$newFileName);
+                $device->update([$field => $newFileName]);
+            }
+        }
+        $this->saveCompleteMessage();
+        return redirect('/admin/chapters/'.$device->chapter->slug);
     }
     
     public function postAddSlide(Request $request)

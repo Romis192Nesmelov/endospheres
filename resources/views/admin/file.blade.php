@@ -17,16 +17,11 @@
                         <div class="panel-heading">
                             <div class="panel-title">{{ trans('admin_content.slide_simple') }}</div>
                         </div>
-                        <div class="panel-body edit-image-preview">
-                            @if ($data['type'] == 'image')
-                                @if (isset($data['file']))
-                                    <a href="{{ asset($data['file']->path) }}" class="img-preview" data-popup="lightbox"><img src="{{ asset($data['file']->path).'?dummy='.md5(rand(0,10000)) }}" /></a>
-                                @else
-                                    <img src="{{ asset('images/placeholder.jpg') }}" />
-                                @endif
-                            @endif
+                        @if ($data['type'] == 'image')
+                            @include('admin._image_block', ['item' => 'file', 'path' => $data['file']->path, 'name' => 'file'])
+                        @else
                             @include('admin._input_file_block', ['label' => trans('admin_content.file_simple'), 'name' => 'file'])
-                        </div>
+                        @endif
                     </div>
                 </div>
 

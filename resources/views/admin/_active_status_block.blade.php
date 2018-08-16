@@ -1,6 +1,6 @@
 <?php
 
-if ($chapter->active) {
+if ($item->active) {
     $label = 'success';
     $status = trans('admin_content.active');
 } else {

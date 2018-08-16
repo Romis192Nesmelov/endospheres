@@ -18,7 +18,6 @@ class CreateDevicesTable extends Migration
             $table->string('slide');
             $table->string('home_page_image');
             $table->string('menu_logo');
-            $table->string('logo');
             $table->string('head_ru');
             $table->string('head_en');
             $table->string('name');

@@ -2,8 +2,6 @@
 
 @section('content')
     @include('admin._modal_delete_block',['modalId' => 'delete-modal', 'function' => 'delete-file', 'head' => trans('admin_content.do_you_really_want_to_delete_this_file')])
-    {{ csrf_field() }}
-
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h4 class="panel-title">{{ $data['chapter']['head_'.App::getLocale()] }}</h4>
@@ -24,12 +22,38 @@
                                 'value' => $data['chapter']->head_ru
                             ])
 
-                            @include('admin._textarea_block', [
-                                'label' => trans('admin_content.content'),
-                                'name' => 'content_ru',
-                                'value' => $data['chapter']->content_ru,
-                                'simple' => false
-                            ])
+                            @if ($data['chapter']->id != 3)
+                                @include('admin._textarea_block', [
+                                    'label' => trans('admin_content.content'),
+                                    'name' => 'content_ru',
+                                    'value' => $data['chapter']->content_ru,
+                                    'simple' => false
+                                ])
+                            @endif
+
+                            @if (count($data['chapter']->devices))
+                                <table class="table datatable-basic table-items">
+                                    <tr>
+                                        <th class="text-center">{{ trans('admin_content.logo') }}</th>
+                                        <th class="text-center device">{{ trans('admin_content.image_simple') }}</th>
+                                        <th class="text-center">{{ trans('admin_content.name') }}</th>
+                                        <th class="text-center">{{ trans('admin_content.head') }}</th>
+                                        <th class="text-center">{{ trans('admin_content.active') }}</th>
+                                        <th class="text-center">{{ trans('admin_content.status') }}</th>
+                                    </tr>
+                                    @foreach ($data['chapter']->devices as $device)
+                                        <tr role="row">
+                                            <td class="text-center"><div class="device-logo"><img src="{{ asset('images/'.$device->menu_logo) }}" /></div></td>
+                                            <td class="text-center device"><img src="{{ asset('images/devices/'.$device->image) }}" /></td>
+                                            <td class="text-center"><h3><a href="/admin/chapters/{{ $data['chapter']->slug.'/'.$device->slug }}">{{ $device->name }}</a></h3></td>
+                                            <td class="text-center"><h4>{{ trans('content.endosphere').' '.$device['head_'.App::getLocale()] }}</h4></td>
+                                            <td class="text-center">@include('admin._active_status_block', ['item' => $device])</td>
+                                            <td class="text-center">@include('admin._new_status_block', ['item' => $device])</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                @include('admin._add_button_block',['href' => 'chapters/'.$data['chapter']->slug.'/add', 'text' => trans('admin_content.add_device')])
+                            @endif
                         </div>
                     </div>
 
