@@ -11,6 +11,7 @@ use App\Slide;
 use App\Chapter;
 use App\Video;
 use App\File;
+use App\Question;
 use Config;
 use Session;
 
@@ -82,6 +83,19 @@ class AdminController extends Controller
     {
         $this->data['type'] = 'file';
         return $this->showFile($request, $slug);
+    }
+
+    public function getQuestion(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['question/add'] = trans('admin_menu.add_question');
+        } else {
+            $this->validate($request, ['id' => 'required|integer|exists:questions']);
+            $this->data['question'] = Question::find($request->input('id'));
+            $this->breadcrumbs['question/?id='.$this->data['question']->id] = $this->data['question']['question_'.App::getLocale()];
+        }
+        return $this->showView('question');
     }
 
     public function postLanding(Request $request)
@@ -285,6 +299,26 @@ class AdminController extends Controller
         return redirect('/admin/chapters/'.$file->chapter->slug);
     }
 
+    public function postQuestion(Request $request)
+    {
+        $validateArr = [
+            'question_ru' => 'min:1|max:700',
+            'answer_ru' => 'min:2|max:2000'
+        ];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:questions';
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request);
+        $fields['chapter_id'] = 4;
+        if ($request->has('id')) {
+            $question = Question::find($request->input('id'));
+            $question->update($fields);
+        } else {
+            $question = Question::create($fields);
+        }
+        $this->saveCompleteMessage();
+        return redirect('/admin/chapters/'.$question->chapter->slug);
+    }
+
     public function postDeleteSlider(Request $request)
     {
         $this->slider();
@@ -301,6 +335,11 @@ class AdminController extends Controller
     public function postDeleteFile(Request $request)
     {
         return $this->deleteSomething($request, new File());
+    }
+
+    public function postDeleteQuestion(Request $request)
+    {
+        return $this->deleteSomething($request, new Question());
     }
 
     private function slider()
@@ -330,7 +369,7 @@ class AdminController extends Controller
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
         $table = $model->find($request->input('id'));
         $table->delete();
-        if (file_exists(base_path('/public'.$table->path))) unlink(base_path('/public'.$table->path));
+        if (isset($table->path) && $table->path && file_exists(base_path('/public'.$table->path))) unlink(base_path('/public'.$table->path));
         return response()->json(['success' => true]);
     }
 

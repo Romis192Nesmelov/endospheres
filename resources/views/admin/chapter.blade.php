@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    @include('admin._modal_delete_block',['modalId' => 'delete-modal', 'function' => 'delete-file', 'head' => trans('admin_content.do_you_really_want_to_delete_this_file')])
+    @include('admin._modal_delete_block',['modalId' => 'delete-file-modal', 'function' => 'delete-file', 'head' => trans('admin_content.do_you_really_want_to_delete_this_file')])
+    @include('admin._modal_delete_block',['modalId' => 'delete-question-modal', 'function' => 'delete-question', 'head' => trans('admin_content.do_you_really_want_to_delete_this_question')])
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h4 class="panel-title">{{ $data['chapter']['head_'.App::getLocale()] }}</h4>
@@ -57,6 +58,36 @@
                         </div>
                     </div>
 
+                    @if ($data['chapter']->have_a_questions)
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">{{ trans('admin_content.chapter_questions') }}</h4>
+                                @include('admin._add_button_block',['href' => 'question/add', 'text' => trans('admin_content.add_question')])
+                            </div>
+                            <div class="panel-body">
+                                @if (count($data['chapter']->questions))
+                                    <table class="table table-striped table-items">
+                                        <tr>
+                                            <th class="id">Id</th>
+                                            <th class="image text-center">{{ trans('admin_content.question') }}</th>
+                                            <th class="text-center">{{ trans('admin_content.answer') }}</th>
+                                            <th class="delete">{{ trans('admin_content.del') }}</th>
+                                        </tr>
+                                        @foreach ($data['chapter']->questions as $questions)
+                                            <tr role="row" id="{{ 'question_'.$questions->id }}">
+                                                <td class="id">{{ $questions->id }}</td>
+                                                <td class="text-left"><a href="/admin/question/?id={{ $questions->id }}">{{ $questions['question_'.App::getLocale()] }}</a></td>
+                                                <td class="text-left">{{ str_limit($questions['answer_'.App::getLocale()], 500) }}</td>
+                                                <td class="delete"><span del-data="{{ $questions->id }}" modal-data="delete-question-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                @endif
+                                @include('admin._add_button_block',['href' => 'question/add', 'text' => trans('admin_content.add_question')])
+                            </div>
+                        </div>
+                    @endif
+
                     @if ($data['chapter']->have_a_video)
                         <div class="panel panel-flat">
                             <div class="panel-heading">
@@ -105,9 +136,9 @@
                                         <tr role="row" id="{{ 'file_'.$file->id }}">
                                             <td class="id">{{ $file->id }}</td>
                                             <td class="text-center"><a href="/admin/file/?id={{ $file->id }}"><i class="{{ $file->type == 'pdf' ? 'icon-file-pdf' : 'icon-file-word' }}"></i> {{ pathinfo($file->path)['basename'] }}</a></td>
-                                            <td class="text-center">{{ $file->head_ru }}</td>
-                                            <td class="text-left">{{ str_limit($file->description_ru, 500) }}</td>
-                                            <td class="delete"><span del-data="{{ $file->id }}" modal-data="delete-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                                            <td class="text-center">{{ $file['head_'.App::getLocale()] }}</td>
+                                            <td class="text-left">{{ str_limit($file['description_'.App::getLocale()], 500) }}</td>
+                                            <td class="delete"><span del-data="{{ $file->id }}" modal-data="delete-file-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                         </tr>
                                     @endforeach
                                 </table>
