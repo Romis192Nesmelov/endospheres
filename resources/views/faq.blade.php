@@ -9,14 +9,14 @@
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 @include('_chapter_slider_block',['slide' => $data['chapter']->slide, 'showLicense' => false])
-                <div class="quote">
+                <div class="quote gray">
                     {{ $data['chapter']['content_'.App::getLocale()] }}
-                    <a href="{{ asset('pdf/lipodistrofie.pdf') }}" class="pull-right">{{ trans('content.read_more') }}</a>
                 </div>
-                @if (count($data['hrefs']))
+                @if ($data['chapter']->questions)
                     <ul class="hrefs">
-                        @foreach($data['hrefs'] as $href)
-                            <li><div><a href="{{ $href['link'] }}" data-video="{{ $href['is_video'] }}" target="_blank">{{ $href['head'] }}</a></div><div class="label"><div>{!! $href['is_video'] ? trans('content.play').'<div class="icon-utube"></div>' : trans('content.download').'<div class="icon-pdf"></div>' !!}</div></div></li>
+                        @foreach($data['chapter']->questions as $question)
+                            <li class="blue question" data-question="{{ $question->id }}"><div>{{ $question['question_'.App::getLocale()] }}</div><div class="label"><div>{{ trans('content.answer') }}</div></div></li>
+                            <li class="answer" data-answer="{{ $question->id }}">{{ $question['answer_'.App::getLocale()] }}</li>
                         @endforeach
                     </ul>
                 @endif

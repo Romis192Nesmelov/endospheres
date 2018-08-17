@@ -45,92 +45,94 @@
     @endforeach
 </script>
 
-<!--Подложка (предыдущий слайд)-->
-<svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-    <image id="background-image" width='100%' height='100%' xlink:href="{{ asset('images/landing/main.jpg') }}" />
-</svg>
-<!--/Подложка-->
+<div id="main-container">
+    <!--Подложка (предыдущий слайд)-->
+    <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <image id="background-image" width='100%' height='100%' xlink:href="{{ asset('images/landing/main.jpg') }}" />
+    </svg>
+    <!--/Подложка-->
 
-<!--Цифры-->
-<svg id="digits-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-    <defs>
-        <mask id="digits-mask" x="0" y="0" width="100%" height="100%">
-            <rect x="773" y="772" width="55" height="80" />
-        </mask>
-    </defs>
-    <image id="digits" width='100%' height='100%' xlink:href="{{ asset('images/landing/digits.png') }}" />
-</svg>
-<!--/Цифры-->
+    <!--Цифры-->
+    <svg id="digits-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <mask id="digits-mask" x="0" y="0" width="100%" height="100%">
+                <rect x="773" y="772" width="55" height="80" />
+            </mask>
+        </defs>
+        <image id="digits" width='100%' height='100%' xlink:href="{{ asset('images/landing/digits.png') }}" />
+    </svg>
+    <!--/Цифры-->
 
-<!--Прямая маска (прилетающие сверху цифры)-->
-<svg id='linear1-mask-svg' viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-    <defs>
-        <mask id='linear1-mask' x='0' y='0' width='100%' height='100%'>
-            <text class="decades" x='46%' y='0%' fill='#fff'></text>
-            <text class="units" x='54%' y='0%' fill='#fff'></text>
-        </mask>
-    </defs>
-    <image width='100%' height='100%' xlink:href='' />
-</svg>
-<!--/Прямая маска-->
+    <!--Прямая маска (прилетающие сверху цифры)-->
+    <svg id='linear1-mask-svg' viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <mask id='linear1-mask' x='0' y='0' width='100%' height='100%'>
+                <text class="decades" x='46%' y='0%' fill='#fff'></text>
+                <text class="units" x='54%' y='0%' fill='#fff'></text>
+            </mask>
+        </defs>
+        <image width='100%' height='100%' xlink:href='' />
+    </svg>
+    <!--/Прямая маска-->
 
-<!--Инверсная маска (накрывающий снизу слайд)-->
-<svg id="invert1-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-    <defs>
-        <mask id="invert1-mask" x="0" y="100%" width="100%" height="100%">
-            <rect x="0" y="0" width="100%" height="100%"/>
-        </mask>
-    </defs>
-    <image width='100%' height='100%' xlink:href='' />
-</svg>
-<!--/Инверсная маска-->
+    <!--Инверсная маска (накрывающий снизу слайд)-->
+    <svg id="invert1-mask-svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <mask id="invert1-mask" x="0" y="100%" width="100%" height="100%">
+                <rect x="0" y="0" width="100%" height="100%"/>
+            </mask>
+        </defs>
+        <image width='100%' height='100%' xlink:href='' />
+    </svg>
+    <!--/Инверсная маска-->
 
-<div id="ten-reasons-container">
-    <div class="reasons-text top">{{ trans('landing.reasons') }}</div>
-    <div class="big-digits">
-        <div class="decades"><div>0</div></div>
-        <div class="units"><div>0</div></div>
-    </div>
-    <div class="reasons-text">{!! trans('landing.get_acquainted_with_the_methodology') !!}</div>
-</div>
-
-<div class="hidden" id="mouse-container">
-    <div id="mouse-click-container">
-        <div class="icon-mouse-left"></div>
-        {!! trans('landing.click_mouse_button_to_continue') !!}
+    <div id="ten-reasons-container">
+        <div class="reasons-text top">{{ trans('landing.reasons') }}</div>
+        <div class="big-digits">
+            <div class="decades"><div>0</div></div>
+            <div class="units"><div>0</div></div>
+        </div>
+        <div class="reasons-text">{!! trans('landing.get_acquainted_with_the_methodology') !!}</div>
     </div>
 
-    <div class="hidden" id="mouse-scroll-container">
-        <div id="mouse-scroll"><div></div></div>
-        <div id="wheel-to-continue">{!! trans('landing.move_mouse_wheel_to_continue') !!}</div>
-        <div id="scroll-to-continue">{!! trans('landing.move_mouse_scroll_to_continue') !!}</div>
+    <div class="hidden" id="mouse-container">
+        <div id="mouse-click-container">
+            <div class="icon-mouse-left"></div>
+            {!! trans('landing.click_mouse_button_to_continue') !!}
+        </div>
+
+        <div class="hidden" id="mouse-scroll-container">
+            <div id="mouse-scroll"><div></div></div>
+            <div id="wheel-to-continue">{!! trans('landing.move_mouse_wheel_to_continue') !!}</div>
+            <div id="scroll-to-continue">{!! trans('landing.move_mouse_scroll_to_continue') !!}</div>
+        </div>
     </div>
-</div>
 
-<a href="{{ url('/home') }}"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
+    <a href="{{ url('/home') }}"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
 
-<div id="footer">
-    <table id="all-truth" class="text hidden">
-        <tr>
-            <td class="slide-number current">!</td>
-            <td class="text"></td>
-        </tr>
-    </table>
+    <div id="footer">
+        <table id="all-truth" class="text hidden">
+            <tr>
+                <td class="slide-number current">!</td>
+                <td class="text"></td>
+            </tr>
+        </table>
 
-    <table class="hidden" id="reasons">
-        <tr>
-            <td class="slide-number current" rowspan="2">01</td>
-            <td class="slide-number total">10</td>
-        </tr>
-        <tr>
-            <td class="text"></td>
-        </tr>
-    </table>
+        <table class="hidden" id="reasons">
+            <tr>
+                <td class="slide-number current" rowspan="2">01</td>
+                <td class="slide-number total">10</td>
+            </tr>
+            <tr>
+                <td class="text"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <div id="hrefs">
     <a class="skip" href="/home">{{ trans('landing.skip_intro') }}</a>
-    <a href="#">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
+    <a href="http://www.fenixgroup.it/system/" target="_blank">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
     <span class="hidden glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}"></span>
 </div>
 
@@ -143,7 +145,6 @@
 <audio id="music" loop preload="auto" muted="muted">
     <source src="{{ asset('audio/music.mp3') }}" type="audio/mpeg">
 </audio>
-
 
 </body>
 </html>

@@ -22,6 +22,18 @@ $(window).ready(function ($) {
         });
         $('#message').modal('show');
     });
+
+    $('li.question').click(function () {
+        $('li.answer').hide();
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $('li.question').removeClass('active');
+            $(this).addClass('active');
+            var data = parseInt($(this).attr('data-question'));
+            $('li.answer[data-answer='+data+']').fadeIn();
+        }
+    });
 });
 
 function addShade(obj, logo) {

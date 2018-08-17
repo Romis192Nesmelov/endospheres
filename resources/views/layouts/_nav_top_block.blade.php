@@ -3,6 +3,7 @@
     <div class="container">
         <div class="logo"><a href="/home"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
 
+    @if ($data['chapter']->id == 1)
         <div class="navbar-header">
             <!-- Collapsed Hamburger -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -30,5 +31,6 @@
                 @endforeach
             </ul>
         </div>
+    @endif
     </div>
 </nav>

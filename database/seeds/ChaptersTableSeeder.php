@@ -19,6 +19,7 @@ class ChaptersTableSeeder extends Seeder
                 ',
                 'have_a_video' => true,
                 'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
             [
@@ -28,6 +29,7 @@ class ChaptersTableSeeder extends Seeder
                 'content_ru' => 'Мануальный лимфодренаж по методу Воддера – одна из самых «античных» методик массажа, который стимулирует и активизирует лимфатическую систему, благодаря дренажному воздействию, что способствует выводу токсинов и очищает ткани. Этот метод был создан датским биологом и терапевтом Эмилем Воддером (1896-1986) в Европе в 1932-1936 годах в одном из институтов в Каннах, который специализировался на лечение хронических форм.',
                 'have_a_video' => true,
                 'have_a_files' => true,
+                'have_a_questions' => false,
                 'active' => true
             ],
             [
@@ -36,20 +38,26 @@ class ChaptersTableSeeder extends Seeder
                 'content_ru' => '',
                 'have_a_video' => false,
                 'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'Вопросы и ответы',
                 'head_en' => 'FAQ',
-                'content_ru' => '',
+                'slide' => 'questions.jpg',
+                'content_ru' => 'На вопросы отвечает представитель фирмы производителя от лица создателя метода и оборудования Джанлуки Ковалетти.',
                 'have_a_video' => false,
                 'have_a_files' => false,
+                'have_a_questions' => true,
                 'active' => true
             ],
             [
                 'head_ru' => 'Результаты на реальных пациентах',
                 'head_en' => 'Results on real patients',
                 'content_ru' => '',
+                'have_a_video' => false,
+                'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
             [
@@ -58,6 +66,7 @@ class ChaptersTableSeeder extends Seeder
                 'content_ru' => '',
                 'have_a_video' => false,
                 'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
             [
@@ -66,6 +75,7 @@ class ChaptersTableSeeder extends Seeder
                 'content_ru' => '',
                 'have_a_video' => false,
                 'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
             [
@@ -74,6 +84,7 @@ class ChaptersTableSeeder extends Seeder
                 'content_ru' => '',
                 'have_a_video' => false,
                 'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
         ];

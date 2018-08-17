@@ -3,7 +3,6 @@
 /node_modules
 /public/storage
 /public/video
-/public/pdfs
 Homestead.yaml
 Homestead.json
 .env

@@ -10,7 +10,7 @@ class Chapter extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['slide','head_ru','head_en','content_ru','content_en','have_a_video','have_a_files','active'];
+    protected $fillable = ['slide','head_ru','head_en','content_ru','content_en','have_a_video','have_a_files','have_a_questions','active'];
 
     protected $sluggable = [
         'build_from' => 'head_en',
@@ -30,5 +30,10 @@ class Chapter extends Model implements SluggableInterface
     public function files()
     {
         return $this->hasMany('App\File');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany('App\Question')->orderBy('id','desc');
     }
 }

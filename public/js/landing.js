@@ -68,7 +68,7 @@ function showMouse() {
 
             setTimeout(function () {
                 mouseContainer.animate({'opacity':1}, 500);
-                $(document).click(function () { nextSlide(); });
+                $('#main-container').click(function () { nextSlide(); });
             }, 1000);
         } else if (window.currentSlide == 1) {
             clearInterval(window.mouseClickAnim);

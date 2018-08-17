@@ -37,10 +37,9 @@
 
 @include('layouts._modal_block',['id' => 'message', 'message' => trans('content.thanks_for_your_message')])
 @include('layouts._feedback_modal_block')
+@include('layouts._nav_top_block', ['items' => $mainMenu])
 
-@include('layouts._nav_block', ['items' => $mainMenu])
-
-@if (Request::path() == 'home')
+@if ($data['chapter']->id == 1)
     @include('layouts._slider_block',['slides' => $data['slider']])
 @endif
 

@@ -52,4 +52,5 @@ return [
     'order_the_commercial_offer' => 'Заказать коммерческое предложение',
     'download' => 'Скачать',
     'play' => 'Смотреть',
+    'answer' => 'Ответ',
 ];
