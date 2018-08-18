@@ -28,9 +28,13 @@
 <div id="copyright-line">
     <div class="container">
         <div class="copyright hidden-xs">{{ trans('content.copyright') }}</div>
-        <div class="soc-icon" style="margin-right: 30px;"><a href="#"><img src="{{ asset('images/insta.png') }}" /></a> </div>
-        <div class="soc-icon"><a href="#"><img src="{{ asset('images/fb.png') }}" /></a> </div>
-        <div class="soc-icon"><a href="#"><img src="{{ asset('images/youtube.png') }}" /></a> </div>
-        <div class="soc-icon"><a href="#"><img src="{{ asset('images/vk.png') }}" /></a> </div>
+
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/vk.png') }}" /></a></div>
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/youtube.png') }}" /></a></div>
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/fb.png') }}" /></a></div>
+        <div class="soc-icon"><a href="#"><img src="{{ asset('images/insta.png') }}" /></a></div>
+
+
+
     </div>
 </div>

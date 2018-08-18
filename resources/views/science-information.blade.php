@@ -3,7 +3,7 @@
 @section('content')
     <div class="row main">
         <div class="container">
-            <h1 class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-0">{{ $data['chapter']['head_'.App::getLocale()] }}</h1>
+            <h1 class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-1">{{ $data['chapter']['head_'.App::getLocale()] }}</h1>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 @include('layouts._nav_left_block', ['items' => $mainMenu])
             </div>
@@ -16,7 +16,14 @@
                 @if (count($data['hrefs']))
                     <ul class="hrefs">
                         @foreach($data['hrefs'] as $href)
-                            <li><div><a href="{{ $href['link'] }}" data-video="{{ $href['is_video'] }}" target="_blank">{{ $href['head'] }}</a></div><div class="label"><div>{!! $href['is_video'] ? trans('content.play').'<div class="icon-utube"></div>' : trans('content.download').'<div class="icon-pdf"></div>' !!}</div></div></li>
+                            <li>
+                                <a href="{{ $href['link'] }}" data-video="{{ $href['is_video'] }}" target="_blank">
+                                    <div class="href">{{ $href['head'] }}</div>
+                                    <div class="label hidden-xs">
+                                        <div>{!! $href['is_video'] ? trans('content.play').'<div class="icon-utube"></div>' : trans('content.download').'<div class="icon-pdf"></div>' !!}</div>
+                                    </div>
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                 @endif

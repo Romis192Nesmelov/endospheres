@@ -1,6 +1,7 @@
 html,body {
     width: 100%;
     height: 100%;
+    background-color: white !important;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -11,7 +12,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 36px;
-    text-transform: uppercase;
 }
 
 h2 {
@@ -43,6 +43,10 @@ a,
 
 p a {
     text-decoration: underline;
+}
+
+.navbar-default {
+    border: none;
 }
 
 .navbar-nav > li > a {
@@ -185,6 +189,10 @@ a:hover {
     width: 100%;
 }
 
+.shadow-container .order_offer {
+    width: 100%;
+}
+
 .made-in-italy {
     height: 80px;
     display: table-cell;
@@ -222,16 +230,19 @@ a:hover {
     font-size: 14px;
     font-style: italic;
     font-weight: bold;
-    color: #5587a0;
+    color: #1797d8;
     padding-left: 50px;
 }
 
 .quote.gray {
-    color: #6e6e6e;
+    margin-top: 20px;
+    color: #959595;
+    font-weight: normal;
+    font-size: 13px;
 }
 
 .quote a {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 ul.hrefs li {
@@ -240,23 +251,29 @@ ul.hrefs li {
     display: table;
     padding-left: 15px;
     margin-bottom: 10px;
-    font-weight: bold;
     color: #6e6c6c;
     list-style-type: none;
 }
 
-ul.hrefs li > div {
+ul.hrefs li .href {
+    width: 100%;
     display: table-cell;
     border-bottom: 2px dotted #8d8c8c;
     vertical-align: middle;
+    color: #6e6c6c !important;
+    font-size: 17px;
+    font-weight: normal;
 }
 
-ul.hrefs li > .label {
+ul.hrefs li .label {
     width: 140px;
     border: 0;
+    padding-right: 0 !important;
+    font-weight: bold;
+    display: table-cell;
 }
 
-ul.hrefs li > .label > div {
+ul.hrefs li .label > div {
     width: 128px;
     height: 29px;
     text-align: left;
@@ -267,7 +284,7 @@ ul.hrefs li > .label > div {
     background-color: #eaeaea;
 }
 
-ul.hrefs li > .label > div .icon-pdf {
+ul.hrefs li .label > div .icon-pdf {
     width: 32px;
     height: 33px;
     float: right;
@@ -277,7 +294,7 @@ ul.hrefs li > .label > div .icon-pdf {
     background: url("../images/pdf_icon_gray.png") no-repeat;
 }
 
-ul.hrefs li > .label > div .icon-utube {
+ul.hrefs li .label > div .icon-utube {
     width: 53px;
     height: 21px;
     float: right;
@@ -287,15 +304,11 @@ ul.hrefs li > .label > div .icon-utube {
     background: url("../images/utube_icon_gray.png") no-repeat;
 }
 
-ul.hrefs li a {
-    color: #6e6c6c !important;
-    font-size: 17px;
-}
-
 ul.hrefs li.blue {
     cursor: pointer;
-    color: #6e6c6c !important;
+    color: #959595 !important;
     font-size: 17px;
+    font-weight: normal;
 }
 
 ul.hrefs li:hover,
@@ -308,23 +321,23 @@ ul.hrefs li.blue.active {
     border-left: 5px solid #74c1e8;
 }
 
-ul.hrefs li:hover > .label > div,
-ul.hrefs li.active > .label > div {
+ul.hrefs li:hover .label > div,
+ul.hrefs li.active .label > div {
     background: linear-gradient(to left, #e03434, #980606);
 }
 
-ul.hrefs li.blue:hover > .label > div,
-ul.hrefs li.blue.active > .label > div{
+ul.hrefs li.blue:hover .label > div,
+ul.hrefs li.blue.active .label > div{
     background: #74c1e8;
 }
 
-ul.hrefs li:hover > .label > div .icon-pdf,
-ul.hrefs li.active > .label > div .icon-pdf {
+ul.hrefs li:hover .label > div .icon-pdf,
+ul.hrefs li.active .label > div .icon-pdf {
     background: url("../images/pdf_icon_color.png") no-repeat;
 }
 
-ul.hrefs li:hover > .label > div .icon-utube,
-ul.hrefs li.active > .label > div .icon-utube {
+ul.hrefs li:hover .label > div .icon-utube,
+ul.hrefs li.active .label > div .icon-utube {
     background: url("../images/utube_icon_color.png") no-repeat;
 }
 
@@ -332,19 +345,22 @@ ul.hrefs li:hover a,
 ul.hrefs li.active a,
 ul.hrefs li.blue:hover a,
 ul.hrefs li.blue.active a,
-ul.hrefs li.blue:hover,
-ul.hrefs li.blue.active {
+ul.hrefs li.blue:hover .href,
+ul.hrefs li.blue.active .href {
     color: #000 !important;
 }
 
 ul.hrefs li.answer {
+    background-color: #74c1e8;
+    color: white;
     font-size: 15px;
     font-style: italic;
     font-weight: normal;
-    padding-left: 30px;
-    padding-bottom: 15px;
+    padding: 15px;
     border: none;
     display: none;
+    position: relative;
+    margin-top: -12px;
 }
 
 .row.black {
@@ -379,6 +395,7 @@ ul.hrefs li.answer {
 
 .href-image a {
     font-size: 18px;
+    font-weight: normal;
     color: #9e9b99 !important;
 }
 
@@ -416,14 +433,12 @@ ul.hrefs li.answer {
 
 .subscribe h1, .subscribe h2, .subscribe h3, .subscribe h4, .subscribe h5, .subscribe h6 {
     font-style: italic;
-    font-weight: bold;
     text-align: left !important;
     margin-bottom: 20px !important;
 }
 
 .subscribe p {
     font-style: italic;
-    font-weight: bold;
     font-size: 12px;
 }
 
@@ -461,6 +476,7 @@ ul.hrefs li.answer {
     height: 170px;
     background-color: #eeeeee;
     font-size: 20px;
+    font-style: italic;
     letter-spacing: 0.02em;
     padding: 0 10px 10px 25px;
     position: fixed;
@@ -480,18 +496,24 @@ ul.hrefs li.answer {
 
 #copyright-line .copyright {
     float: left;
-    font-size: 18px;
+    font-size: 15px;
     color: white;
+    margin-top: 5px;
     margin-left: 80px;
+    margin-right: 60px;
     letter-spacing: 0.02em;
 }
 
 #copyright-line .soc-icon {
     padding: 0;
-    width: 30px;
-    height: 29px;
-    float: right;
-    margin-left: 10px;
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-right: 5px;
+}
+
+#copyright-line .soc-icon img {
+    width: 100%;
 }
 
 @media (min-width: 769px) {
@@ -530,8 +552,28 @@ ul.hrefs li.answer {
         font-size: 14px;
     }
 
+    .logo-container img {
+        width: 135px;
+    }
+
+    .row.main {
+        padding-top: 0;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .shadow-container .device-description {
+        font-size: 25px;
+    }
+
+    .device-right-block .made-in-italy {
+        height: 60px;
+    }
+
     #all-truth-about {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     #copyright-line .copyright {
@@ -545,11 +587,19 @@ ul.hrefs li.answer {
         padding-top: 10px;
     }
 
+    .navbar-static-top {
+        background-position: 0, 15px;
+    }
+
     .logo {
         width: 150px;
         margin-left: 0;
         margin-bottom: 10px;
         float: left;
+    }
+
+    .container {
+        width: 100%;
     }
 
     .href-image {
@@ -564,11 +614,15 @@ ul.hrefs li.answer {
         padding: 20px;
     }
 
-    .navbar-static-top {
-        background-image: none;
-    }
-
     .navbar-toggle {
         margin-top: 15px;
+    }
+
+    .device-img img {
+        width: 300px !important;
+    }
+
+    .quote {
+        padding-left: 10px;
     }
 }

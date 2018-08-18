@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    $('#order_offer').click(function () {
+    $('.order_offer').click(function () {
         $('#feedback_modal').modal('show');
     });
 
