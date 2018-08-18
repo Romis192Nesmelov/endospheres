@@ -509,7 +509,7 @@ ul.hrefs li.answer {
     width: 35px;
     height: 35px;
     float: left;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 #copyright-line .soc-icon img {
@@ -543,6 +543,10 @@ ul.hrefs li.answer {
 }
 
 @media (max-width: 1024px) {
+    .navbar.navbar-default .container {
+        width: 100%;
+    }
+
     .navbar-nav > li > a {
         font-size: 10px;
         padding: 0 2px 3px 2px !important;
@@ -562,6 +566,7 @@ ul.hrefs li.answer {
 
     .container {
         width: 90%;
+        padding: 0;
     }
 
     .shadow-container .device-description {
@@ -624,5 +629,19 @@ ul.hrefs li.answer {
 
     .quote {
         padding-left: 10px;
+    }
+}
+
+@media only screen and (max-device-width : 900px) and (orientation : landscape) {
+    .row.main {
+        padding-bottom: 10px;
+    }
+
+    #all-truth-about {
+        display: none;
+    }
+
+    #copyright-line {
+        display: none;
     }
 }
