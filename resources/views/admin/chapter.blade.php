@@ -23,7 +23,7 @@
                                 'value' => $data['chapter']->head_ru
                             ])
 
-                            @if ($data['chapter']->id != 3 && $data['chapter']->id != 6)
+                            @if ($data['chapter']->id != 3 && $data['chapter']->id != 6 && !count($data['chapter']->subChapters)))
                                 @include('admin._textarea_block', [
                                     'label' => trans('admin_content.content'),
                                     'name' => 'content_ru',
@@ -33,7 +33,7 @@
                             @endif
 
                             @if (isset($data['news_heading']))
-                                <table class="table table-items">
+                                <table class="table table-striped table-items">
                                     <tr>
                                         <th width="30%" class="text-center">{{ trans('admin_content.head') }}</th>
                                         <th class="text-center">{{ trans('admin_content.subscribe') }}</th>
@@ -73,6 +73,28 @@
                             @endif
                         </div>
                     </div>
+
+                    @if (count($data['chapter']->subChapters))
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">{{ trans('admin_content.sub_chapters') }}</h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-items">
+                                <tr>
+                                    <th class="text-center">{{ trans('admin_content.head') }}</th>
+                                    <th class="text-center">{{ trans('admin_content.content') }}</th>
+                                </tr>
+                                @foreach ($data['chapter']->subChapters as $subChapter)
+                                    <tr role="row">
+                                        <td class="text-left"><h4><a href="/admin/sub-chapter/{{ $subChapter->slug }}">{{ $subChapter['head_'.App::getLocale()] }}</a></h4></td>
+                                        <td class="text-left">{{ str_limit(strip_tags($subChapter['content_'.App::getLocale()]), 500) }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
 
                     @if ($data['chapter']->have_a_questions)
                         <div class="panel panel-flat">

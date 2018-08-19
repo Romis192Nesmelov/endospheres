@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(QuestionsTableSeeder::class);
         $this->call(NewsHeadingTableSeeder::class);
         $this->call(NewsTableSeeder::class);
+        $this->call(SubChaptersTableSeeder::class);
     }
 }

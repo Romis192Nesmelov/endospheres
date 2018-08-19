@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use App\Slide;
 use App\Chapter;
+use App\SubChapter;
 use App\Device;
 use App\NewsHeading;
 use App\News;
@@ -41,7 +42,6 @@ class StaticController extends Controller
                 }
                 $collection = collect($hrefs);
                 $this->data['hrefs'] = count($collection) ? $collection->sortByDesc('time') : [];
-
             } elseif ($this->data['chapter']->id == 3 && $subSlug) {
                 $this->data['device'] = Device::findBySlug($subSlug);
             } elseif ($this->data['chapter']->id == 6) {
@@ -60,6 +60,8 @@ class StaticController extends Controller
 
                 if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
                 else $this->data['news'] = News::where('news_heading_id',$this->data['heading_id'])->where('active',1)->orderBy('id','desc')->paginate(10);
+            } elseif (count($this->data['chapter']->subChapters)) {
+                $this->data['sub_chapter'] = $subSlug ? SubChapter::findBySlug($subSlug) : $this->data['chapter']->subChapters[0];
             }
             return $this->showView($slug);
         }
@@ -108,7 +110,6 @@ class StaticController extends Controller
         foreach ($chapters as $chapter) {
             $mainMenu[] = ['href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
         }
-        $mainMenu[] = ['href' => 'contacts', 'name' => trans('menu.contacts')];
 
         return view($view, [
             'mainMenu' => $mainMenu,

@@ -20,7 +20,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => true,
                 'have_a_files' => false,
                 'have_a_questions' => false,
-                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -31,7 +30,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => true,
                 'have_a_files' => true,
                 'have_a_questions' => false,
-                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -41,7 +39,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
-                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -52,7 +49,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => true,
-                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -62,7 +58,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
-                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -73,7 +68,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
-                'have_a_news' => true,
                 'active' => true
             ],
             [
@@ -83,7 +77,6 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
-                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -93,7 +86,33 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
-                'have_a_news' => false,
+                'active' => true
+            ],
+            [
+                'head_ru' => 'Контакты',
+                'head_en' => 'Contacts',
+                'content_ru' =>
+                    '<div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2>ООО "ИТАЛКОНСАЛТ" - эксклюзивный представитель Endospheres Therapy® в России, Белоруссии, Казахстане, Азербайджане.</h2>
+                        <p>121248, г. Москва, Кутузовский проспект, д. 13, офис 88</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <h3>
+                            <a href="tel:+74959748014">+7 495 974-80-14</a><br>
+                            <a href="tel:+79037990640">+7 903 799-06-40</a>
+                        </h3>
+                        <br>
+                        <p><a href="mailto:solga@spamanagement.ru">solga@spamanagement.ru</a><br>Ольга Мариотти</p>
+                        <br>
+                        <p><a href="www.spa-management.ru" target="_blank">www.spa-management.ru</a><br><a href="www.fenixgroup.it" target="_blank">www.fenixgroup.it</a></p>                    
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.6025325806013!2d37.55739011605438!3d55.74803469982695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bc5d89976f9%3A0xc8aa795ef5f7959a!2z0JrRg9GC0YPQt9C-0LLRgdC60LjQuSDQv9GA0L7RgdC_LiwgMTMsINCc0L7RgdC60LLQsCwgMTIxMjQ4!5e0!3m2!1sru!2sru!4v1534675915139" width="100%" height="280" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                ',
+                'have_a_video' => false,
+                'have_a_files' => false,
+                'have_a_questions' => false,
                 'active' => true
             ],
         ];

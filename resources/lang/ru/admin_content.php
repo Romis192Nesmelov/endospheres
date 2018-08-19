@@ -43,6 +43,7 @@ return [
     'mouse_color' => 'Цвет символа мыши',
     'chapter_video' => 'Видео раздела',
     'chapter_questions' => 'Вопросы-ответы',
+    'sub_chapters' => 'Подразделы',
     'chapter_news' => 'Новости',
     'video_url' => 'Ссылка на видео',
     'chapter_files' => 'Файлы раздела',

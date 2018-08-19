@@ -10,13 +10,18 @@ class Chapter extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['slide','head_ru','head_en','content_ru','content_en','have_a_video','have_a_files','have_a_questions','have_a_news','active'];
+    protected $fillable = ['slide','head_ru','head_en','content_ru','content_en','have_a_video','have_a_files','have_a_questions','active'];
 
     protected $sluggable = [
         'build_from' => 'head_en',
         'save_to'    => 'slug',
     ];
 
+    public function subChapters()
+    {
+        return $this->hasMany('App\SubChapter');
+    }
+    
     public function videos()
     {
         return $this->hasMany('App\Video');

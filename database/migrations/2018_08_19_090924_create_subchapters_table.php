@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChaptersTable extends Migration
+class CreateSubchaptersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateChaptersTable extends Migration
      */
     public function up()
     {
-        Schema::create('chapters', function (Blueprint $table) {
+        Schema::create('sub_chapters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug');
             $table->string('slide')->nullable();
@@ -20,10 +20,6 @@ class CreateChaptersTable extends Migration
             $table->string('head_en');
             $table->longText('content_ru');
             $table->longText('content_en')->nullable();
-            $table->boolean('have_a_video');
-            $table->boolean('have_a_files');
-            $table->boolean('have_a_questions');
-            $table->boolean('active');
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateChaptersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('chapters');
+        Schema::drop('sub_chapters');
     }
 }
