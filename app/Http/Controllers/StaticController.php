@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\App;
 use App\Slide;
 use App\Chapter;
 use App\Device;
+use App\NewsHeading;
+use App\News;
 use Session;
 use Config;
 
@@ -16,7 +18,7 @@ class StaticController extends Controller
 {
     private $data;
     
-    public function chapter($slug=null, $subSlug=null)
+    public function chapter($slug=null, $subSlug=null, $subSubSlug=null)
     {
         if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get()]);
         else {
@@ -37,12 +39,27 @@ class StaticController extends Controller
                 foreach ($this->data['chapter']->videos as $video) {
                     $hrefs[] = ['head' => $video['head_'.App::getLocale()], 'link' => $video->url, 'is_video' => true, 'time' => $file->created_at->timestamp];
                 }
-                
                 $collection = collect($hrefs);
                 $this->data['hrefs'] = count($collection) ? $collection->sortByDesc('time') : [];
 
             } elseif ($this->data['chapter']->id == 3 && $subSlug) {
                 $this->data['device'] = Device::findBySlug($subSlug);
+            } elseif ($this->data['chapter']->id == 6) {
+                $this->data['news_headings'] = NewsHeading::all();
+                $this->data['heading_id'] = 1;
+                $this->data['news_heading'] = $this->data['news_headings'][0]['head_'.App::getLocale()];
+                if ($subSlug) {
+                    foreach ($this->data['news_headings'] as $heading) {
+                        if ($heading->slug == $subSlug) {
+                            $this->data['heading_id'] = $heading->id;
+                            $this->data['news_heading'] = $heading['head_'.App::getLocale()];
+                            break;
+                        }
+                    }
+                }
+
+                if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
+                else $this->data['news'] = News::where('news_heading_id',$this->data['heading_id'])->where('active',1)->orderBy('id','desc')->paginate(10);
             }
             return $this->showView($slug);
         }

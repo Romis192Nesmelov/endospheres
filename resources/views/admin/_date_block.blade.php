@@ -1,11 +1,10 @@
 <div class="{{ isset($addClass) ? $addClass : '' }} form-group has-feedback {{ $errors && $errors->has($name) ? 'has-error' : '' }}">
     <label class="control-label col-md-12 text-semibold">{{ $label }}</label>
     <div class="col-md-12">
-        <select name="{{ $name }}" class="form-control">
-            @foreach ($values as $value)
-                <option value="{{ is_array($values) ? $value : $value->id }}" {{ ((is_array($values) && $value == $selected) || (isset($value->id) && $value->id == $selected) ) ? 'selected' : '' }}>{{ is_array($values) ? $value : $value[(isset($head) && $head ? $head : 'name')] }}</option>
-            @endforeach
-        </select>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+            <input type="text" name="{{ $name }}" class="form-control daterange-single" value="{{ date('d.m.Y', $value) }}">
+        </div>
 
         @if ($errors && $errors->has($name))
             <div class="form-control-feedback">
@@ -13,6 +12,5 @@
             </div>
             <span class="help-block">{{ $errors->first($name) }}</span>
         @endif
-
     </div>
 </div>

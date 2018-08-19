@@ -23,15 +23,15 @@ $(window).ready(function ($) {
         $('#message').modal('show');
     });
 
-    $('li.question').click(function () {
-        $('li.answer').hide();
+    $('ul.hrefs li.head').click(function () {
+        $('ul.hrefs li.content').hide();
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
         } else {
-            $('li.question').removeClass('active');
+            $('ul.hrefs li.head').removeClass('active');
             $(this).addClass('active');
-            var data = parseInt($(this).attr('data-question'));
-            $('li.answer[data-answer='+data+']').fadeIn();
+            var data = parseInt($(this).attr('data-head'));
+            $('ul.hrefs li.content[data-content='+data+']').fadeIn();
         }
     });
 });

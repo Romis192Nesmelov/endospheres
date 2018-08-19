@@ -20,6 +20,7 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => true,
                 'have_a_files' => false,
                 'have_a_questions' => false,
+                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -30,6 +31,7 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => true,
                 'have_a_files' => true,
                 'have_a_questions' => false,
+                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -39,6 +41,7 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
+                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -49,6 +52,7 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => true,
+                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -58,15 +62,18 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
+                'have_a_news' => false,
                 'active' => true
             ],
             [
                 'head_ru' => 'Новости',
                 'head_en' => 'News',
+                'slide' => '',
                 'content_ru' => '',
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
+                'have_a_news' => true,
                 'active' => true
             ],
             [
@@ -76,6 +83,7 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
+                'have_a_news' => false,
                 'active' => true
             ],
             [
@@ -85,6 +93,7 @@ class ChaptersTableSeeder extends Seeder
                 'have_a_video' => false,
                 'have_a_files' => false,
                 'have_a_questions' => false,
+                'have_a_news' => false,
                 'active' => true
             ],
         ];

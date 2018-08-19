@@ -1,0 +1,1 @@
+<h1 class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-1">{{ $head }}</h1>

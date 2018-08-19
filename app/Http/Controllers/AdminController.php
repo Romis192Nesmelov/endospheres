@@ -12,6 +12,8 @@ use App\Chapter;
 use App\Video;
 use App\File;
 use App\Question;
+use App\NewsHeading;
+use App\News;
 use Config;
 use Session;
 
@@ -54,13 +56,13 @@ class AdminController extends Controller
         return $this->showView('slider');
     }
 
-    public function getChapters($slug=null, $subSlug=null)
+    public function getChapters($slug=null, $subSlug=null, $subSubSlug=null)
     {
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
         if ($slug) {
             $this->data['chapter'] = Chapter::findBySlug($slug);
             $this->breadcrumbs['chapters/'.$this->data['chapter']->slug] = $this->data['chapter']['head_'.App::getLocale()];
-            Session::flash('chapter',$slug);
+            Session::put('chapter',$slug);
 
             if ($this->data['chapter']->id == 3 && $subSlug) {
                 if ($subSlug != 'add') {
@@ -70,12 +72,38 @@ class AdminController extends Controller
                     $this->breadcrumbs['add'] = trans('admin_content.add_device');
                 }
                 return $this->showView('device');
+            } else if ($this->data['chapter']->id == 6) {
+                $this->data['news_heading'] = NewsHeading::all();
+                return $this->showView('chapter');
             } else {
                 return $this->showView('chapter');
             }
         } else {
             $this->data['chapters'] = Chapter::all();
             return $this->showView('chapters');
+        }
+    }
+
+    public function getNews(Request $request, $slug=null)
+    {
+        $chapter = Chapter::find(6);
+        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters'), 'chapters/news' => $chapter['head_'.App::getLocale()]];
+        $this->data['news_heading'] = NewsHeading::all();
+        if ($request->has('id')) {
+            $this->validate($request, ['id' => 'required|integer|exists:news']);
+            $this->data['news'] = News::find($request->input('id'));
+            $this->breadcrumbs['news/?id='.$this->data['news']->id] = $this->data['news']['head_'.App::getLocale()];
+            return $this->showView('news');
+        } else if ($slug == 'add-news') {
+            $this->breadcrumbs['news/add-news'] = trans('admin_content.add_news');
+            return $this->showView('news');
+        } else if ($slug == 'news-heading-add') {
+            $this->breadcrumbs['news/news-heading-add'] = trans('admin_content.add_heading_news');
+            return $this->showView('news_heading');
+        } else {
+            $this->data['heading'] = NewsHeading::findBySlug($slug);
+            $this->breadcrumbs['news/'.$this->data['heading']->slug] = $this->data['heading']['head_'.App::getLocale()];
+            return $this->showView('news_heading');
         }
     }
 
@@ -245,6 +273,81 @@ class AdminController extends Controller
         $this->saveCompleteMessage();
         return redirect('/admin/chapters/'.$device->chapter->slug);
     }
+
+    public function postNewsHeading(Request $request)
+    {
+        $validateArr = [
+            'head_ru' => 'required|min:1|max:100',
+            'subscribe_ru' => 'required|min:5|max:1000',
+        ];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news_headings';
+        else $validateArr['slide'] = 'required|image|min:10|max:1000';
+
+        $this->validate($request, $validateArr);
+        $headingCount = NewsHeading::count()+1;
+        $fields = $this->processingFields($request, null, 'slide');
+
+        if ($request->has('id')) {
+            $heading = NewsHeading::find($request->input('id'));
+            $heading->update($fields);
+
+            $fileInfo = pathinfo($heading->slide);
+            $newFileName = $fileInfo['filename'].'.';;
+        } else {
+            $heading = NewsHeading::create($fields);
+            $newFileName = 'news_heading'.$headingCount.'.';
+        }
+
+        if ($request->hasFile('slide')) {
+            $extension = $request->file('slide')->getClientOriginalExtension();
+            $path = base_path('/public/chapters_slides/');
+            if ($request->has('id') && file_exists($path.$heading->slide)) unlink($path.$heading->slide);
+            $request->file('slide')->move($path,$newFileName.$extension);
+        }
+
+        $this->saveCompleteMessage();
+        return redirect('/admin/news/'.$heading->slug);
+    }
+
+    public function postNews(Request $request)
+    {
+        $validateArr = [
+            'news_heading_id' => 'required|integer|exists:news_headings,id',
+            'head_ru' => 'required|min:1|max:100',
+            'description_ru' => 'required|min:5|max:1000',
+            'content_ru' => 'required|min:10|max:5000',
+        ];
+
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';
+        else $validateArr['slide'] = 'required|image|min:10|max:1000';
+
+        $this->validate($request, $validateArr);
+        $newsCount = News::count()+1;
+
+        $fields = $this->processingFields($request, 'active', 'slide', null, 'time');
+        $fields['chapter_id'] = 6;
+
+        if ($request->has('id')) {
+            $news = News::find($request->input('id'));
+            $news->update($fields);
+
+            $fileInfo = pathinfo($news->slide);
+            $newFileName = $fileInfo['filename'].'.';;
+        } else {
+            $news = News::create($fields);
+            $newFileName = 'news'.$newsCount.'.';
+        }
+
+        if ($request->hasFile('slide')) {
+            $extension = $request->file('slide')->getClientOriginalExtension();
+            $path = base_path('/public/chapters_slides/');
+            if ($request->has('id') && file_exists($path.$news->slide)) unlink($path.$news->slide);
+            $request->file('slide')->move($path,$newFileName.$extension);
+        }
+
+        $this->saveCompleteMessage();
+        return redirect('/admin/news/'.$news->heading->slug);
+    }
     
     public function postAddSlide(Request $request)
     {
@@ -342,6 +445,11 @@ class AdminController extends Controller
         return $this->deleteSomething($request, new Question());
     }
 
+    public function postDeleteNews(Request $request)
+    {
+        return $this->deleteSomething($request, new News());
+    }
+
     private function slider()
     {
         $this->data['slider'] = [];
@@ -370,6 +478,7 @@ class AdminController extends Controller
         $table = $model->find($request->input('id'));
         $table->delete();
         if (isset($table->path) && $table->path && file_exists(base_path('/public'.$table->path))) unlink(base_path('/public'.$table->path));
+        elseif (isset($table->slide) && $table->slide && file_exists(base_path('/public/images/chapters_slides/'.$table->slide))) unlink(base_path('/public/images/chapters_slides/'.$table->slide));
         return response()->json(['success' => true]);
     }
 
@@ -487,7 +596,7 @@ class AdminController extends Controller
         $chapters = Chapter::all();
         $chaptersMenu = [];
         foreach ($chapters as $chapter) {
-            $chaptersMenu[] = ['href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
+            $chaptersMenu[] = ['id' => $chapter->id,'href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
         }
 
         return view('admin.'.$view, [

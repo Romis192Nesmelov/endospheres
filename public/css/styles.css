@@ -14,8 +14,32 @@ h1 {
     font-size: 36px;
 }
 
+h1.col-lg-offset-3.col-md-offset-3.col-sm-offset-3.col-xs-offset-1 {
+    padding-left: 10px;
+}
+
 h2 {
     font-size: 24px;
+}
+
+h2.head-news {
+    border-left: 5px solid #1797d8;
+    padding-left: 15px;
+    margin-top: 50px;
+}
+
+h2.head-news .label {
+    width: 110px;
+    height: 36px;
+    background-color: #74c1e8;
+    text-align: left;
+    border: 0;
+    padding-right: 0 !important;
+    padding-left: 10px;
+    padding-top: 9px;
+    font-weight: bold;
+    font-size: 14px;
+    float: right;
 }
 
 h3 {
@@ -78,6 +102,15 @@ a:hover {
     padding-top: 20px;
 }
 
+.container > .navbar-header {
+    margin: 0 !important;
+}
+
+.logo {
+    width: 220px;
+    margin-left: 28px;
+}
+
 .logo img {
     width: 100%;
 }
@@ -109,8 +142,6 @@ a:hover {
     text-align: center;
     font-size: 13px;
     font-weight: bold;
-    padding-top: 20px;
-    vertical-align: middle;
     margin-bottom: 15px;
     background-color: #c1bcb9;
     text-transform: uppercase;
@@ -119,6 +150,7 @@ a:hover {
 
 .secondary-menu img {
     height: 65px;
+    margin-top: 20px;
     margin-bottom: 5px;
 }
 
@@ -129,6 +161,22 @@ a:hover {
 .secondary-menu.active,
 .secondary-menu:hover {
     background-color: #1797d8;
+}
+
+.secondary-menu .menu-item {
+    width: 70%;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-align: left;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.pagination {
+    margin-left: 25px;
+    margin-top: 20px;
 }
 
 #slideshow p {
@@ -221,6 +269,7 @@ a:hover {
 }
 
 .row.main {
+    padding-top: 0!important;
     padding-bottom: 270px;
 }
 
@@ -263,6 +312,12 @@ ul.hrefs li .href {
     color: #6e6c6c !important;
     font-size: 17px;
     font-weight: normal;
+}
+
+ul.hrefs li.content a {
+    color: white !important;
+    float: right;
+    margin-top: 10px;
 }
 
 ul.hrefs li .label {
@@ -350,7 +405,7 @@ ul.hrefs li.blue.active .href {
     color: #000 !important;
 }
 
-ul.hrefs li.answer {
+ul.hrefs li.content {
     background-color: #74c1e8;
     color: white;
     font-size: 15px;
@@ -517,13 +572,9 @@ ul.hrefs li.answer {
 }
 
 @media (min-width: 769px) {
-    .logo {
-        width: 220px;
-        margin-left: 28px;
-    }
 
     .navbar-nav {
-        width: 100%;
+        width: 95%;
         display: table;
         margin-top: 25px;
         margin-bottom: 8px;
@@ -544,7 +595,7 @@ ul.hrefs li.answer {
 
 @media (max-width: 1024px) {
     .navbar.navbar-default .container {
-        width: 100%;
+        width: 90%;
     }
 
     .navbar-nav > li > a {
@@ -560,13 +611,17 @@ ul.hrefs li.answer {
         width: 135px;
     }
 
-    .row.main {
-        padding-top: 0;
-    }
-
     .container {
         width: 90%;
         padding: 0;
+    }
+
+    .href-image {
+        width: 32% !important;
+    }
+
+    .href-image .image-frame {
+        max-height: 110px;
     }
 
     .shadow-container .device-description {
@@ -598,13 +653,14 @@ ul.hrefs li.answer {
 
     .logo {
         width: 150px;
-        margin-left: 0;
+        margin-left: 15px;
         margin-bottom: 10px;
         float: left;
     }
 
-    .container {
-        width: 100%;
+    h1.col-lg-offset-3.col-md-offset-3.col-sm-offset-3.col-xs-offset-1 {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
     }
 
     .href-image {

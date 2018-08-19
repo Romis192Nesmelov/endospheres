@@ -23,13 +23,29 @@
                                 'value' => $data['chapter']->head_ru
                             ])
 
-                            @if ($data['chapter']->id != 3)
+                            @if ($data['chapter']->id != 3 && $data['chapter']->id != 6)
                                 @include('admin._textarea_block', [
                                     'label' => trans('admin_content.content'),
                                     'name' => 'content_ru',
                                     'value' => $data['chapter']->content_ru,
                                     'simple' => false
                                 ])
+                            @endif
+
+                            @if (isset($data['news_heading']))
+                                <table class="table table-items">
+                                    <tr>
+                                        <th width="30%" class="text-center">{{ trans('admin_content.head') }}</th>
+                                        <th class="text-center">{{ trans('admin_content.subscribe') }}</th>
+                                    </tr>
+                                    @foreach ($data['news_heading'] as $heading)
+                                        <tr role="row">
+                                            <td class="text-left"><h3><a href="/admin/news/{{ $heading->slug }}">{{ $heading['head_'.App::getLocale()] }}</a></h3></td>
+                                            <td class="text-left">{{ str_limit($heading['subscribe_'.App::getLocale()], 1000) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                @include('admin._add_button_block',['href' => 'news/news-heading-add', 'text' => trans('admin_content.add_heading_news')])
                             @endif
 
                             @if (count($data['chapter']->devices))

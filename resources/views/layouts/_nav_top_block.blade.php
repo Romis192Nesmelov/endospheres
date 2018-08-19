@@ -3,7 +3,7 @@
     <div class="container">
         <div class="logo"><a href="/home"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
 
-        <div class="navbar-header {{ $data['chapter']->id == 1 ? 'visible-xs' : '' }}">
+        <div class="navbar-header">
             <!-- Collapsed Hamburger -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
                 <span class="sr-only">Toggle Navigation</span>
@@ -15,7 +15,7 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav dropdown">
+            <ul class="nav navbar-nav dropdown {{ $data['chapter']->id != 1 ? 'visible-xs' : '' }}">
                 @foreach ($items as $item)
                     <li class="{{ ( preg_match('/^'.str_replace('/','\/',$item['href']).'/',Request::path()) ) ? 'active ' : ''}}">
                         <a href="/{{ $item['href'] }}">{{ $item['name'] }}</a>

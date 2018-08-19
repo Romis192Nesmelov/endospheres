@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChaptersTable extends Migration
+class CreateNewsHeadingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,14 @@ class CreateChaptersTable extends Migration
      */
     public function up()
     {
-        Schema::create('chapters', function (Blueprint $table) {
+        Schema::create('news_headings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug');
             $table->string('slide')->nullable();
+            $table->string('subscribe_ru');
+            $table->string('subscribe_en')->nullable();
             $table->string('head_ru');
-            $table->string('head_en');
-            $table->longText('content_ru');
-            $table->longText('content_en')->nullable();
-            $table->boolean('have_a_video');
-            $table->boolean('have_a_files');
-            $table->boolean('have_a_questions');
-            $table->boolean('have_a_news');
-            $table->boolean('active');
+            $table->string('head_en')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +31,6 @@ class CreateChaptersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('chapters');
+        Schema::drop('news_headings');
     }
 }
