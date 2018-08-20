@@ -15,6 +15,8 @@ use App\File;
 use App\Question;
 use App\NewsHeading;
 use App\News;
+use App\Review;
+use App\PhotoResult;
 use Config;
 use Session;
 
@@ -95,7 +97,7 @@ class AdminController extends Controller
         if (!$this->data['sub_chapter']) abort(404,'Page not found');
         $this->breadcrumbs['chapters/'.$this->data['sub_chapter']->chapter->slug] = $this->data['sub_chapter']->chapter['head_'.App::getLocale()];
         $this->breadcrumbs['sub-chapter/'.$this->data['sub_chapter']->slug] = $this->data['sub_chapter']['head_'.App::getLocale()];
-        Session::put('chapter',$slug);
+        Session::put('sub_chapter',$slug);
         return $this->showView('sub-chapter');
     }
     
@@ -130,15 +132,52 @@ class AdminController extends Controller
 
     public function getQuestion(Request $request, $slug=null)
     {
-        $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'chapters/faq' => trans('admin_content.chapter_questions')
+        ];
         if ($slug && $slug == 'add') {
-            $this->breadcrumbs['question/add'] = trans('admin_menu.add_question');
+            $this->breadcrumbs['question/add'] = trans('admin_content.add_question');
         } else {
             $this->validate($request, ['id' => 'required|integer|exists:questions']);
             $this->data['question'] = Question::find($request->input('id'));
             $this->breadcrumbs['question/?id='.$this->data['question']->id] = $this->data['question']['question_'.App::getLocale()];
         }
         return $this->showView('question');
+    }
+
+    public function getReview(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'chapters/results-on-real-patients' => trans('admin_content.chapter_results'),
+            'sub-chapter/reviews' => trans('admin_content.sub_chapters_reviews'),
+        ];
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['review/add'] = trans('admin_content.add_review');
+        } else {
+            $this->validate($request, ['id' => 'required|integer|exists:reviews']);
+            $this->data['review'] = Review::find($request->input('id'));
+            $this->breadcrumbs['review/?id='.$this->data['review']->id] = $this->data['review']['name_'.App::getLocale()];
+        }
+        return $this->showView('review');
+    }
+
+    public function getPhotoResult(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'chapters/results-on-real-patients' => trans('admin_content.chapter_results'),
+            'sub-chapter/photo-before-and-after' => trans('admin_content.sub_chapters_photo_results'),
+        ];
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['photo-result/add'] = trans('admin_content.add_photo_result');
+        } else {
+            $this->validate($request, ['id' => 'required|integer|exists:photo_results']);
+            $this->data['result'] = PhotoResult::find($request->input('id'));
+            $this->breadcrumbs['photo-result/?id='.$this->data['result']->id] = $this->data['result']['head_'.App::getLocale()];
+        }
+        return $this->showView('photo-result');
     }
 
     public function postLanding(Request $request)
@@ -192,12 +231,14 @@ class AdminController extends Controller
         $this->validate($request, [
             'id' => 'required|integer|exists:chapters',
             'head_ru' => 'required|min:1|max:200',
-            'content_ru' => 'min:10|max:5000'
+            'content_ru' => 'min:10|max:5000',
+            'slide' => 'image|min:10|max:200'
         ]);
         
         $chapter = Chapter::find($request->input('id'));
-        $fields = $this->processingFields($request, 'active', ['video_head_ru','video_url','video_description_ru']);
+        $fields = $this->processingFields($request, 'active', ['slide','video_head_ru','video_url','video_description_ru']);
         $chapter->update($fields);
+        $this->processingFile($request, $chapter);
 
         if ($request->has('video_url') && count($request->input('video_url'))) {
             $videosHeads = $request->input('video_head_ru');
@@ -230,21 +271,15 @@ class AdminController extends Controller
         $this->validate($request, [
             'id' => 'required|integer|exists:sub_chapters',
             'head_ru' => 'required|min:1|max:200',
-            'content_ru' => 'min:10|max:5000'
+            'content_ru' => 'min:10|max:5000',
+            'slide' => 'image|min:10|max:200'
         ]);
 
         $fields = $this->processingFields($request, null, 'slide');
         $subChapter = SubChapter::find($request->input('id'));
         $subChapter->update($fields);
+        $this->processingFile($request, $subChapter);
 
-        if ($request->hasFile('slide')) {
-            $extension = $request->file('slide')->getClientOriginalExtension();
-            $path = base_path('/public/chapters_slides/');
-            $fileInfo = pathinfo($subChapter->slide);
-            $newFileName = $fileInfo['filename'].'.';;
-            if ($request->has('id') && file_exists($path.$subChapter->slide)) unlink($path.$subChapter->slide);
-            $request->file('slide')->move($path,$newFileName.$extension);
-        }
         $this->saveCompleteMessage();
         return redirect('/admin/chapters/'.$subChapter->chapter->slug);
     }
@@ -260,8 +295,12 @@ class AdminController extends Controller
         ];
 
         $imagesFields = ['home_page_image','image','slide'];
-        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:devices';
-        else {
+        if ($request->has('id')) {
+            $validateArr['id'] = 'required|integer|exists:devices';
+            foreach ($imagesFields as $field) {
+                $validateArr[$field] = 'image|min:10|max:500';
+            }
+        } else {
             $countDevices = Device::count() + 1;
             foreach ($imagesFields as $field) {
                 $validateArr[$field] = 'required|image|min:10|max:1000';
@@ -303,10 +342,9 @@ class AdminController extends Controller
                         $newFileName = $request->has('id') ? $fileInfo['filename'].'.'.$extension : $request->file($field)->getClientOriginalName();
                         break;
                 }
-                $path = base_path('/public'.$folder);
-                if ($request->has('id') && file_exists($path.$device[$field])) unlink($path.$device[$field]);
-                $request->file($field)->move($path,$newFileName);
+
                 $device->update([$field => $newFileName]);
+                $this->processingFile($request, $device, $field, $folder);
             }
         }
         $this->saveCompleteMessage();
@@ -318,9 +356,9 @@ class AdminController extends Controller
         $validateArr = [
             'head_ru' => 'required|min:1|max:100',
             'subscribe_ru' => 'required|min:5|max:1000',
+            'slide' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:200'
         ];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news_headings';
-        else $validateArr['slide'] = 'required|image|min:10|max:1000';
 
         $this->validate($request, $validateArr);
         $headingCount = NewsHeading::count()+1;
@@ -329,21 +367,12 @@ class AdminController extends Controller
         if ($request->has('id')) {
             $heading = NewsHeading::find($request->input('id'));
             $heading->update($fields);
-
-            $fileInfo = pathinfo($heading->slide);
-            $newFileName = $fileInfo['filename'].'.';;
         } else {
+            $fields['slide'] = 'news_heading'.$headingCount.'.jpg';
             $heading = NewsHeading::create($fields);
-            $newFileName = 'news_heading'.$headingCount.'.';
         }
 
-        if ($request->hasFile('slide')) {
-            $extension = $request->file('slide')->getClientOriginalExtension();
-            $path = base_path('/public/chapters_slides/');
-            if ($request->has('id') && file_exists($path.$heading->slide)) unlink($path.$heading->slide);
-            $request->file('slide')->move($path,$newFileName.$extension);
-        }
-
+        $this->processingFile($request, $heading);
         $this->saveCompleteMessage();
         return redirect('/admin/news/'.$heading->slug);
     }
@@ -355,10 +384,10 @@ class AdminController extends Controller
             'head_ru' => 'required|min:1|max:100',
             'description_ru' => 'required|min:5|max:1000',
             'content_ru' => 'required|min:10|max:5000',
+            'slide' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:200'
         ];
 
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';
-        else $validateArr['slide'] = 'required|image|min:10|max:1000';
 
         $this->validate($request, $validateArr);
         $newsCount = News::count()+1;
@@ -369,21 +398,12 @@ class AdminController extends Controller
         if ($request->has('id')) {
             $news = News::find($request->input('id'));
             $news->update($fields);
-
-            $fileInfo = pathinfo($news->slide);
-            $newFileName = $fileInfo['filename'].'.';
         } else {
+            $fields['slide'] = 'news'.$newsCount.'.jpg';
             $news = News::create($fields);
-            $newFileName = 'news'.$newsCount.'.';
         }
 
-        if ($request->hasFile('slide')) {
-            $extension = $request->file('slide')->getClientOriginalExtension();
-            $path = base_path('/public/chapters_slides/');
-            if ($request->has('id') && file_exists($path.$news->slide)) unlink($path.$news->slide);
-            $request->file('slide')->move($path,$newFileName.$extension);
-        }
-
+        $this->processingFile($request, $news);
         $this->saveCompleteMessage();
         return redirect('/admin/news/'.$news->heading->slug);
     }
@@ -405,7 +425,6 @@ class AdminController extends Controller
         ];
         if ($request->has('id')) {
             $file = File::find($request->input('id'));
-            if ($request->hasFile('file') && file_exists(base_path('/public'.$file->path))) unlink(base_path('/public'.$file->path));
             $validateArr['file'] = 'mimes:'.$file->type.'|max:3000';
         } else {
             $validateArr['file'] = 'required|min:2|max:3000';
@@ -424,7 +443,6 @@ class AdminController extends Controller
                     $path = '/images/';
                     break;
             }
-            $request->file('file')->move(base_path('/public'.$path),$request->file('file')->getClientOriginalName());
         }
 
         if ($request->has('id')) {
@@ -437,6 +455,8 @@ class AdminController extends Controller
             $fields['chapter_id'] = $chapter->id;
             $file = File::create($fields);
         }
+        $this->processingFile($request, $file, 'file');
+
         $this->saveCompleteMessage();
         return redirect('/admin/chapters/'.$file->chapter->slug);
     }
@@ -459,6 +479,52 @@ class AdminController extends Controller
         }
         $this->saveCompleteMessage();
         return redirect('/admin/chapters/'.$question->chapter->slug);
+    }
+
+    public function postReview(Request $request)
+    {
+        $validateArr = [
+            'name_ru' => 'min:1|max:100',
+            'review_ru' => 'min:2|max:3000'
+        ];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:reviews';
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request);
+        $fields['sub_chapter_id'] = 3;
+        if ($request->has('id')) {
+            $review = Review::find($request->input('id'));
+            $review->update($fields);
+        } else {
+            Review::create($fields);
+        }
+        $this->saveCompleteMessage();
+        return redirect('/admin/sub-chapter/reviews');
+    }
+
+    public function postPhotoResult(Request $request)
+    {
+        $validateArr = [
+            'head_ru' => 'required|min:1|max:100',
+            'description_ru' => 'required|min:2|max:3000',
+            'path' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:500'
+        ];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:photo_results';
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request);
+        $fields['sub_chapter_id'] = 4;
+
+        if ($request->has('id')) {
+            $result = PhotoResult::find($request->input('id'));
+            $result->update($fields);
+        } else {
+            $resultCount = PhotoResult::count()+1;
+            $fields['path'] = '/images/photo_results/result'.$resultCount.'.jpg';
+            $result = PhotoResult::create($fields);
+        }
+
+        $this->processingFile($request, $result, 'path');
+        $this->saveCompleteMessage();
+        return redirect('/admin/sub-chapter/photo-before-and-after');
     }
 
     public function postDeleteSlider(Request $request)
@@ -489,11 +555,32 @@ class AdminController extends Controller
         return $this->deleteSomething($request, new News());
     }
 
+    public function postDeleteReview(Request $request)
+    {
+        return $this->deleteSomething($request, new Review());
+    }
+
+    public function postDeleteResult(Request $request)
+    {
+        return $this->deleteSomething($request, new PhotoResult());
+    }
+
     private function slider()
     {
         $this->data['slider'] = [];
         foreach (glob(base_path('/public/images/slider/*')) as $file) {
             $this->data['slider'][] = pathinfo($file)['basename'];
+        }
+    }
+
+    private function processingFile(Request $request, $object, $field='slide', $path='/images/chapters_slides/')
+    {
+        if ($request->hasFile($field)) {
+            $fileInfo = pathinfo($object[$field]);
+            $path = $fileInfo['dirname'] != '.' ? $fileInfo['dirname'] : $path;
+            $path = base_path('/public'.$path);
+            if (file_exists($path.$object[$field])) unlink($path.$fileInfo['basename']);
+            $request->file($field)->move($path,$fileInfo['basename']);
         }
     }
     
@@ -521,7 +608,7 @@ class AdminController extends Controller
         return response()->json(['success' => true]);
     }
 
-    private function processingFields(Request $request, $checkboxFields = null, $ignoreFields = null, $colorFields = null, $timeFields = null)
+    private function processingFields(Request $request, $checkboxFields=null, $ignoreFields=null, $colorFields=null, $timeFields=null)
     {
         $exceptFields = ['_token','id'];
         if ($ignoreFields) {

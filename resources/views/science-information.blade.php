@@ -10,7 +10,7 @@
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 @include('_chapter_slider_block',['slide' => $data['chapter']->slide, 'showLicense' => false])
                 <div class="quote">
-                    {{ $data['chapter']['content_'.App::getLocale()] }}
+                    {{ $data['chapter']['subscribe_'.App::getLocale()] }}
                     <a href="{{ asset('pdf/lipodistrofie.pdf') }}" class="pull-right">{{ trans('content.read_more') }}</a>
                 </div>
                 @if (count($data['hrefs']))

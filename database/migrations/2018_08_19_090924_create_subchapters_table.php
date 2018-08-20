@@ -16,6 +16,8 @@ class CreateSubchaptersTable extends Migration
             $table->increments('id');
             $table->string('slug');
             $table->string('slide')->nullable();
+            $table->string('subscribe_ru');
+            $table->string('subscribe_en')->nullable();
             $table->string('head_ru');
             $table->string('head_en');
             $table->longText('content_ru');

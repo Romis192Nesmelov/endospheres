@@ -9,6 +9,7 @@ class SubChaptersTableSeeder extends Seeder
     {
         $data = [
             [
+                'subscribe_ru' => '',
                 'head_ru' => 'Сервис',
                 'head_en' => 'Service',
                 'content_ru' =>
@@ -26,6 +27,7 @@ class SubChaptersTableSeeder extends Seeder
                 'chapter_id' => 7,
             ],
             [
+                'subscribe_ru' => '',
                 'head_ru' => 'Обучение',
                 'head_en' => 'Training',
                 'content_ru' =>
@@ -42,6 +44,21 @@ class SubChaptersTableSeeder extends Seeder
                     <h3>Корнейчук Оксана -</h3>
                     <p>сертифицированный тренер фирмы-производителя Fenix Group Italia</p>',
                 'chapter_id' => 7,
+            ],
+            [
+                'subscribe_ru' => 'Эндосфера не нуждается в рекламе оплаченных сомнительных блогеров. Наша реклама - это владельцы Эндосферы - самые лучшие и известные клиники и салоны России',
+                'slide' => 'results.jpg',
+                'head_ru' => 'Отзывы',
+                'head_en' => 'Reviews',
+                'content_ru' => '',
+                'chapter_id' => 5,
+            ],
+            [
+                'subscribe_ru' => '',
+                'head_ru' => 'Фото до и после',
+                'head_en' => 'Photo before and after',
+                'content_ru' => '',
+                'chapter_id' => 5,
             ],
         ];
 

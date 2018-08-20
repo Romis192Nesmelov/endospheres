@@ -12,9 +12,24 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $data['chapter']->id }}">
 
+                @if ($data['chapter']->id != 1)
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-flat">
+                            @include('admin._image_block', ['item' => 'chapter', 'folder' => 'chapters_slides', 'height' => 169, 'name' => 'slide'])
+                        </div>
+                    </div>
+                @endif
+
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-body">
+                            @include('admin._textarea_block', [
+                                'label' => trans('admin_content.subscribe'),
+                                'name' => 'subscribe_ru',
+                                'value' => $data['chapter']->subscribe_ru,
+                                'simple' => true
+                            ])
+
                             @include('admin._input_block', [
                                 'label' => trans('admin_content.head'),
                                 'name' => 'head_ru',
@@ -23,7 +38,7 @@
                                 'value' => $data['chapter']->head_ru
                             ])
 
-                            @if ($data['chapter']->id != 3 && $data['chapter']->id != 6 && !count($data['chapter']->subChapters)))
+                            @if ($data['chapter']->id != 3 && $data['chapter']->id != 4 && $data['chapter']->id != 6 && !count($data['chapter']->subChapters))
                                 @include('admin._textarea_block', [
                                     'label' => trans('admin_content.content'),
                                     'name' => 'content_ru',
@@ -83,13 +98,11 @@
                         <div class="panel-body">
                             <table class="table table-striped table-items">
                                 <tr>
-                                    <th class="text-center">{{ trans('admin_content.head') }}</th>
-                                    <th class="text-center">{{ trans('admin_content.content') }}</th>
+                                    <th class="text-left">{{ trans('admin_content.head') }}</th>
                                 </tr>
                                 @foreach ($data['chapter']->subChapters as $subChapter)
                                     <tr role="row">
                                         <td class="text-left"><h4><a href="/admin/sub-chapter/{{ $subChapter->slug }}">{{ $subChapter['head_'.App::getLocale()] }}</a></h4></td>
-                                        <td class="text-left">{{ str_limit(strip_tags($subChapter['content_'.App::getLocale()]), 500) }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -115,13 +128,13 @@
                                             <tr role="row" id="{{ 'question_'.$questions->id }}">
                                                 <td class="id">{{ $questions->id }}</td>
                                                 <td class="text-left"><a href="/admin/question/?id={{ $questions->id }}">{{ $questions['question_'.App::getLocale()] }}</a></td>
-                                                <td class="text-left">{{ str_limit($questions['answer_'.App::getLocale()], 500) }}</td>
+                                                <td class="text-left">{{ str_limit(strip_tags($questions['answer_'.App::getLocale()]), 500) }}</td>
                                                 <td class="delete"><span del-data="{{ $questions->id }}" modal-data="delete-question-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                             </tr>
                                         @endforeach
                                     </table>
+                                    @include('admin._add_button_block',['href' => 'question/add', 'text' => trans('admin_content.add_question')])
                                 @endif
-                                @include('admin._add_button_block',['href' => 'question/add', 'text' => trans('admin_content.add_question')])
                             </div>
                         </div>
                     @endif

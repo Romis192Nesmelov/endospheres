@@ -5,7 +5,6 @@ $(window).ready(function ($) {
         autoScroll: true
     });
 
-    window.shadeMoving = false;
     setTimeout(function () {
         $('.href-image').each(function () {
             addShade($(this),$(this).attr('data-logo'));
@@ -33,6 +32,42 @@ $(window).ready(function ($) {
             var data = parseInt($(this).attr('data-head'));
             $('ul.hrefs li.content[data-content='+data+']').fadeIn();
         }
+    });
+
+    $('.photo-result').hover(function () {
+        var width = $(this).width(),
+            image = $(this).find('img'),
+            marginLeft = width/4*(-1),
+            head = $(this).find('a').attr('data-head'),
+            descript = $(this).find('a').attr('data-description'),
+            description = $('<div class="descript"><h6>'+head+'</h6>'+descript+'</div>');
+
+        $(this).css('width',width);
+        image.css({
+            'height':250,
+            'position':'absolute',
+            'z-index': 999,
+            'border': '3px solid white',
+            'margin-left':marginLeft,
+            'margin-top':-22,
+            'box-shadow':'2px 2px 10px rgba(0,0,0,0.2)'
+        });
+        
+        $(this).find('a').append(description.css({
+            'width':image.width()+6,
+            'margin-left':marginLeft
+        }));
+    }, function () {
+        $(this).find('img').css({
+            'height':'100%',
+            'position':'relative',
+            'z-index': 1,
+            'border': 'none',
+            'margin-left':0,
+            'margin-top':0,
+            'box-shadow':'none'
+        });
+        $(this).find('.descript').remove();
     });
 });
 
