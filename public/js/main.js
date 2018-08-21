@@ -56,7 +56,7 @@ $(window).ready(function ($) {
             'margin-top':-22,
             'box-shadow':'2px 2px 10px rgba(0,0,0,0.2)'
         });
-        
+
         $(this).find('a').append(description.css({
             'width':image.width()+6,
             'margin-left':marginLeft

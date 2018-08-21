@@ -73,7 +73,7 @@ p a {
     text-decoration: underline;
 }
 
-.logo img, .shadow-container .device-img img, #slider-chapter img, #copyright-line .soc-icon img, .photo-result img, .mm-cover img {
+.logo img, .shadow-container .device-img img, #slider-chapter img, #copyright-line .soc-icon img, .mm-cover img {
     width: 100%;
 }
 
@@ -603,6 +603,10 @@ ul.years li a.active {
     height: 190px;
     float: left;
     margin: 3px;
+}
+
+.photo-result img {
+    height: 100%;
 }
 
 .photo-result .descript {
