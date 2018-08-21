@@ -7,7 +7,11 @@ $(window).ready(function ($) {
 
     setTimeout(function () {
         $('.href-image').each(function () {
-            addShade($(this),$(this).attr('data-logo'));
+            addHrefImageShade($(this),$(this).attr('data-logo'));
+        });
+
+        $('.mm-cover').each(function () {
+            addCoverShade($(this));
         });
     }, 500);
     
@@ -71,7 +75,7 @@ $(window).ready(function ($) {
     });
 });
 
-function addShade(obj, logo) {
+function addHrefImageShade(obj, logo) {
     var shadeContainer = obj.find('.image-frame');
     var logoImg = $('<img src="'+window.assetImages+'/'+logo+'" />');
     var shade = $('<div></div>').append(logoImg).addClass('shade').css({
@@ -81,6 +85,22 @@ function addShade(obj, logo) {
     });
 
     shadeContainer.prepend(shade);
+    obj.hover(function () {
+        $(this).find('.shade').animate({'margin-top':0});
+    }, function () {
+        $(this).find('.shade').animate({'margin-top':$(this).height()*(-1)});
+    });
+}
+
+function addCoverShade(obj) {
+    var href = obj.find('a'),
+        shade = $('<div></div>').addClass('shade').css({
+        'width':obj.width(),
+        'height':obj.height(),
+        'margin-top':obj.height()*(-1)
+    }).append($('<div></div>').html(href.attr('data-description')));
+
+    href.prepend(shade);
     obj.hover(function () {
         $(this).find('.shade').animate({'margin-top':0});
     }, function () {

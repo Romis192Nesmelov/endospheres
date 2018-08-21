@@ -12,6 +12,7 @@ use App\SubChapter;
 use App\Device;
 use App\NewsHeading;
 use App\News;
+use App\MassMedia;
 use Session;
 use Config;
 
@@ -60,8 +61,23 @@ class StaticController extends Controller
 
                 if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
                 else $this->data['news'] = News::where('news_heading_id',$this->data['heading_id'])->where('active',1)->orderBy('id','desc')->paginate(10);
-            } elseif (count($this->data['chapter']->subChapters)) {
+            }
+
+            if (count($this->data['chapter']->subChapters)) {
                 $this->data['sub_chapter'] = $subSlug ? SubChapter::findBySlug($subSlug) : $this->data['chapter']->subChapters[0];
+
+                if (count($this->data['sub_chapter']->massMedia)) {
+                    $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year');
+                    $this->data['mass_media'] = [];
+                    if (count($this->data['years'])) {
+                        for ($i=0;$i<count($this->data['years']);$i++) {
+                            $this->data['current_year'] = $subSubSlug ? $subSubSlug : $this->data['years'][$i];
+                            $this->data['mass_media'] = MassMedia::where('year',$this->data['current_year'])->orderBy('id','desc')->paginate(12);
+                            if (count($this->data['mass_media'])) break;
+                        }
+                    }
+                }
+
             }
             return $this->showView($slug);
         }

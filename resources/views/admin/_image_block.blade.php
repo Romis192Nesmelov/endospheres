@@ -1,6 +1,6 @@
 <div class="{{ isset($mainClass) ? $mainClass : 'panel-body'}} edit-image-preview">
     @if (isset($data[$item]) && $data[$item] && $data[$item][$name])
-        <a href="{{ isset($folder) ? asset('images/'.($folder ? $folder.'/' : '').$data[$item][$name]) : asset($data[$item]->path) }}" class="img-preview" data-popup="lightbox"><img src="{{ isset($folder) ? asset('images/'.$folder.'/'.$data[$item][$name]).'?dummy='.md5(rand(0,10000)) : asset($data[$item]->path) }}" /></a>
+        <a href="{{ isset($folder) ? asset('images/'.($folder ? $folder.'/' : '').$data[$item][$name]) : asset($data[$item][$name]) }}" class="img-preview" data-popup="lightbox"><img src="{{ isset($folder) ? asset('images/'.$folder.'/'.$data[$item][$name]).'?dummy='.md5(rand(0,10000)) : asset($data[$item][$name]) }}" /></a>
     @else
         <img {{ isset($height) ? 'height='.$height : '' }} src="{{ asset('images/placeholder.jpg') }}" />
     @endif

@@ -73,7 +73,7 @@ p a {
     text-decoration: underline;
 }
 
-.logo img, .shadow-container .device-img img, #slider-chapter img, #copyright-line .soc-icon img {
+.logo img, .shadow-container .device-img img, #slider-chapter img, #copyright-line .soc-icon img, .photo-result img, .mm-cover img {
     width: 100%;
 }
 
@@ -416,6 +416,62 @@ ul.hrefs li.content {
     margin-top: -12px;
 }
 
+ul.years {
+    width: 100%;
+    height: 30px;
+}
+
+ul.years li {
+    padding-right: 15px;
+    margin-bottom: 10px;
+    list-style-type: none;
+    float: left;
+}
+
+ul.years li a {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: normal;
+    color: #6e6c6c !important;
+}
+
+ul.years li a:hover,
+ul.years li a.active {
+    font-weight: bold;
+    color: black;
+}
+
+.mm-cover {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.mm-cover > img {
+    width: 100%;
+    position: relative;
+}
+
+.mm-cover .shade {
+    background-color: black;
+    position: absolute;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    z-index: 999;
+}
+
+.mm-cover .shade > div {
+    width: 100%;
+    height: 100%;
+    display: table;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    position: relative;
+    top: 40%;
+}
+
 .row.black {
     background-color: #303030;
 }
@@ -468,13 +524,13 @@ ul.hrefs li.content {
     position: relative;
 }
 
-.shade {
+.href-image .shade {
     background-color: #c1bcb9;
     position: absolute;
     z-index: 999;
 }
 
-.shade img {
+.href-image .shade img {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -499,10 +555,6 @@ ul.hrefs li.content {
     height: 190px;
     float: left;
     margin: 3px;
-}
-
-.photo-result img {
-    height: 100%;
 }
 
 .photo-result .descript {

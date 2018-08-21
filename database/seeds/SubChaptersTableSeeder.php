@@ -60,6 +60,33 @@ class SubChaptersTableSeeder extends Seeder
                 'content_ru' => '',
                 'chapter_id' => 5,
             ],
+            [
+                'slide' => 'mass-media1.jpg',
+                'subscribe_ru' => 'Анастасия Волочкова, Ирена Понарошку, Алена Бородина, Леся Ярославская, Ирина Дубцова, Полина Аскери, Маша Малиновская, Мишаня, Виктория Боня и другие звезды рекомендуют Endospheres Therapy®',
+                'head_ru' => 'Печатные СМИ',
+                'head_en' => 'Print mass-media',
+                'content_ru' => '',
+                'have_a_mm' => true,
+                'chapter_id' => 8,
+            ],
+            [
+                'slide' => 'mass-media2.jpg',
+                'subscribe_ru' => 'Анастасия Волочкова, Ирена Понарошку, Алена Бородина, Леся Ярославская, Ирина Дубцова, Полина Аскери, Маша Малиновская, Мишаня, Виктория Боня и другие звезды рекомендуют Endospheres Therapy®',
+                'head_ru' => 'Интернет-издания',
+                'head_en' => 'internet',
+                'content_ru' => '',
+                'have_a_resources' => true,
+                'chapter_id' => 8,
+            ],
+            [
+                'slide' => 'mass-media3.jpg',
+                'subscribe_ru' => 'Анастасия Волочкова, Ирена Понарошку, Алена Бородина, Леся Ярославская, Ирина Дубцова, Полина Аскери, Маша Малиновская, Мишаня, Виктория Боня и другие звезды рекомендуют Endospheres Therapy®',
+                'head_ru' => 'TV-реклама',
+                'head_en' => 'tv',
+                'content_ru' => '<iframe id="jcemediabox-popup-iframe" frameborder="0" allowtransparency="true" scrolling="auto" width="100%" height="100%" src="http://www.youtube.com/embed/A4UZJpzkPDw?wmode=opaque"></iframe>',
+                'have_a_resources' => true,
+                'chapter_id' => 8,
+            ],
         ];
 
         foreach ($data as $item) {

@@ -1,9 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    @include('admin._modal_delete_block',['modalId' => 'delete-review-modal', 'function' => 'delete-review', 'head' => trans('admin_content.do_you_really_want_to_delete_this_review')])
-    @include('admin._modal_delete_block',['modalId' => 'delete-result-modal', 'function' => 'delete-result', 'head' => trans('admin_content.do_you_really_want_to_delete_this_photo')])
-
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h4 class="panel-title">{{ $data['sub_chapter']['head_'.App::getLocale()] }}</h4>
@@ -45,6 +42,8 @@
                                     </div>
                                     <div class="panel-body">
                                         @if (count($data['sub_chapter']->reviews))
+                                            @include('admin._modal_delete_block',['modalId' => 'delete-review-modal', 'function' => 'delete-review', 'head' => trans('admin_content.do_you_really_want_to_delete_this_review')])
+
                                             <table class="table table-striped table-items">
                                                 <tr>
                                                     <th class="id">Id</th>
@@ -66,6 +65,8 @@
                                     </div>
                                 </div>
                             @elseif (count($data['sub_chapter']->results))
+                                @include('admin._modal_delete_block',['modalId' => 'delete-result-modal', 'function' => 'delete-result', 'head' => trans('admin_content.do_you_really_want_to_delete_this_photo')])
+
                                 <div class="panel panel-flat">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">{{ trans('admin_content.sub_chapters_photo_results') }}</h4>
@@ -93,9 +94,42 @@
                                         @include('admin._add_button_block',['href' => 'photo-result/add', 'text' => trans('admin_content.add_photo_result')])
                                     </div>
                                 </div>
+                            @elseif (count($data['sub_chapter']->massMedia))
+                                @include('admin._modal_delete_block',['modalId' => 'delete-media-modal', 'function' => 'delete-media', 'head' => trans('admin_content.do_you_really_want_to_delete_this_mm')])
+
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">{{ trans('admin_content.sub_chapters_mass_media') }}</h4>
+                                        @include('admin._add_button_block',['href' => 'mass-media/add', 'text' => trans('admin_content.add_mass_media')])
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-striped table-items">
+                                            <tr>
+                                                <th class="id">Id</th>
+                                                <th class="image text-center">{{ trans('admin_content.cover_simple') }}</th>
+                                                <th class="text-center">{{ trans('admin_content.description') }}</th>
+                                                <th class="text-center">{{ trans('admin_content.year') }}</th>
+                                                <th class="text-center">{{ trans('admin_content.type') }}</th>
+                                                <th class="delete">{{ trans('admin_content.del') }}</th>
+                                            </tr>
+                                            @foreach ($data['mass_media'] as $mm)
+                                                <tr role="row" id="{{ 'mm_'.$mm->id }}">
+                                                    <td class="id">{{ $mm->id }}</td>
+                                                    <td class="image"><a href="{{ asset($mm->full) }}" {{ !$mm->is_pdf ? 'data-popup=lightbox' : 'target=_blank' }}><img src="{{ asset($mm->preview).'?dummy='.md5(rand(0,10000)) }}" /></a></td>
+                                                    <td class="text-center"><a href="/admin/mass-media/?id={{ $mm->id }}">{{ $mm['description_'.App::getLocale()] }}</a></td>
+                                                    <th class="text-center">{{ $mm->year }}</th>
+                                                    <th class="text-center"><span class="label label-{{ $mm->is_pdf ? 'success' : 'info' }}">{{ $mm->is_pdf ? 'PDF' : 'JPG' }}</span></th>
+                                                    <td class="delete"><span del-data="{{ $mm->id }}" modal-data="delete-media-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                        {{ $data['mass_media']->render() }}
+                                        @include('admin._add_button_block',['href' => 'mass-media/add', 'text' => trans('admin_content.add_mass_media')])
+                                    </div>
+                                </div>
                             @endif
 
-                            @if (!count($data['sub_chapter']->reviews) && !count($data['sub_chapter']->results))
+                            @if (!count($data['sub_chapter']->reviews) && !count($data['sub_chapter']->results) && !count($data['sub_chapter']->massMedia))
                                 @include('admin._textarea_block', [
                                     'label' => trans('admin_content.content'),
                                     'name' => 'content_ru',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Device;
+use App\MassMedia;
 use App\SubChapter;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests;
@@ -97,6 +98,7 @@ class AdminController extends Controller
         if (!$this->data['sub_chapter']) abort(404,'Page not found');
         $this->breadcrumbs['chapters/'.$this->data['sub_chapter']->chapter->slug] = $this->data['sub_chapter']->chapter['head_'.App::getLocale()];
         $this->breadcrumbs['sub-chapter/'.$this->data['sub_chapter']->slug] = $this->data['sub_chapter']['head_'.App::getLocale()];
+        if (count($this->data['sub_chapter']->massMedia)) $this->data['mass_media'] = MassMedia::orderBy('id','desc')->paginate(10);
         Session::put('sub_chapter',$slug);
         return $this->showView('sub-chapter');
     }
@@ -178,6 +180,23 @@ class AdminController extends Controller
             $this->breadcrumbs['photo-result/?id='.$this->data['result']->id] = $this->data['result']['head_'.App::getLocale()];
         }
         return $this->showView('photo-result');
+    }
+
+    public function getMassMedia(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'chapters/mass-media-about-us' => trans('admin_content.chapter_mass_media')
+        ];
+        $this->getYears();
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['mass-media/add'] = trans('admin_content.add_mass_media');
+        } else {
+            $this->validate($request, ['id' => 'required|integer|exists:mass_media']);
+            $this->data['media'] = MassMedia::find($request->input('id'));
+            $this->breadcrumbs['mass-media/?id='.$this->data['media']->id] = $this->data['media']['description_'.App::getLocale()];
+        }
+        return $this->showView('mass-media');
     }
 
     public function postLanding(Request $request)
@@ -527,6 +546,47 @@ class AdminController extends Controller
         return redirect('/admin/sub-chapter/photo-before-and-after');
     }
 
+    public function postMassMedia(Request $request)
+    {
+        $this->getYears();
+        $years = '';
+        foreach ($this->data['years'] as $k => $year) {
+            $years .= ($k ? ',' : '').$year;
+        }
+        $validateArr = [
+            'description_ru' => 'required|min:2|max:100',
+            'preview' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:100',
+            'full' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg,pdf|min:10|max:1000',
+            'year' => 'required|in:'.$years
+        ];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:mass_media';
+        $this->validate($request, $validateArr);
+        $filesFields = ['preview','full'];
+        $fields = $this->processingFields($request, null, $filesFields);
+        $fields['sub_chapter_id'] = 5;
+
+        if ($request->hasFile('full')) {
+            $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
+        }
+
+        if ($request->has('id')) {
+            $media = MassMedia::find($request->input('id'));
+            $media->update($fields);
+        } else {
+            $mmCount = MassMedia::where('year',$fields['year'])->count()+1;
+            $fields['preview'] = '/mm/mm_prev_'.$fields['year'].'_'.$mmCount.'.jpg';
+            $fields['full'] = '/mm/mm_'.$fields['year'].'_'.$mmCount.'.'.$request->file('full')->getClientOriginalExtension();
+            $media = MassMedia::create($fields);
+        }
+
+        foreach ($filesFields as $field) {
+            $this->processingFile($request, $media, $field);
+        }
+
+        $this->saveCompleteMessage();
+        return redirect('/admin/sub-chapter/print-mass-media');
+    }
+
     public function postDeleteSlider(Request $request)
     {
         $this->slider();
@@ -537,12 +597,12 @@ class AdminController extends Controller
     
     public function postDeleteSlide(Request $request)
     {
-        return $this->deleteSomething($request, new Slide());
+        return $this->deleteSomething($request, new Slide(), 'path');
     }
 
     public function postDeleteFile(Request $request)
     {
-        return $this->deleteSomething($request, new File());
+        return $this->deleteSomething($request, new File(), 'path');
     }
 
     public function postDeleteQuestion(Request $request)
@@ -552,7 +612,7 @@ class AdminController extends Controller
 
     public function postDeleteNews(Request $request)
     {
-        return $this->deleteSomething($request, new News());
+        return $this->deleteSomething($request, new News(), 'slide');
     }
 
     public function postDeleteReview(Request $request)
@@ -562,7 +622,12 @@ class AdminController extends Controller
 
     public function postDeleteResult(Request $request)
     {
-        return $this->deleteSomething($request, new PhotoResult());
+        return $this->deleteSomething($request, new PhotoResult(), 'path');
+    }
+
+    public function postDeleteMedia(Request $request)
+    {
+        return $this->deleteSomething($request, new MassMedia(), ['preview','full']);
     }
 
     private function slider()
@@ -598,14 +663,26 @@ class AdminController extends Controller
         } else return false;
     }
 
-    private function deleteSomething(Request $request, Model $model, $addValidation=null)
+    private function deleteSomething(Request $request, Model $model, $files=null, $addValidation=null)
     {
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
         $table = $model->find($request->input('id'));
         $table->delete();
-        if (isset($table->path) && $table->path && file_exists(base_path('/public'.$table->path))) unlink(base_path('/public'.$table->path));
-        elseif (isset($table->slide) && $table->slide && file_exists(base_path('/public/images/chapters_slides/'.$table->slide))) unlink(base_path('/public/images/chapters_slides/'.$table->slide));
+        
+        if ($files) {
+            if (is_array($files)) {
+                foreach ($files as $file) {
+                    $this->unlinkFile($table, $file);
+                }
+            } else $this->unlinkFile($table, $files);
+        }
         return response()->json(['success' => true]);
+    }
+    
+    private function unlinkFile($table, $file)
+    {
+        $fullPath = $file == 'slide' ? base_path('/public'.$table[$file]) : base_path('/public/images/chapters_slides/'.$table[$file]);
+        if (isset($table[$file]) && $table[$file] && file_exists($fullPath)) unlink($fullPath);
     }
 
     private function processingFields(Request $request, $checkboxFields=null, $ignoreFields=null, $colorFields=null, $timeFields=null)
@@ -616,9 +693,7 @@ class AdminController extends Controller
                 foreach ($ignoreFields as $field) {
                     $exceptFields[] = $field;
                 }
-            } else {
-                $exceptFields[] = $ignoreFields;
-            }
+            } else $exceptFields[] = $ignoreFields;
         }
 
         $fields = $request->except($exceptFields);
@@ -627,9 +702,7 @@ class AdminController extends Controller
                 foreach ($checkboxFields as $field) {
                     $fields[$field] = isset($fields[$field]) && $fields[$field] == 'on' ? 1 : 0;
                 }
-            } else {
-                $fields[$checkboxFields] = isset($fields[$checkboxFields]) && $fields[$checkboxFields] == 'on' ? 1 : 0;
-            }
+            } else $fields[$checkboxFields] = isset($fields[$checkboxFields]) && $fields[$checkboxFields] == 'on' ? 1 : 0;
         }
 
         if ($timeFields) {
@@ -637,9 +710,7 @@ class AdminController extends Controller
                 foreach ($colorFields as $field) {
                     $fields[$field] = strtotime($this->convertTime($fields[$field]));
                 }
-            } else {
-                $fields[$timeFields] = strtotime($this->convertTime($fields[$timeFields]));
-            }
+            } else $fields[$timeFields] = strtotime($this->convertTime($fields[$timeFields]));
         }
 
         if ($colorFields) {
@@ -647,9 +718,7 @@ class AdminController extends Controller
                 foreach ($colorFields as $field) {
                     $fields[$field] = $this->convertColor($fields[$field]);
                 }
-            } else {
-                $fields[$colorFields] = $this->convertColor($fields[$colorFields]);
-            }
+            } else $fields[$colorFields] = $this->convertColor($fields[$colorFields]);
         }
         return $fields;
     }
@@ -704,6 +773,11 @@ class AdminController extends Controller
     {
         $time = explode('/', $time);
         return $time[1].'/'.$time[0].'/'.$time[2];
+    }
+
+    private function getYears()
+    {
+        $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year')->toArray();
     }
 
     private function saveCompleteMessage()

@@ -10,7 +10,7 @@ class SubChapter extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['slide','subscribe_ru','subscribe_en','head_ru','head_en','content_ru','content_en','chapter_id'];
+    protected $fillable = ['slide','subscribe_ru','subscribe_en','head_ru','head_en','content_ru','content_en','have_a_mm','have_a_resources','chapter_id'];
 
     protected $sluggable = [
         'build_from' => 'head_en',
@@ -30,5 +30,15 @@ class SubChapter extends Model implements SluggableInterface
     public function results()
     {
         return $this->hasMany('App\PhotoResult','sub_chapter_id');
+    }
+
+    public function massMedia()
+    {
+        return $this->hasMany('App\MassMedia','sub_chapter_id')->orderBy('id','desc');
+    }
+
+    public function resources()
+    {
+        return $this->hasMany('App\Resource','sub_chapter_id')->orderBy('id','desc');
     }
 }

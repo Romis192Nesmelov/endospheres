@@ -22,6 +22,8 @@ class CreateSubchaptersTable extends Migration
             $table->string('head_en');
             $table->longText('content_ru');
             $table->longText('content_en')->nullable();
+            $table->boolean('have_a_mm');
+            $table->boolean('have_a_resources');
             $table->timestamps();
         });
     }
