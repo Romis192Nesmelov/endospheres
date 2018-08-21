@@ -757,10 +757,10 @@ class MassMediaTableSeeder extends Seeder
             ],
             [
                 'preview' => '/mm/mm_prev_2018_10.jpg',
-                'full' => '/mm/mm_2018_10.jpg',
+                'full' => '/mm/mm_2018_10.pdf',
                 'description_ru' => 'Красивый Бизнес',
                 'year' => '2018',
-                'is_pdf' => false,
+                'is_pdf' => true,
                 'sub_chapter_id' => 5
             ],
             [
