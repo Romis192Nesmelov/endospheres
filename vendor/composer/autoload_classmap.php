@@ -31,6 +31,7 @@ return array(
     'CreateReviewsTable' => $baseDir . '/database/migrations/2018_08_20_061932_create_reviews_table.php',
     'CreateSlidesTable' => $baseDir . '/database/migrations/2018_08_03_054318_create_slides_table.php',
     'CreateSubchaptersTable' => $baseDir . '/database/migrations/2018_08_19_090924_create_subchapters_table.php',
+    'CreateTruthTable' => $baseDir . '/database/migrations/2018_08_21_125912_create_truth_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateVideosTable' => $baseDir . '/database/migrations/2018_08_11_082949_create_videos_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
@@ -512,6 +513,7 @@ return array(
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PhotoResultsTableSeeder' => $baseDir . '/database/seeds/PhotoResultsTableSeeder.php',
     'QuestionsTableSeeder' => $baseDir . '/database/seeds/QuestionsTableSeeder.php',
+    'ResourcesTableSeeder' => $baseDir . '/database/seeds/ResourcesTableSeeder.php',
     'ReviewsTableSeeder' => $baseDir . '/database/seeds/ReviewsTableSeeder.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
@@ -553,6 +555,7 @@ return array(
     'SubChaptersTableSeeder' => $baseDir . '/database/seeds/SubChaptersTableSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'TruthTableSeeder' => $baseDir . '/database/seeds/TruthTableSeeder.php',
     'UsersTableSeeder' => $baseDir . '/database/seeds/UsersTableSeeder.php',
     'VideosTableSeeder' => $baseDir . '/database/seeds/VideosTableSeeder.php',
 );

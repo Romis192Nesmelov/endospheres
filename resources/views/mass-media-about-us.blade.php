@@ -11,7 +11,7 @@
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 @include('_chapter_slider_block',['slide' => $data['sub_chapter']->slide, 'showLicense' => false])
                 <div class="quote">{{ $data['sub_chapter']['subscribe_'.App::getLocale()] }}</div>
-                @if (count($data['years']))
+                @if (isset($data['years']) && count($data['years']))
                     <ul class="years">
                         @foreach ($data['years'] as $year)
                             <li><a href="/{{ $data['chapter']->slug.'/'.$data['sub_chapter']->slug.'/'.$year }}/" {{ $data['current_year'] == $year ? 'class=active' : '' }}>{{ $year }}</a></li>
@@ -27,6 +27,24 @@
                             {{ $data['mass_media']->render() }}
                         </div>
                     @endif
+                @elseif (count($data['sub_chapter']->resources) && $data['sub_chapter']->id != 7)
+                    @foreach($data['sub_chapter']->resources as $resource)
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <a href="{{ $resource->url }}" target="_blank">
+                                <div class="resource-frame">
+                                    <img src="{{ $resource->logo }}" />
+                                    <div>{{ $resource['description_'.App::getLocale()] }}</div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                @elseif (count($data['sub_chapter']->resources))
+                    <div class="row black tv-adverts">
+                        @foreach($data['sub_chapter']->resources as $video)
+                            <h2>{{ $video['description_'.App::getLocale()] }}</h2>
+                            @include('_video_block',['video' => $video, 'col' => 9, 'dontUseDescr' => true])
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>

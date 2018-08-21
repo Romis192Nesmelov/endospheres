@@ -1,4 +1,4 @@
-@if ($data['chapter']->id == 1 || $data['chapter']->id == 9)
+@if (isset($data['chapter']) && ($data['chapter']->id == 1 || $data['chapter']->id == 9))
     <div class="container">
         <h2>{{ trans('content.answer_question') }}</h2>
     </div>
@@ -19,12 +19,28 @@
         </div>
     </div>
 @endif
-<div id="all-truth-about">
-    <div class="container">
-        <h1>{{ trans('content.all_truth_about') }}</h1>
-        {!! trans('content.all_truth_about_answer') !!}
+
+@if (isset($data['chapter']))
+    <div id="all-truth-about">
+        <a href="/all-truth-about">
+            <div class="container">
+                <h1>{{ trans('content.all_truth_about') }}</h1>
+                {!! trans('content.all_truth_about_answer') !!}
+            </div>
+        </a>
     </div>
-</div>
+@elseif (isset($data['last_truth']))
+    <div id="all-footer-menu">
+        <div class="container">
+            @foreach($data['last_truth'] as $truth)
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <a href="#{{ $truth->id }}">{{ $truth->head }}</a>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif
+
 <div id="copyright-line">
     <div class="container">
         <div class="copyright hidden-xs">{{ trans('content.copyright') }}</div>

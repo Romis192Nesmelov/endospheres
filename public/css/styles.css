@@ -142,6 +142,19 @@ p a {
     font-weight: bolder;
 }
 
+.navigation.navigation-main.truth-menu > li {
+    line-height: 1.5em;
+    margin-bottom: 13px;
+}
+
+.navigation.navigation-main.truth-menu > li > a {
+    color: #9c9d9d !important;
+}
+
+.navigation.navigation-main.truth-menu > li.active a {
+    color: #1697d8 !important;
+}
+
 .secondary-menu {
     width: 100%;
     height: 120px;
@@ -459,6 +472,30 @@ ul.years li a.active {
     z-index: 999;
 }
 
+.resource-frame {
+    width: 100%;
+    height: 240px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 1.3em;
+    color: #728083 !important;
+    border: 1px solid #eeeff0;
+}
+
+.resource-frame > div {
+    padding: 20px;
+    text-align: left;
+}
+
+.resource-frame img {
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .mm-cover .shade > div {
     width: 100%;
     height: 100%;
@@ -470,6 +507,17 @@ ul.years li a.active {
     font-size: 20px;
     position: relative;
     top: 40%;
+}
+
+.resource-frame:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.tv-adverts .col-lg-9 {
+    float: none !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .row.black {
@@ -578,6 +626,15 @@ ul.years li a.active {
     margin-bottom: 3px;
 }
 
+.publication-date {
+    font-size: 12px;
+    color: grey;
+}
+
+.truth-content {
+    margin-bottom: 20px;
+}
+
 #footer {
     width: 100%;
     min-height: 610px;
@@ -607,17 +664,40 @@ ul.years li a.active {
     margin-top: 10px;
 }
 
-#all-truth-about {
+#all-truth-about, #all-footer-menu {
     width: 100%;
     height: 170px;
     background-color: #eeeeee;
-    font-size: 20px;
-    font-style: italic;
-    letter-spacing: 0.02em;
     padding: 0 10px 10px 25px;
     position: fixed;
     bottom: 80px;
     z-index: 999;
+}
+
+#all-footer-menu {
+    padding-top: 50px;
+}
+
+#all-truth-about a {
+    font-size: 20px;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    font-weight: normal;
+    color: black !important;
+}
+
+#all-truth-about:hover h1 {
+    color: #74c1e8;
+}
+
+#all-truth-about:hover a {
+    color: grey !important;
+}
+
+#all-footer-menu a {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: normal;
 }
 
 #copyright-line {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resource extends Model
 {
-    protected $fillable = ['image','url','description_ru','description_en','sub_chapter_id'];
+    protected $fillable = ['logo','url','description_ru','description_en','sub_chapter_id'];
 
     public $timestamps = false;
 

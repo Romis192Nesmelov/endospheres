@@ -15,7 +15,7 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav dropdown {{ $data['chapter']->id != 1 ? 'visible-xs' : '' }}">
+            <ul class="nav navbar-nav dropdown {{ isset($data['chapter']) && $data['chapter']->id != 1 ? 'visible-xs' : '' }}">
                 @foreach ($items as $item)
                     <li class="{{ ( preg_match('/^'.str_replace('/','\/',$item['href']).'/',Request::path()) ) ? 'active ' : ''}}">
                         <a href="/{{ $item['href'] }}">{{ $item['name'] }}</a>

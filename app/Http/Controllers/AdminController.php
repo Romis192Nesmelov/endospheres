@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Device;
-use App\MassMedia;
 use App\SubChapter;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests;
@@ -18,6 +17,9 @@ use App\NewsHeading;
 use App\News;
 use App\Review;
 use App\PhotoResult;
+use App\MassMedia;
+use App\Resource;
+use App\Truth;
 use Config;
 use Session;
 
@@ -99,7 +101,7 @@ class AdminController extends Controller
         $this->breadcrumbs['chapters/'.$this->data['sub_chapter']->chapter->slug] = $this->data['sub_chapter']->chapter['head_'.App::getLocale()];
         $this->breadcrumbs['sub-chapter/'.$this->data['sub_chapter']->slug] = $this->data['sub_chapter']['head_'.App::getLocale()];
         if (count($this->data['sub_chapter']->massMedia)) $this->data['mass_media'] = MassMedia::orderBy('id','desc')->paginate(10);
-        Session::put('sub_chapter',$slug);
+        Session::put('sub_chapter',$this->data['sub_chapter']->id);
         return $this->showView('sub-chapter');
     }
     
@@ -197,6 +199,39 @@ class AdminController extends Controller
             $this->breadcrumbs['mass-media/?id='.$this->data['media']->id] = $this->data['media']['description_'.App::getLocale()];
         }
         return $this->showView('mass-media');
+    }
+
+    public function getResource(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'sub-chapter/internet' => trans('admin_content.chapter_internet')
+        ];
+        if ($slug && $slug == 'add') {
+            $this->breadcrumbs['resource/add'] = trans('admin_content.add_resource');
+        } else {
+            $this->validate($request, ['id' => 'required|integer|exists:resources']);
+            $this->data['resource'] = Resource::find($request->input('id'));
+            $this->breadcrumbs['resource/?id='.$this->data['resource']->id] = $this->data['resource']['description_'.App::getLocale()];
+        }
+        return $this->showView('resource');
+    }
+    
+    public function getAllTruth(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = ['all-truth' => trans('admin_menu.all_truth')];
+        if ($slug) {
+            $this->breadcrumbs['all-truth/add'] = trans('admin_content.add_truth');
+            return $this->showView('truth');
+        } else if ($request->has('id')) {
+            $this->validate($request, ['id' => 'required|integer|exists:truths']);
+            $this->data['truth'] = Truth::find($request->input('id'));
+            $this->breadcrumbs['all-truth/?id='.$this->data['truth']->id] = $this->data['truth']->head;
+            return $this->showView('truth');
+        } else {
+            $this->data['all_truth'] = Truth::orderBy('time','desc')->get();
+            return $this->showView('all-truth');
+        }
     }
 
     public function postLanding(Request $request)
@@ -587,6 +622,49 @@ class AdminController extends Controller
         return redirect('/admin/sub-chapter/print-mass-media');
     }
 
+    public function postResource(Request $request)
+    {
+        $validateArr = [
+            'description_ru' => 'required|min:2|max:100',
+            'logo' => 'mimes:jpeg|min:10|max:200',
+            'url' => 'required|min:4'
+        ];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:resources';
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request, null, 'logo');
+
+        if ($request->has('id')) {
+            $resource = Resource::find($request->input('id'));
+            $resource->update($fields);
+        } else {
+            $fields['sub_chapter_id'] = Session::get('sub_chapter');
+            $fields['logo'] = '/resources_logos/'.$request->file('logo')->getClientOriginalName();
+            $resource = Resource::create($fields);
+        }
+        $this->processingFile($request, $resource, 'logo');
+
+        $this->saveCompleteMessage();
+        return redirect('/admin/sub-chapter/'.$resource->subChapter->slug);
+    }
+    
+    public function postTruth(Request $request)
+    {
+        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:3000'];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:truths';
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request, 'active', null, null, 'time');
+
+        if ($request->has('id')) {
+            $truth = Truth::find($request->input('id'));
+            $truth->update($fields);
+        } else {
+            Truth::create($fields);
+        }
+
+        $this->saveCompleteMessage();
+        return redirect('/admin/all-truth');
+    }
+
     public function postDeleteSlider(Request $request)
     {
         $this->slider();
@@ -628,6 +706,16 @@ class AdminController extends Controller
     public function postDeleteMedia(Request $request)
     {
         return $this->deleteSomething($request, new MassMedia(), ['preview','full']);
+    }
+
+    public function postDeleteResource(Request $request)
+    {
+        return $this->deleteSomething($request, new Resource(), 'logo');
+    }
+
+    public function postDeleteTruth(Request $request)
+    {
+        return $this->deleteSomething($request, new Truth());
     }
 
     private function slider()
@@ -799,13 +887,20 @@ class AdminController extends Controller
             $chaptersMenu[] = ['id' => $chapter->id,'href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
         }
 
+        $allTruth = Truth::orderBy('time','desc')->get();
+        $truthMenu = [];
+        foreach ($allTruth as $truth) {
+            $truthMenu[] = ['id' => $truth->id,'href' => '?id='.$truth->id, 'name' => str_limit($truth->head, 20)];
+        }
+
         return view('admin.'.$view, [
             'breadcrumbs' => $this->breadcrumbs,
             'data' => $this->data,
             'menus' => [
                 ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
                 ['href' => 'slider', 'name' => trans('admin_menu.slider'), 'icon' => 'icon-images3'],
-                ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu]
+                ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu],
+                ['href' => 'all-truth', 'name' => trans('admin_menu.all_truth'), 'icon' => 'icon-warning2', 'submenu' => $truthMenu]
             ]
         ]);
     }

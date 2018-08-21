@@ -73,6 +73,12 @@ $(window).ready(function ($) {
         });
         $(this).find('.descript').remove();
     });
+    
+    $('ul.truth-menu li a').click(function () {
+        $('ul.truth-menu li').removeClass('active');
+        $(this).parents('li').addClass('active');
+    });
+    
 });
 
 function addHrefImageShade(obj, logo) {

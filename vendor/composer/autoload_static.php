@@ -299,6 +299,7 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
         'CreateReviewsTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_20_061932_create_reviews_table.php',
         'CreateSlidesTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_03_054318_create_slides_table.php',
         'CreateSubchaptersTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_19_090924_create_subchapters_table.php',
+        'CreateTruthTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_21_125912_create_truth_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateVideosTable' => __DIR__ . '/../..' . '/database/migrations/2018_08_11_082949_create_videos_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
@@ -780,6 +781,7 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PhotoResultsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PhotoResultsTableSeeder.php',
         'QuestionsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/QuestionsTableSeeder.php',
+        'ResourcesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ResourcesTableSeeder.php',
         'ReviewsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ReviewsTableSeeder.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
@@ -821,6 +823,7 @@ class ComposerStaticInit0674485ffe5725389d5044d1db1d2bda
         'SubChaptersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/SubChaptersTableSeeder.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'TruthTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TruthTableSeeder.php',
         'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
         'VideosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/VideosTableSeeder.php',
     );

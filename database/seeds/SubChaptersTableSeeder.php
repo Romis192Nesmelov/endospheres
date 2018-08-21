@@ -83,7 +83,7 @@ class SubChaptersTableSeeder extends Seeder
                 'subscribe_ru' => 'Анастасия Волочкова, Ирена Понарошку, Алена Бородина, Леся Ярославская, Ирина Дубцова, Полина Аскери, Маша Малиновская, Мишаня, Виктория Боня и другие звезды рекомендуют Endospheres Therapy®',
                 'head_ru' => 'TV-реклама',
                 'head_en' => 'tv',
-                'content_ru' => '<iframe id="jcemediabox-popup-iframe" frameborder="0" allowtransparency="true" scrolling="auto" width="100%" height="100%" src="http://www.youtube.com/embed/A4UZJpzkPDw?wmode=opaque"></iframe>',
+                'content_ru' => '',
                 'have_a_resources' => true,
                 'chapter_id' => 8,
             ],

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResourcesTable extends Migration
+class CreateTruthTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,12 @@ class CreateResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('resources', function (Blueprint $table) {
+        Schema::create('truths', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('logo');
-            $table->string('url');
-            $table->longText('description_ru');
-            $table->longText('description_en')->nullable();
-            $table->timestamps();
+            $table->string('head');
+            $table->longText('content');
+            $table->integer('time');
+            $table->boolean('active');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateResourcesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('resources');
+        Schema::drop('truths');
     }
 }

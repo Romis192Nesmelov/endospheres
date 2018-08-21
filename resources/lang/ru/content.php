@@ -54,4 +54,5 @@ return [
     'play' => 'Смотреть',
     'answer' => 'Ответ',
     'review' => 'Отзыв',
+    'published' => 'Опубликовано :date',
 ];

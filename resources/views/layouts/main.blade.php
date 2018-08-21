@@ -39,7 +39,7 @@
 @include('layouts._feedback_modal_block')
 @include('layouts._nav_top_block', ['items' => $mainMenu])
 
-@if ($data['chapter']->id == 1)
+@if (isset($data['chapter']) && $data['chapter']->id == 1)
     @include('layouts._slider_block',['slides' => $data['slider']])
 @endif
 

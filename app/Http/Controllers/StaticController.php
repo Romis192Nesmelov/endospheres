@@ -13,6 +13,7 @@ use App\Device;
 use App\NewsHeading;
 use App\News;
 use App\MassMedia;
+use App\Truth;
 use Session;
 use Config;
 
@@ -81,6 +82,13 @@ class StaticController extends Controller
             }
             return $this->showView($slug);
         }
+    }
+
+    public function truth()
+    {
+        $this->data['all_truth'] = Truth::where('active',1)->orderBy('time','desc')->get();
+        $this->data['last_truth'] = Truth::orderBy('time','desc')->limit(4)->get();
+        return $this->showView('all-truth');
     }
 
     public function feedback(Request $request)
