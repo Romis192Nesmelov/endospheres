@@ -16,6 +16,7 @@ h1 {
 
 h1.col-lg-offset-3.col-md-offset-3.col-sm-offset-3.col-xs-offset-1 {
     padding-left: 10px;
+    text-transform: uppercase;
 }
 
 h2 {
@@ -160,7 +161,6 @@ p a {
     height: 120px;
     text-align: center;
     font-size: 13px;
-    font-weight: bold;
     margin-bottom: 15px;
     background-color: #c1bcb9;
     text-transform: uppercase;
@@ -183,14 +183,14 @@ p a {
 }
 
 .secondary-menu .menu-item {
-    width: 70%;
+    width: 100%;
     font-size: 17px;
     text-transform: uppercase;
-    text-align: left;
+    text-align: center;
     position: relative;
+    font-weight: normal !important;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translateY(-50%);
 }
 
 .pagination {
@@ -289,8 +289,7 @@ p a {
     margin-bottom: 40px;
     font-size: 14px;
     font-style: italic;
-    font-weight: bold;
-    color: #1797d8;
+    color: #5587a0;
     padding-left: 50px;
 }
 
@@ -420,7 +419,6 @@ ul.hrefs li.content {
     background-color: #74c1e8;
     color: white;
     font-size: 15px;
-    font-style: italic;
     font-weight: normal;
     padding: 15px;
     border: none;
@@ -688,6 +686,10 @@ ul.years li a.active {
     letter-spacing: 0.02em;
     font-weight: normal;
     color: black !important;
+}
+
+#all-truth-about h1 {
+    font-style: normal !important;
 }
 
 #all-truth-about:hover h1 {

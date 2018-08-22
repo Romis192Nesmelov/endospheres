@@ -47,7 +47,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                             {!! (isset($data['device']) ? $data['device']['content_'.App::getLocale()] : $data['chapter']->devices[0]['content_'.App::getLocale()]) !!}
                         </div>
-                        @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer hidden-sm visible-xs'])
+                        @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer visible-lg visible-md hidden-sm visible-xs'])
                     </div>
                 </div>
             </div>
