@@ -120,9 +120,11 @@ function showMouse() {
 }
 
 function mouseMoveBind() {
-    $(document).mousewheel(function () {
+    $(window).mousewheel(function () {
         nextSlide();
     }).on('touchmove',function () {
+        nextSlide();
+    }).click(function () {
         nextSlide();
     });
 }

@@ -24,8 +24,7 @@
     <div id="all-truth-about">
         <a href="/all-truth-about">
             <div class="container">
-                <h1>{{ trans('content.all_truth_about') }}</h1>
-                {!! trans('content.all_truth_about_answer') !!}
+                <h2>{{ trans('content.all_truth_about') }}</h2>
             </div>
         </a>
     </div>
