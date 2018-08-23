@@ -14,14 +14,13 @@
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <div class="panel-title">{{ trans('admin_content.slide_simple') }}</div>
+                        <div class="panel-body">
+                            @if ($data['type'] == 'image')
+                                @include('admin._image_block', ['item' => 'path', 'path' => $data['file']->path, 'name' => 'file'])
+                            @else
+                                @include('admin._input_file_block', ['label' => trans('admin_content.file_simple'), 'name' => 'path'])
+                            @endif
                         </div>
-                        @if ($data['type'] == 'image')
-                            @include('admin._image_block', ['item' => 'file', 'path' => $data['file']->path, 'name' => 'file'])
-                        @else
-                            @include('admin._input_file_block', ['label' => trans('admin_content.file_simple'), 'name' => 'file'])
-                        @endif
                     </div>
                 </div>
 

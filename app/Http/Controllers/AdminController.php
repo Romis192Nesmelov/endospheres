@@ -133,6 +133,13 @@ class AdminController extends Controller
         $this->data['type'] = 'file';
         return $this->showFile($request, $slug);
     }
+    
+    public function getUserFiles()
+    {
+        $this->breadcrumbs = ['user_files' => trans('admin_menu.user_files')];
+        $this->data['files'] = glob(base_path('/public/user_files/*'));
+        return $this->showView('user_files');
+    }
 
     public function getQuestion(Request $request, $slug=null)
     {
@@ -479,15 +486,15 @@ class AdminController extends Controller
         ];
         if ($request->has('id')) {
             $file = File::find($request->input('id'));
-            $validateArr['file'] = 'mimes:'.$file->type.'|max:3000';
+            $validateArr['path'] = 'mimes:'.$file->type.'|max:3000';
         } else {
-            $validateArr['file'] = 'required|min:2|max:3000';
+            $validateArr['path'] = 'required|min:2|max:3000';
         }
 
         $this->validate($request, $validateArr);
 
-        if ($request->hasFile('file')) {
-            switch ($request->file('file')->getClientMimeType()) {
+        if ($request->hasFile('path')) {
+            switch ($request->file('path')->getClientMimeType()) {
                 case 'application/pdf':
                     $type = 'pdf';
                     $path = '/pdfs/';
@@ -500,19 +507,28 @@ class AdminController extends Controller
         }
 
         if ($request->has('id')) {
-            $fields = $this->processingFields($request, null, 'file');
+            $fields = $this->processingFields($request, null, 'path');
             $file->update($fields);
         } else {
             $chapter = Chapter::findBySlug(Session::get('chapter'));
             $fields['type'] = $type;
-            $fields['path'] = $path.$request->file('file')->getClientOriginalName();
+            $fields['path'] = $path.$request->file('path')->getClientOriginalName();
             $fields['chapter_id'] = $chapter->id;
+            if (File::where('path',$fields['path'])->first()) return redirect()->back()->withErrors(['path' => trans('validation.file_already_exist')]);
             $file = File::create($fields);
         }
-        $this->processingFile($request, $file, 'file');
+        $this->processingFile($request, $file, 'path');
 
         $this->saveCompleteMessage();
         return redirect('/admin/chapters/'.$file->chapter->slug);
+    }
+
+    public function postUserFile(Request $request)
+    {
+        $this->validate($request, ['file' => 'required|max:5000']);
+        $request->file('file')->move(base_path('/public/user_files'),$request->file('file')->getClientOriginalName());
+        $this->saveCompleteMessage();
+        return redirect('/admin/user-files/');
     }
 
     public function postQuestion(Request $request)
@@ -682,6 +698,16 @@ class AdminController extends Controller
     {
         return $this->deleteSomething($request, new File(), 'path');
     }
+
+    public function postDeleteUserFile(Request $request)
+    {
+        $this->validate($request, ['id' => 'required|integer']);
+        $id = $request->input('id')-1;
+        $files = glob(base_path('/public/user_files/*'));
+        if (file_exists($files[$id])) unlink($files[$id]);
+        return response()->json(['success' => true]);
+    }
+
 
     public function postDeleteQuestion(Request $request)
     {
@@ -900,7 +926,8 @@ class AdminController extends Controller
                 ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
                 ['href' => 'slider', 'name' => trans('admin_menu.slider'), 'icon' => 'icon-images3'],
                 ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu],
-                ['href' => 'all-truth', 'name' => trans('admin_menu.all_truth'), 'icon' => 'icon-warning2', 'submenu' => $truthMenu]
+                ['href' => 'all-truth', 'name' => trans('admin_menu.all_truth'), 'icon' => 'icon-warning2', 'submenu' => $truthMenu],
+                ['href' => 'user-files', 'name' => trans('admin_menu.user_files'), 'icon' => 'icon-files-empty']
             ]
         ]);
     }

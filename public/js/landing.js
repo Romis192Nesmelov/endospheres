@@ -258,9 +258,9 @@ function nextSlide() {
         background.animate({
             'opacity':0.35
         }, 500, function () {
-            breakingAnim(0, 60, decadesCont, 'y', '%', 1, 1.05);
+            breakingAnim(0, 60, decadesCont, 'y', '%', 1, 1);
             setTimeout(function() {
-                breakingAnim(0, 60, unitsCont, 'y', '%', 1, 1.05);
+                breakingAnim(0, 60, unitsCont, 'y', '%', 1, 1);
             }, 500);
 
             setTimeout(function() {
