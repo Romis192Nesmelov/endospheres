@@ -32,7 +32,7 @@ function slideAnimation(startVal, endVal, object, attrName, unit, sign, callback
         // if ((sign == 1 && i > endVal/3*2) || (sign == -1 && i < startVal/3)) increment = increment / breakingCoof;
         // increment = increment < 0.02 ? 0.02 : increment;
         object.attr(attrName, (i + unit));
-        if ((sign == 1 && i > endVal) || (sign == -1 && i < endVal)) {
+        if ((sign == 1 && i >= endVal) || (sign == -1 && i <= endVal)) {
             i = endVal;
             clearInterval(timer);
             if (callback) callback();
