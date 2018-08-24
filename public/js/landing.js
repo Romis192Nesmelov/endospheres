@@ -37,7 +37,7 @@ function slideAnimation(startVal, endVal, object, attrName, unit, sign, callback
             clearInterval(timer);
             if (callback) callback();
         }
-    }, 1);
+    }, 0.5);
 }
 
 function hideMouse(newColor) {
