@@ -21,7 +21,7 @@ $(window).ready(function ($) {
     showMouse();
 });
 
-function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCoof, callback)
+function slideAnimation(startVal, endVal, object, attrName, unit, sign, callback)
 {
     var i = startVal,
         sign = sign ? sign : 1,
@@ -29,15 +29,15 @@ function breakingAnim(startVal, endVal, object, attrName, unit, sign, breakingCo
 
     var timer = setInterval(function() {
         i = i + increment * sign;
-        if ((sign == 1 && i > endVal/3*2) || (sign == -1 && i < startVal/3)) increment = increment / breakingCoof;
-        increment = increment < 0.02 ? 0.02 : increment;
+        // if ((sign == 1 && i > endVal/3*2) || (sign == -1 && i < startVal/3)) increment = increment / breakingCoof;
+        // increment = increment < 0.02 ? 0.02 : increment;
         object.attr(attrName, (i + unit));
         if ((sign == 1 && i > endVal) || (sign == -1 && i < endVal)) {
             i = endVal;
             clearInterval(timer);
             if (callback) callback();
         }
-    }, 5);
+    }, 10);
 }
 
 function hideMouse(newColor) {
@@ -120,11 +120,9 @@ function showMouse() {
 }
 
 function mouseMoveBind() {
-    $(window).mousewheel(function () {
+    $(document).mousewheel(function () {
         nextSlide();
     }).on('touchmove',function () {
-        nextSlide();
-    }).click(function () {
         nextSlide();
     });
 }
@@ -260,13 +258,13 @@ function nextSlide() {
         background.animate({
             'opacity':0.35
         }, 500, function () {
-            breakingAnim(0, 60, decadesCont, 'y', '%', 1, 1);
+            slideAnimation(0, 60, decadesCont, 'y', '%', 1);
             setTimeout(function() {
-                breakingAnim(0, 60, unitsCont, 'y', '%', 1, 1);
+                slideAnimation(0, 60, unitsCont, 'y', '%', 1);
             }, 500);
 
             setTimeout(function() {
-                breakingAnim(100, 0, maskInvert, 'y', '%', -1, 1.055, function () {
+                slideAnimation(100, 0, maskInvert, 'y', '%', -1, function () {
                     $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');
