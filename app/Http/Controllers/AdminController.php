@@ -891,7 +891,8 @@ class AdminController extends Controller
 
     private function getYears()
     {
-        $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year')->toArray();
+//        $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year')->toArray();
+        $this->data['years'] = [2018,2017,2016,2015,2014];
     }
 
     private function saveCompleteMessage()
