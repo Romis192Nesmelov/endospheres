@@ -666,7 +666,7 @@ ul.years li a.active {
     margin-top: 10px;
 }
 
-#all-truth-about, #all-footer-menu {
+#all-truth-about {
     width: 100%;
     height: 50px;
     background-color: #eeeeee;
@@ -674,10 +674,6 @@ ul.years li a.active {
     position: fixed;
     bottom: 80px;
     z-index: 999;
-}
-
-#all-footer-menu {
-    padding-top: 50px;
 }
 
 #all-truth-about a {
@@ -699,12 +695,6 @@ ul.years li a.active {
 
 #all-truth-about:hover a {
     color: grey !important;
-}
-
-#all-footer-menu a {
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: normal;
 }
 
 #copyright-line {

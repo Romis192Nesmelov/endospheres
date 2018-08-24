@@ -28,16 +28,6 @@
             </div>
         </a>
     </div>
-@elseif (isset($data['last_truth']))
-    <div id="all-footer-menu">
-        <div class="container">
-            @foreach($data['last_truth'] as $truth)
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <a href="#{{ $truth->id }}">{{ $truth->head }}</a>
-                </div>
-            @endforeach
-        </div>
-    </div>
 @endif
 
 <div id="copyright-line">
