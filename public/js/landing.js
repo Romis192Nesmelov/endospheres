@@ -25,7 +25,7 @@ function slideAnimation(startVal, endVal, object, attrName, unit, sign, callback
 {
     var i = startVal,
         sign = sign ? sign : 1,
-        increment = endVal ? endVal / 60 : startVal / 60;
+        increment = 1;
 
     var timer = setInterval(function() {
         i = i + increment * sign;
