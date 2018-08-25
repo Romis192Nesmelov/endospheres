@@ -6,7 +6,8 @@ return [
     'slider' => 'Слайдер',
     'devices' => 'Аппараты',
     'chapters' => 'Разделы',
-    'all_truth' => 'Вся правда о...',
+    'all-truth' => 'Вся правда о...',
+    'recommendations' => 'Рекомендации',
     'user_files' => 'Файлы пользователя',
     'exit' => 'Выход'
 ];

@@ -24,6 +24,7 @@ class CreateChaptersTable extends Migration
 //            $table->longText('content_en')->nullable();
 //            $table->boolean('have_a_video');
 //            $table->boolean('have_a_files');
+//            $table->boolean('have_a_sheet');
 //            $table->boolean('have_a_questions');
 //            $table->boolean('active');
 //            $table->timestamps();

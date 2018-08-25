@@ -10,7 +10,20 @@ class Chapter extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['slide','subscribe_ru','subscribe_en','head_ru','head_en','content_ru','content_en','have_a_video','have_a_files','have_a_questions','active'];
+    protected $fillable = [
+        'slide',
+        'subscribe_ru',
+        'subscribe_en',
+        'head_ru',
+        'head_en',
+        'content_ru',
+        'content_en',
+        'have_a_video',
+        'have_a_files',
+        'have_a_questions',
+        'have_a_sheet',
+        'active'
+    ];
 
     protected $sluggable = [
         'build_from' => 'head_en',
@@ -44,6 +57,11 @@ class Chapter extends Model implements SluggableInterface
 
     public function news()
     {
-        return $this->hasMany('App\News')->orderBy('id','desc')->paginate(10);
+        return $this->hasMany('App\News')->orderBy('id','time');
+    }
+
+    public function sheets()
+    {
+        return $this->hasMany('App\Sheet')->orderBy('id','time');
     }
 }

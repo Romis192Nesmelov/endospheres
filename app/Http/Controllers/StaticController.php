@@ -86,7 +86,7 @@ class StaticController extends Controller
 
     public function truth()
     {
-        $this->data['all_truth'] = Truth::where('active',1)->orderBy('time','desc')->get();
+        $this->data['all_truth'] = Truth::orderBy('time','desc')->get();
 //        $this->data['last_truth'] = Truth::orderBy('time','desc')->limit(4)->get();
         return $this->showView('all-truth');
     }

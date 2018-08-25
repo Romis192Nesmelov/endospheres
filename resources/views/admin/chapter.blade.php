@@ -3,6 +3,7 @@
 @section('content')
     @include('admin._modal_delete_block',['modalId' => 'delete-file-modal', 'function' => 'delete-file', 'head' => trans('admin_content.do_you_really_want_to_delete_this_file')])
     @include('admin._modal_delete_block',['modalId' => 'delete-question-modal', 'function' => 'delete-question', 'head' => trans('admin_content.do_you_really_want_to_delete_this_question')])
+    @include('admin._modal_delete_block',['modalId' => 'delete-sheet-modal', 'function' => 'delete-sheet', 'head' => trans('admin_content.do_you_really_want_to_delete_this_position')])
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h4 class="panel-title">{{ $data['chapter']['head_'.App::getLocale()] }}</h4>
@@ -12,7 +13,7 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $data['chapter']->id }}">
 
-                @if ($data['chapter']->id != 1)
+                @if ($data['chapter']->id != 1 && !$data['chapter']->have_a_sheet))
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="panel panel-flat">
                             @include('admin._image_block', ['item' => 'chapter', 'folder' => 'chapters_slides', 'height' => 169, 'name' => 'slide'])
@@ -23,68 +24,77 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-body">
-                            @include('admin._textarea_block', [
-                                'label' => trans('admin_content.subscribe'),
-                                'name' => 'subscribe_ru',
-                                'value' => $data['chapter']->subscribe_ru,
-                                'simple' => true
-                            ])
 
-                            @include('admin._input_block', [
-                                'label' => trans('admin_content.head'),
-                                'name' => 'head_ru',
-                                'type' => 'text',
-                                'placeholder' => trans('admin_content.head'),
-                                'value' => $data['chapter']->head_ru
-                            ])
+                            @if (!$data['chapter']->have_a_sheet)
 
-                            @if ($data['chapter']->id != 3 && $data['chapter']->id != 4 && $data['chapter']->id != 6 && !count($data['chapter']->subChapters))
                                 @include('admin._textarea_block', [
-                                    'label' => trans('admin_content.content'),
-                                    'name' => 'content_ru',
-                                    'value' => $data['chapter']->content_ru,
-                                    'simple' => false
+                                    'label' => trans('admin_content.subscribe'),
+                                    'name' => 'subscribe_ru',
+                                    'value' => $data['chapter']->subscribe_ru,
+                                    'simple' => true
                                 ])
-                            @endif
 
-                            @if (isset($data['news_heading']))
-                                <table class="table table-striped table-items">
-                                    <tr>
-                                        <th width="30%" class="text-center">{{ trans('admin_content.head') }}</th>
-                                        <th class="text-center">{{ trans('admin_content.subscribe') }}</th>
-                                    </tr>
-                                    @foreach ($data['news_heading'] as $heading)
-                                        <tr role="row">
-                                            <td class="text-left"><h3><a href="/admin/news/{{ $heading->slug }}">{{ $heading['head_'.App::getLocale()] }}</a></h3></td>
-                                            <td class="text-left">{{ str_limit($heading['subscribe_'.App::getLocale()], 1000) }}</td>
-                                        </tr>
-                                    @endforeach
-                                </table>
-                                @include('admin._add_button_block',['href' => 'news/news-heading-add', 'text' => trans('admin_content.add_heading_news')])
-                            @endif
+                                @include('admin._input_block', [
+                                    'label' => trans('admin_content.head'),
+                                    'name' => 'head_ru',
+                                    'type' => 'text',
+                                    'placeholder' => trans('admin_content.head'),
+                                    'value' => $data['chapter']->head_ru
+                                ])
 
-                            @if (count($data['chapter']->devices))
-                                <table class="table datatable-basic table-items">
-                                    <tr>
-                                        <th class="text-center">{{ trans('admin_content.logo') }}</th>
-                                        <th class="text-center device">{{ trans('admin_content.image_simple') }}</th>
-                                        <th class="text-center">{{ trans('admin_content.name') }}</th>
-                                        <th class="text-center">{{ trans('admin_content.head') }}</th>
-                                        <th class="text-center">{{ trans('admin_content.active') }}</th>
-                                        <th class="text-center">{{ trans('admin_content.status') }}</th>
-                                    </tr>
-                                    @foreach ($data['chapter']->devices as $device)
-                                        <tr role="row">
-                                            <td class="text-center"><div class="device-logo"><img src="{{ asset('images/'.$device->menu_logo) }}" /></div></td>
-                                            <td class="text-center device"><img src="{{ asset('images/devices/'.$device->image) }}" /></td>
-                                            <td class="text-center"><h3><a href="/admin/chapters/{{ $data['chapter']->slug.'/'.$device->slug }}">{{ $device->name }}</a></h3></td>
-                                            <td class="text-center"><h4>{{ trans('content.endosphere').' '.$device['head_'.App::getLocale()] }}</h4></td>
-                                            <td class="text-center">@include('admin._active_status_block', ['item' => $device])</td>
-                                            <td class="text-center">@include('admin._new_status_block', ['item' => $device])</td>
+                                @if ($data['chapter']->id != 3 && $data['chapter']->id != 4 && $data['chapter']->id != 6 && !count($data['chapter']->subChapters))
+                                    @include('admin._textarea_block', [
+                                        'label' => trans('admin_content.content'),
+                                        'name' => 'content_ru',
+                                        'value' => $data['chapter']->content_ru,
+                                        'simple' => false
+                                    ])
+                                @endif
+
+                                @if (isset($data['news_heading']))
+                                    <table class="table table-striped table-items">
+                                        <tr>
+                                            <th width="30%" class="text-center">{{ trans('admin_content.head') }}</th>
+                                            <th class="text-center">{{ trans('admin_content.subscribe') }}</th>
                                         </tr>
-                                    @endforeach
-                                </table>
-                                @include('admin._add_button_block',['href' => 'chapters/'.$data['chapter']->slug.'/add', 'text' => trans('admin_content.add_device')])
+                                        @foreach ($data['news_heading'] as $heading)
+                                            <tr role="row">
+                                                <td class="text-left"><h3><a href="/admin/news/{{ $heading->slug }}">{{ $heading['head_'.App::getLocale()] }}</a></h3></td>
+                                                <td class="text-left">{{ str_limit($heading['subscribe_'.App::getLocale()], 1000) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                    @include('admin._add_button_block',['href' => 'news/news-heading-add', 'text' => trans('admin_content.add_heading_news')])
+                                @endif
+
+                                @if (count($data['chapter']->devices))
+                                    <table class="table datatable-basic table-items">
+                                        <tr>
+                                            <th class="text-center">{{ trans('admin_content.logo') }}</th>
+                                            <th class="text-center device">{{ trans('admin_content.image_simple') }}</th>
+                                            <th class="text-center">{{ trans('admin_content.name') }}</th>
+                                            <th class="text-center">{{ trans('admin_content.head') }}</th>
+                                            <th class="text-center">{{ trans('admin_content.active') }}</th>
+                                            <th class="text-center">{{ trans('admin_content.status') }}</th>
+                                        </tr>
+                                        @foreach ($data['chapter']->devices as $device)
+                                            <tr role="row">
+                                                <td class="text-center"><div class="device-logo"><img src="{{ asset('images/'.$device->menu_logo) }}" /></div></td>
+                                                <td class="text-center device"><img src="{{ asset('images/devices/'.$device->image) }}" /></td>
+                                                <td class="text-center"><h3><a href="/admin/chapters/{{ $data['chapter']->slug.'/'.$device->slug }}">{{ $device->name }}</a></h3></td>
+                                                <td class="text-center"><h4>{{ trans('content.endosphere').' '.$device['head_'.App::getLocale()] }}</h4></td>
+                                                <td class="text-center">@include('admin._active_status_block', ['item' => $device])</td>
+                                                <td class="text-center">@include('admin._new_status_block', ['item' => $device])</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                    @include('admin._add_button_block',['href' => 'chapters/'.$data['chapter']->slug.'/add', 'text' => trans('admin_content.add_device')])
+                                @endif
+                            @else
+                                <div class="panel-heading">
+                                    @include('admin._add_button_block',['href' => 'recommendation/add', 'text' => trans('admin_content.add_recommendations')])
+                                </div>
+                                @include('admin._sheets_table_block',['data' => $data['chapter']->sheets, 'suffix' => 'recommendation'])
                             @endif
                         </div>
                     </div>

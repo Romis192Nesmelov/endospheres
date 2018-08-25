@@ -20,6 +20,7 @@ use App\PhotoResult;
 use App\MassMedia;
 use App\Resource;
 use App\Truth;
+use App\Sheet;
 use Config;
 use Session;
 
@@ -226,19 +227,19 @@ class AdminController extends Controller
     
     public function getAllTruth(Request $request, $slug=null)
     {
-        $this->breadcrumbs = ['all-truth' => trans('admin_menu.all_truth')];
-        if ($slug) {
-            $this->breadcrumbs['all-truth/add'] = trans('admin_content.add_truth');
-            return $this->showView('truth');
-        } else if ($request->has('id')) {
-            $this->validate($request, ['id' => 'required|integer|exists:truths']);
-            $this->data['truth'] = Truth::find($request->input('id'));
-            $this->breadcrumbs['all-truth/?id='.$this->data['truth']->id] = $this->data['truth']->head;
-            return $this->showView('truth');
-        } else {
-            $this->data['all_truth'] = Truth::orderBy('time','desc')->get();
-            return $this->showView('all-truth');
-        }
+        $this->breadcrumbs = ['all-truth' => trans('admin_menu.all-truth')];
+        $this->data['suffix'] = 'all-truth';
+        return $this->sheet($request, new Truth(), $slug, 'all-truth');
+    }
+    
+    public function getRecommendation(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'chapters/recommendations' => trans('admin_menu.recommendations')
+        ];
+        $this->data['suffix'] = 'recommendation';
+        return $this->sheet($request, new Sheet(), $slug);
     }
 
     public function postLanding(Request $request)
@@ -671,23 +672,15 @@ class AdminController extends Controller
         $this->saveCompleteMessage();
         return redirect('/admin/sub-chapter/'.$resource->subChapter->slug);
     }
-    
-    public function postTruth(Request $request)
+
+    public function postRecommendation(Request $request)
     {
-        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:3000'];
-        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:truths';
-        $this->validate($request, $validateArr);
-        $fields = $this->processingFields($request, 'active', null, null, 'time');
-
-        if ($request->has('id')) {
-            $truth = Truth::find($request->input('id'));
-            $truth->update($fields);
-        } else {
-            Truth::create($fields);
-        }
-
-        $this->saveCompleteMessage();
-        return redirect('/admin/all-truth');
+        return $this->saveSheet($request, new Sheet(), 'chapters/recommendations');
+    }
+    
+    public function postAllTruth(Request $request)
+    {
+        return $this->saveSheet($request, new Truth(), 'all-truth');
     }
 
     public function postDeleteSlider(Request $request)
@@ -762,6 +755,47 @@ class AdminController extends Controller
         return $this->deleteSomething($request, new Truth());
     }
 
+    public function postDeleteSheet(Request $request)
+    {
+        return $this->deleteSomething($request, new Sheet());
+    }
+
+    private function sheet(Request $request, Model $model, $slug, $alterView=null)
+    {
+        if ($slug) {
+            $this->breadcrumbs[$this->data['suffix'].'/add'] = trans('admin_content.add_'.$this->data['suffix']);
+            return $this->showView('sheet');
+        } else if ($request->has('id')) {
+            $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable()]);
+            $this->data['content'] = $model->find($request->input('id'));
+            $this->breadcrumbs[$this->data['suffix'].'/?id='.$this->data['content']->id] = $this->data['content']->head;
+            return $this->showView('sheet');
+        } else {
+            $this->data['content'] = $model->orderBy('time','desc')->get();
+            return $alterView ? $this->showView($alterView) : redirect()->back();;
+        }
+    }
+
+    private function saveSheet(Request $request, Model $model, $redirect)
+    {
+        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:3000'];
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:truths';
+        $this->validate($request, $validateArr);
+        $fields = $this->processingFields($request, 'active', null, null, 'time');
+
+        if ($request->has('id')) {
+            $truth = $model->find($request->input('id'));
+            $truth->update($fields);
+        } else {
+            $chapter = Chapter::findBySlug(Session::get('chapter'));
+            $fields['chapter_id'] = $chapter->id;
+            $model->create($fields);
+        }
+
+        $this->saveCompleteMessage();
+        return redirect('/admin/'.$redirect);
+    }
+    
     private function slider()
     {
         $this->data['slider'] = [];
@@ -945,7 +979,7 @@ class AdminController extends Controller
                 ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
                 ['href' => 'slider', 'name' => trans('admin_menu.slider'), 'icon' => 'icon-images3'],
                 ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu],
-                ['href' => 'all-truth', 'name' => trans('admin_menu.all_truth'), 'icon' => 'icon-warning2', 'submenu' => $truthMenu],
+                ['href' => 'all-truth', 'name' => trans('admin_menu.all-truth'), 'icon' => 'icon-warning2', 'submenu' => $truthMenu],
                 ['href' => 'user-files', 'name' => trans('admin_menu.user_files'), 'icon' => 'icon-files-empty']
             ]
         ]);

@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
 //        $this->call(UsersTableSeeder::class);
 //        $this->call(SlidesTableSeeder::class);
-//        $this->call(ChaptersTableSeeder::class);
+        $this->call(ChaptersTableSeeder::class);
 //        $this->call(VideosTableSeeder::class);
         $this->call(DevicesTableSeeder::class);
 //        $this->call(FilesTableSeeder::class);
@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(MassMediaTableSeeder::class);
 //        $this->call(ResourcesTableSeeder::class);
 //        $this->call(TruthTableSeeder::class);
+//        $this->call(SheetsTableSeeder::class);
     }
 }

@@ -92,7 +92,7 @@ p a {
     font-size: 14px;
     color: #1797d8 !important;
     font-weight: 300;
-    padding: 0 10px 3px 10px !important;
+    padding: 0 3px 3px 3px !important;
 }
 
 .navbar-nav > li.active > a {
@@ -143,16 +143,16 @@ p a {
     font-weight: bolder;
 }
 
-.navigation.navigation-main.truth-menu > li {
+.navigation.navigation-main.sheet-menu > li {
     line-height: 1.5em;
     margin-bottom: 13px;
 }
 
-.navigation.navigation-main.truth-menu > li > a {
+.navigation.navigation-main.sheet-menu > li > a {
     color: #9c9d9d !important;
 }
 
-.navigation.navigation-main.truth-menu > li.active a {
+.navigation.navigation-main.sheet-menu > li.active a {
     color: #1697d8 !important;
 }
 
@@ -633,7 +633,7 @@ ul.years li a.active {
     color: grey;
 }
 
-.truth-content {
+.sheet-content {
     margin-bottom: 20px;
 }
 
