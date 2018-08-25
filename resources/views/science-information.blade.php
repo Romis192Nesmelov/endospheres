@@ -11,7 +11,7 @@
                 @include('_chapter_slider_block',['slide' => $data['chapter']->slide, 'showLicense' => false])
                 <div class="quote">
                     {{ $data['chapter']['subscribe_'.App::getLocale()] }}
-                    <a href="{{ asset('pdfs/lipodistrofie.pdf') }}" class="pull-right">{{ trans('content.read_more') }}</a>
+                    <a href="{{ asset('pdfs/lipodistrofie.pdf') }}" class="pull-right" target="_blank">{{ trans('content.read_more') }}</a>
                 </div>
                 @if (count($data['hrefs']))
                     <ul class="hrefs">
