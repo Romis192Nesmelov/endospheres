@@ -49,9 +49,9 @@ a:hover
     width: 240px;
     color: white;
     position: absolute;
-    top: 290px;
-    left: 130px;
-    margin-left: -600px;
+    top: 40%;
+    left: 7%;
+    margin-left: -700px;
     transform: translateY(-50%);
     z-index: 999;
 }

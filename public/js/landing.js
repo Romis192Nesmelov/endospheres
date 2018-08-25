@@ -1,3 +1,4 @@
+window.changeSlidesMode = false;
 $(window).ready(function ($) {
     $('html').animate({'opacity':1}, 500);
 
@@ -21,26 +22,32 @@ $(window).ready(function ($) {
     showMouse();
 });
 
-function slideAnimation(startVal, endVal, object, attrName, unit, sign, callback)
-{
-    var i = startVal,
-        sign = sign ? sign : 1,
-        increment = 1;
+function slideAnimation(startVal, endVal, object, callback) {
+    // var i = startVal,
+    //     sign = sign ? sign : 1,
+    //     increment = 1;
+    //
+    // var timer = setInterval(function() {
+    //     i = i + increment * sign;
+    //     object.attr(attrName, (i + unit));
+    //     if ((sign == 1 && i >= endVal) || (sign == -1 && i <= endVal)) {
+    //         object.attr(attrName, endVal);
+    //         clearInterval(timer);
+    //         if (callback) callback();
+    //     }
+    // }, 0.5);
 
-    var timer = setInterval(function() {
-        i = i + increment * sign;
-        // if ((sign == 1 && i > endVal/3*2) || (sign == -1 && i < startVal/3)) increment = increment / breakingCoof;
-        // increment = increment < 0.02 ? 0.02 : increment;
-        object.attr(attrName, (i + unit));
-        if ((sign == 1 && i >= endVal) || (sign == -1 && i <= endVal)) {
-            i = endVal;
-            clearInterval(timer);
+    object.css('MyY',object.attr('y')).animate({MyY:Math.abs(startVal-endVal)},{step:function(v1) {
+        var position = startVal > endVal ? startVal-v1 : startVal+v1;
+        object.attr('y',position+'%');
+        if (position == endVal) {
             if (callback) callback();
         }
-    }, 0.5);
+    }});
 }
 
 function hideMouse(newColor) {
+    $(document).unbind();
     $('#mouse-container').animate({'opacity':0}, 500, function () {
         if (newColor) {
             $(this).css('color',newColor);
@@ -48,7 +55,6 @@ function hideMouse(newColor) {
             $('#mouse > div').css('background-color',newColor);
         }
     });
-    $(document).unbind();
 }
 
 function showMouse() {
@@ -68,7 +74,10 @@ function showMouse() {
 
             setTimeout(function () {
                 mouseContainer.animate({'opacity':1}, 500);
-                $('#main-container').click(function () { nextSlide(); });
+                $('#main-container').click(function () {
+                    nextSlide();
+                    $(this).unbind();
+                });
             }, 1000);
         } else if (window.currentSlide == 1) {
             clearInterval(window.mouseClickAnim);
@@ -120,9 +129,10 @@ function showMouse() {
 }
 
 function mouseMoveBind() {
+    window.changeSlidesMode = false;
     $(document).mousewheel(function () {
         nextSlide();
-    }).on('touchmove',function () {
+    }).click(function () {
         nextSlide();
     });
 }
@@ -206,6 +216,8 @@ function digitMoving(useDecades=false) {
 }
 
 function nextSlide() {
+    if (window.changeSlidesMode) return false;
+    window.changeSlidesMode = true;
     var digits = $('#digits'),
         tenReasonsContainer = $('#ten-reasons-container'),
         secondFooter = $('#all-truth'),
@@ -258,13 +270,13 @@ function nextSlide() {
         background.animate({
             'opacity':0.35
         }, 500, function () {
-            slideAnimation(0, 60, decadesCont, 'y', '%', 1);
+            slideAnimation(0, 60, decadesCont);
             setTimeout(function() {
-                slideAnimation(0, 60, unitsCont, 'y', '%', 1);
+                slideAnimation(0, 60, unitsCont);
             }, 500);
 
             setTimeout(function() {
-                slideAnimation(100, 0, maskInvert, 'y', '%', -1, function () {
+                slideAnimation(100, 0, maskInvert, function () {
                     $('#background-image').attr('xlink:href',imageSrc).css('opacity',1);
                     decadesCont.attr('y','0%');
                     unitsCont.attr('y','0%');

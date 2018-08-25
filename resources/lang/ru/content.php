@@ -49,7 +49,7 @@ return [
     'link_to_the_manufacturer' => 'Ссылка на сайт производителя',
     'view_catalog' => 'Посмотреть каталог',
     'view_booklet' => 'Посмотреть буклет',
-    'order_the_commercial_offer' => 'Заказать коммерческое предложение',
+    'order_the_commercial_offer' => 'Коммерческое предложение',
     'download' => 'Скачать',
     'play' => 'Смотреть',
     'answer' => 'Ответ',
