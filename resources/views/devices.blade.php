@@ -40,7 +40,11 @@
                             <p class="blue">{{ trans('content.the_device_is_certified') }}</p>
                             <p><a href="http://www.fenixgroup.it/system/" target="_blank">{{ trans('content.link_to_the_manufacturer') }}</a></p>
                             <p><a href="{{ asset('pdfs/katalog_eva_423x297_web.pdf') }}" target="_blank">{{ trans('content.view_catalog') }}</a></p>
-                            <p><a href="{{ asset('pdfs/eva_buklet_445x150mm_web.pdf') }}" target="_blank">{{ trans('content.view_booklet') }}</a></p>
+
+                            @if ((isset($data['device']) && $data['device']->booklet) || $data['chapter']->devices[0]->booklet)
+                                <p><a href="{{ asset(isset($data['device']) ? $data['device']->booklet : $data['chapter']->devices[0]->booklet) }}" target="_blank">{{ trans('content.view_booklet') }}</a></p>
+                            @endif
+
                             <div class="made-in-italy"><img src="{{ asset('images/italy_flag.gif') }}"/>100% Made in Italy</div>
                             @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer visible-sm hidden-xs'])
                         </div>

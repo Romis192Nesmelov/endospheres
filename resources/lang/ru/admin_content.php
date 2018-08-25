@@ -79,4 +79,5 @@ return [
     'question' => 'Вопрос',
     'answer' => 'Ответ',
     'review' => 'Отзыв',
+    'booklet' => 'Буклет',
 ];

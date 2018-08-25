@@ -12,19 +12,19 @@ class CreateSlidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('slides', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('path');
-            $table->string('poster')->nullable();
-            $table->string('head_ru')->nullable();
-            $table->string('head_en')->nullable();
-            $table->text('description_ru');
-            $table->text('description_en')->nullable();
-            $table->string('background_color');
-            $table->string('mouse_color');
-            $table->boolean('is_image');
-            $table->boolean('active');
-        });
+//        Schema::create('slides', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('path');
+//            $table->string('poster')->nullable();
+//            $table->string('head_ru')->nullable();
+//            $table->string('head_en')->nullable();
+//            $table->text('description_ru');
+//            $table->text('description_en')->nullable();
+//            $table->string('background_color');
+//            $table->string('mouse_color');
+//            $table->boolean('is_image');
+//            $table->boolean('active');
+//        });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateSlidesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('slides');
+//        Schema::drop('slides');
     }
 }

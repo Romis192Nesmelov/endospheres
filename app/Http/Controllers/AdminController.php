@@ -355,20 +355,24 @@ class AdminController extends Controller
             'content_ru' => 'required|min:10|max:5000'
         ];
 
-        $imagesFields = ['home_page_image','image','slide'];
+        $filesFields = ['home_page_image','image','slide'];
         if ($request->has('id')) {
             $validateArr['id'] = 'required|integer|exists:devices';
-            foreach ($imagesFields as $field) {
-                $validateArr[$field] = 'image|min:10|max:500';
+            foreach ($filesFields as $field) {
+                $validateArr[$field] = 'image|min:10|max:1000';
+                $validateArr['booklet'] = 'pdf|min:10|max:5000';
             }
         } else {
             $countDevices = Device::count() + 1;
-            foreach ($imagesFields as $field) {
+            foreach ($filesFields as $field) {
                 $validateArr[$field] = 'required|image|min:10|max:1000';
+                $validateArr['booklet'] = 'required|pdf|min:10|max:5000';
             }
         }
+        $filesFields[] = 'booklet';
+
         $this->validate($request, $validateArr);
-        $fields = $this->processingFields($request, ['is_new','active'], $imagesFields);
+        $fields = $this->processingFields($request, ['is_new','active'], $filesFields);
         $fields['chapter_id'] = 3;
 
         if ($request->has('id')) {
@@ -378,10 +382,11 @@ class AdminController extends Controller
             $fields['slide'] = '';
             $fields['home_page_image'] = '';
             $fields['image'] = '';
+            $fields['booklet'] = '';
             $device = Device::create($fields);
         }
 
-        foreach ($imagesFields as $field) {
+        foreach ($filesFields as $field) {
             if ($request->hasFile($field)) {
                 $extension = $request->file($field)->getClientOriginalExtension();
                 if ($request->has('id')) {
@@ -398,9 +403,13 @@ class AdminController extends Controller
                         $folder = '/images/chapters_slides/';
                         $newFileName = $newFileName ? $newFileName : 'device'.$countDevices.'.'.$extension;
                         break;
+                    case 'booklet':
+                        $folder = '/pdfs/';
+                        $newFileName = $request->has('id') ? $folder.$newFileName : $folder.$request->file($field)->getClientOriginalName();
+                        break;
                     default:
                         $folder = '/images/';
-                        $newFileName = $request->has('id') ? $fileInfo['filename'].'.'.$extension : $request->file($field)->getClientOriginalName();
+                        $newFileName = $request->has('id') ? $newFileName : $request->file($field)->getClientOriginalName();
                         break;
                 }
 
@@ -708,6 +717,15 @@ class AdminController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function postDeleteDeviceBooklet(Request $request)
+    {
+        $this->validate($request, ['id' => 'required|integer|exists:devices']);
+        $device = Device::find($request->input('id'));
+        $this->unlinkFile($device, 'booklet');
+        $device->booklet = '';
+        $device->save();
+        return response()->json(['success' => true]);
+    }
 
     public function postDeleteQuestion(Request $request)
     {

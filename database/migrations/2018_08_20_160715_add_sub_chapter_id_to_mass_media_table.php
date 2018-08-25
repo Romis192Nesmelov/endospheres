@@ -12,10 +12,10 @@ class AddSubChapterIdToMassMediaTable extends Migration
      */
     public function up()
     {
-        Schema::table('mass_media', function (Blueprint $table) {
-            $table->integer('sub_chapter_id', false, true);
-            $table->foreign('sub_chapter_id')->references('id')->on('sub_chapters')->onDelete('cascade')->onUpdate('cascade');
-        });
+//        Schema::table('mass_media', function (Blueprint $table) {
+//            $table->integer('sub_chapter_id', false, true);
+//            $table->foreign('sub_chapter_id')->references('id')->on('sub_chapters')->onDelete('cascade')->onUpdate('cascade');
+//        });
     }
 
     /**
@@ -25,9 +25,9 @@ class AddSubChapterIdToMassMediaTable extends Migration
      */
     public function down()
     {
-        Schema::table('mass_media', function (Blueprint $table) {
-            $table->dropForeign('mass_media_sub_chapter_id_foreign');
-            $table->dropColumn('sub_chapter_id');
-        });
+//        Schema::table('mass_media', function (Blueprint $table) {
+//            $table->dropForeign('mass_media_sub_chapter_id_foreign');
+//            $table->dropColumn('sub_chapter_id');
+//        });
     }
 }

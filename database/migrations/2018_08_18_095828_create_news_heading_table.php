@@ -12,16 +12,16 @@ class CreateNewsHeadingTable extends Migration
      */
     public function up()
     {
-        Schema::create('news_headings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug');
-            $table->string('slide')->nullable();
-            $table->string('subscribe_ru');
-            $table->string('subscribe_en')->nullable();
-            $table->string('head_ru');
-            $table->string('head_en')->nullable();
-            $table->timestamps();
-        });
+//        Schema::create('news_headings', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('slug');
+//            $table->string('slide')->nullable();
+//            $table->string('subscribe_ru');
+//            $table->string('subscribe_en')->nullable();
+//            $table->string('head_ru');
+//            $table->string('head_en')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -31,6 +31,6 @@ class CreateNewsHeadingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('news_headings');
+//        Schema::drop('news_headings');
     }
 }

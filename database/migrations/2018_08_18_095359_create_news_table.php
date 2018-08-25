@@ -12,19 +12,19 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug');
-            $table->string('slide')->nullable();
-            $table->string('head_ru');
-            $table->string('head_en')->nullable();
-            $table->longText('description_ru');
-            $table->longText('description_en')->nullable();
-            $table->longText('content_ru');
-            $table->longText('content_en')->nullable();
-            $table->integer('time');
-            $table->boolean('active');
-        });
+//        Schema::create('news', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('slug');
+//            $table->string('slide')->nullable();
+//            $table->string('head_ru');
+//            $table->string('head_en')->nullable();
+//            $table->longText('description_ru');
+//            $table->longText('description_en')->nullable();
+//            $table->longText('content_ru');
+//            $table->longText('content_en')->nullable();
+//            $table->integer('time');
+//            $table->boolean('active');
+//        });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('news');
+//        Schema::drop('news');
     }
 }

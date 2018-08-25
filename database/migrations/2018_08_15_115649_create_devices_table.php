@@ -27,6 +27,7 @@ class CreateDevicesTable extends Migration
             $table->longText('content_ru');
             $table->longText('content_en')->nullable();
             $table->boolean('is_new');
+            $table->string('booklet');
             $table->boolean('active');
             $table->timestamps();
         });

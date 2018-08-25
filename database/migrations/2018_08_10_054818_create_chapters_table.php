@@ -12,22 +12,22 @@ class CreateChaptersTable extends Migration
      */
     public function up()
     {
-        Schema::create('chapters', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug');
-            $table->string('slide')->nullable();
-            $table->string('subscribe_ru');
-            $table->string('subscribe_en')->nullable();
-            $table->string('head_ru');
-            $table->string('head_en');
-            $table->longText('content_ru');
-            $table->longText('content_en')->nullable();
-            $table->boolean('have_a_video');
-            $table->boolean('have_a_files');
-            $table->boolean('have_a_questions');
-            $table->boolean('active');
-            $table->timestamps();
-        });
+//        Schema::create('chapters', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('slug');
+//            $table->string('slide')->nullable();
+//            $table->string('subscribe_ru');
+//            $table->string('subscribe_en')->nullable();
+//            $table->string('head_ru');
+//            $table->string('head_en');
+//            $table->longText('content_ru');
+//            $table->longText('content_en')->nullable();
+//            $table->boolean('have_a_video');
+//            $table->boolean('have_a_files');
+//            $table->boolean('have_a_questions');
+//            $table->boolean('active');
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -37,6 +37,6 @@ class CreateChaptersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('chapters');
+//        Schema::drop('chapters');
     }
 }

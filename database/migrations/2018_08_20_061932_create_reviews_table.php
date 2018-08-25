@@ -12,14 +12,14 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name_ru');
-            $table->string('name_en')->nullable();
-            $table->longText('review_ru');
-            $table->longText('review_en')->nullable();
-            $table->timestamps();
-        });
+//        Schema::create('reviews', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('name_ru');
+//            $table->string('name_en')->nullable();
+//            $table->longText('review_ru');
+//            $table->longText('review_en')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('reviews');
+//        Schema::drop('reviews');
     }
 }
