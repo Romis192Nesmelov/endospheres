@@ -3,7 +3,7 @@
 @section('content')
     <div class="row main">
         <div class="container">
-            @include('_head_block', ['head' => $data['chapter']['head_'.App::getLocale()]])
+            @include('_head_block', ['head' => trans('content.real_results')])
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 @include('layouts._secondary_menu_block',['items' => $data['chapter']->subChapters, 'prefix' => $data['chapter']->slug, 'activeId' => $data['sub_chapter']->id])
                 @include('layouts._nav_left_block', ['items' => $mainMenu])

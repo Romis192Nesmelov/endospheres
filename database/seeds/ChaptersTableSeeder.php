@@ -91,6 +91,17 @@ class ChaptersTableSeeder extends Seeder
 //                'active' => true
 //            ],
 //            [
+//                'head_ru' => 'Рекомендации',
+//                'head_en' => 'Recommendations',
+//                'subscribe_ru' => '',
+//                'content_ru' => '',
+//                'have_a_video' => false,
+//                'have_a_files' => false,
+//                'have_a_questions' => false,
+//                'have_a_sheet' => true,
+//                'active' => true
+//            ],
+//            [
 //                'head_ru' => 'Контакты',
 //                'head_en' => 'Contacts',
 //                'subscribe_ru' => '',
@@ -116,18 +127,7 @@ class ChaptersTableSeeder extends Seeder
 //                'have_a_files' => false,
 //                'have_a_questions' => false,
 //                'active' => true
-//            ],
-//            [
-//                'head_ru' => 'Рекомендации',
-//                'head_en' => 'Recommendations',
-//                'subscribe_ru' => '',
-//                'content_ru' => '',
-//                'have_a_video' => false,
-//                'have_a_files' => false,
-//                'have_a_questions' => false,
-//                'have_a_sheet' => true,
-//                'active' => true
-//            ],
+//            ]
         ];
 
         foreach ($data as $item) {
