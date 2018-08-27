@@ -455,7 +455,7 @@ class AdminController extends Controller
             'head_ru' => 'required|min:1|max:100',
             'description_ru' => 'required|min:5|max:1000',
             'content_ru' => 'required|min:10|max:5000',
-            'slide' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:200'
+            'slide' => 'mimes:jpeg|min:10|max:200'
         ];
 
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';

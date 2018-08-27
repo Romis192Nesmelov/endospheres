@@ -57,11 +57,11 @@ class Chapter extends Model implements SluggableInterface
 
     public function news()
     {
-        return $this->hasMany('App\News')->orderBy('id','time');
+        return $this->hasMany('App\News')->orderBy('time','desc');
     }
 
     public function sheets()
     {
-        return $this->hasMany('App\Sheet')->orderBy('id','time');
+        return $this->hasMany('App\Sheet')->orderBy('time','desc');
     }
 }
