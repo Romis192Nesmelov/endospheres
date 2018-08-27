@@ -143,12 +143,12 @@ function hideFooter(currentSlide, reasonNumber) {
         'margin-bottom':-300,
         'opacity':0
     }, 1000, function () {
-        if (window.slides[currentSlide].is_image) {
+        if (window.slides[currentSlide].description) {
             var reasonsFooter = $('#reasons');
             reasonsFooter.find('.slide-number.total').html(window.imagesCount);
             reasonsFooter.find('.slide-number.current').html(reasonNumber < 10 ? '0'+reasonNumber : reasonNumber);
             reasonsFooter.find('.text').html('<div>'+window.slides[currentSlide].head+'</div>'+window.slides[currentSlide].description);
-        } else $('#all-truth .text').html(window.slides[currentSlide].description);
+        }
     });
 }
 
@@ -220,7 +220,6 @@ function nextSlide() {
     window.changeSlidesMode = true;
     var digits = $('#digits'),
         tenReasonsContainer = $('#ten-reasons-container'),
-        secondFooter = $('#all-truth'),
         currentSlide = window.currentSlide;
 
     if (digits.length) {
@@ -246,9 +245,6 @@ function nextSlide() {
     $('body').css('background-color',window.slides[currentSlide].background_color);
 
     if (window.slides[currentSlide].is_image) {
-
-        if (secondFooter.length) secondFooter.remove();
-
         var decade = window.reasonsCount < 10 ? 0 : Math.ceil(window.reasonsCount / 10),
             unit = window.reasonsCount - (decade * 10),
             maskLinearSwg = $('#linear1-mask-svg'),
@@ -303,7 +299,6 @@ function nextSlide() {
             showMouse();
 
             if (!currentSlide) {
-                secondFooter.removeClass('hidden');
                 showFooter();
                 tenReasonsContainer.animate({
                     'margin-left':0

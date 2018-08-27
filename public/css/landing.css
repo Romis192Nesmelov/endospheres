@@ -150,18 +150,6 @@ text
     color: #0a68b4 !important;
 }
 
-#all-truth.text
-{
-    padding: 0 !important;
-    text-transform: uppercase;
-}
-
-#all-truth.text .slide-number.current
-{
-    padding-right: 20px !important;
-    border: 0 !important;
-}
-
 #footer
 {
     display: table;

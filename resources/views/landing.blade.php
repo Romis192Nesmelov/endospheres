@@ -111,13 +111,6 @@
     <a href="{{ url('/home') }}"><div id="button" class="hidden">{{ trans('landing.go_to_site') }}</div></a>
 
     <div id="footer">
-        <table id="all-truth" class="text hidden">
-            <tr>
-                <td class="slide-number current">!</td>
-                <td class="text"></td>
-            </tr>
-        </table>
-
         <table class="hidden" id="reasons">
             <tr>
                 <td class="slide-number current" rowspan="2">01</td>
