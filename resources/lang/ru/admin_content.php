@@ -84,4 +84,5 @@ return [
     'answer' => 'Ответ',
     'review' => 'Отзыв',
     'booklet' => 'Буклет',
+    'catalogue' => 'Каталог',
 ];

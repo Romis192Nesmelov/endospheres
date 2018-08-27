@@ -362,15 +362,18 @@ class AdminController extends Controller
             foreach ($filesFields as $field) {
                 $validateArr[$field] = 'image|min:10|max:1000';
                 $validateArr['booklet'] = 'pdf|min:10|max:5000';
+                $validateArr['catalogue'] = 'pdf|min:10|max:5000';
             }
         } else {
             $countDevices = Device::count() + 1;
             foreach ($filesFields as $field) {
                 $validateArr[$field] = 'required|image|min:10|max:1000';
                 $validateArr['booklet'] = 'required|pdf|min:10|max:5000';
+                $validateArr['catalogue'] = 'required|pdf|min:10|max:5000';
             }
         }
         $filesFields[] = 'booklet';
+        $filesFields[] = 'catalogue';
 
         $this->validate($request, $validateArr);
         $fields = $this->processingFields($request, ['is_new','active'], $filesFields);
@@ -384,6 +387,7 @@ class AdminController extends Controller
             $fields['home_page_image'] = '';
             $fields['image'] = '';
             $fields['booklet'] = '';
+            $fields['catalogue'] = '';
             $device = Device::create($fields);
         }
 
@@ -405,6 +409,10 @@ class AdminController extends Controller
                         $newFileName = $newFileName ? $newFileName : 'device'.$countDevices.'.'.$extension;
                         break;
                     case 'booklet':
+                        $folder = '/pdfs/';
+                        $newFileName = $request->has('id') ? $folder.$newFileName : $folder.$request->file($field)->getClientOriginalName();
+                        break;
+                    case 'catalogue':
                         $folder = '/pdfs/';
                         $newFileName = $request->has('id') ? $folder.$newFileName : $folder.$request->file($field)->getClientOriginalName();
                         break;
@@ -585,7 +593,7 @@ class AdminController extends Controller
     {
         $validateArr = [
             'head_ru' => 'required|min:1|max:100',
-            'description_ru' => 'required|min:2|max:3000',
+            'description_ru' => 'required|min:2|max:10000',
             'path' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:500'
         ];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:photo_results';
@@ -778,7 +786,7 @@ class AdminController extends Controller
 
     private function saveSheet(Request $request, Model $model, $redirect)
     {
-        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:3000'];
+        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:10000'];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:truths';
         $this->validate($request, $validateArr);
         $fields = $this->processingFields($request, 'active', null, null, 'time');

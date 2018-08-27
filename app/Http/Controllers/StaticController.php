@@ -61,7 +61,7 @@ class StaticController extends Controller
                 }
 
                 if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
-                else $this->data['news'] = News::where('news_heading_id',$this->data['heading_id'])->where('active',1)->orderBy('id','desc')->paginate(10);
+                else $this->data['news'] = News::where('news_heading_id',$this->data['heading_id'])->where('active',1)->orderBy('time','desc')->paginate(10);
             }
 
             if (count($this->data['chapter']->subChapters)) {

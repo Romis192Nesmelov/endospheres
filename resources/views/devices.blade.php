@@ -39,9 +39,12 @@
                             <p class="blue">{{ trans('content.the_technology_is_patented') }}</p>
                             <p class="blue">{{ trans('content.the_device_is_certified') }}</p>
                             <p><a href="http://www.fenixgroup.it/system/" target="_blank">{{ trans('content.link_to_the_manufacturer') }}</a></p>
-                            <p><a href="{{ asset('pdfs/katalog_eva_423x297_web.pdf') }}" target="_blank">{{ trans('content.view_catalog') }}</a></p>
 
-                            @if ((isset($data['device']) && $data['device']->booklet) || $data['chapter']->devices[0]->booklet)
+                            @if ((isset($data['device']) && $data['device']->catalogue) || (!isset($data['device']) && $data['chapter']->devices[0]->catalogue))
+                                <p><a href="{{ asset(isset($data['device']) ? $data['device']->catalogue : $data['chapter']->devices[0]->catalogue) }}" target="_blank">{{ trans('content.view_catalog') }}</a></p>
+                            @endif
+
+                            @if ((isset($data['device']) && $data['device']->booklet) || (!isset($data['device']) && $data['chapter']->devices[0]->booklet))
                                 <p><a href="{{ asset(isset($data['device']) ? $data['device']->booklet : $data['chapter']->devices[0]->booklet) }}" target="_blank">{{ trans('content.view_booklet') }}</a></p>
                             @endif
 

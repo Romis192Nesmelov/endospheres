@@ -69,22 +69,8 @@
                                     'simple' => false
                                 ])
 
-                                @if ($data['device']->booklet)
-                                    <table class="table table-striped table-items">
-                                        <tr>
-                                            <th class="image text-center">{{ trans('admin_content.booklet') }}</th>
-                                            <th class="delete">{{ trans('admin_content.del') }}</th>
-                                        </tr>
-                                        <tr role="row">
-                                            <td colspan="2" class="text-center">@include('admin._input_file_block', ['label' => trans('admin_content.file_simple'), 'name' => 'booklet'])</td>
-                                        </tr>
-                                        <tr role="row" id="{{ 'device_'.$data['device']->id }}">
-                                            <td class="text-left"><a href="{{ $data['device']->booklet }}" target="_blank"><i class="icon-file-pdf"></i> {{ pathinfo($data['device']->booklet)['basename'] }}</a></td>
-                                            <td class="delete"><span del-data="{{ $data['device']->id }}" modal-data="delete-file-modal" class="glyphicon glyphicon-remove-circle"></span></td>
-                                        </tr>
-                                    </table>
-                                    @include('admin._add_button_block',['href' => 'question/add', 'text' => trans('admin_content.add_question')])
-                                @endif
+                                @include('admin._catalogue_file_table_block', ['fileName' => 'booklet'])
+                                @include('admin._catalogue_file_table_block', ['fileName' => 'catalogue'])
                             </div>
                         </div>
                     </div>

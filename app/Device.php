@@ -25,6 +25,7 @@ class Device extends Model implements SluggableInterface
         'is_new',
         'active',
         'booklet',
+        'catalogue',
         'chapter_id'
     ];
 
