@@ -7,6 +7,6 @@ return [
     'move_mouse_wheel_to_continue' => 'Для продолжения<br>прокрутите колесо мыши',
     'move_mouse_scroll_to_continue' => 'Для продолжения<br>проведите пальцем по экрану',
     'reasons' => 'Причин',
-    'get_acquainted_with_the_methodology' => 'познакомиться<br>с методикой<br>Эндосфера',
+    'get_acquainted_with_the_methodology' => 'познакомиться<br>с методикой<br>Эндосфера®',
     'go_to_site' => 'Перейти на сайт',
 ];
