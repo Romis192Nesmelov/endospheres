@@ -78,6 +78,18 @@ $(window).ready(function ($) {
         $('ul.truth-menu li').removeClass('active');
         $(this).parents('li').addClass('active');
     });
+
+
+    // On-top button controls
+    $(window).scroll(function() {
+        var button = $('#on_top_button');
+        if ($(this).scrollTop() > $(this).outerHeight()) button.fadeIn();
+        else button.fadeOut();
+    });
+
+    $('#on_top_button').click(function() {
+        $(window).scrollTop(0);
+    });
     
 });
 
