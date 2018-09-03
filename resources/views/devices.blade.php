@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+    {{ csrf_field() }}
     @include('layouts._feedback_modal_block')
     <div class="row main">
         <div class="container">

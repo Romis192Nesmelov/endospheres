@@ -90,7 +90,6 @@ $(window).ready(function ($) {
     $('#on_top_button').click(function() {
         $(window).scrollTop(0);
     });
-    
 });
 
 function addHrefImageShade(obj, logo) {
