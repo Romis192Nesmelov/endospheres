@@ -68,7 +68,7 @@ class StaticController extends Controller
                 $this->data['sub_chapter'] = $subSlug ? SubChapter::findBySlug($subSlug) : $this->data['chapter']->subChapters[0];
 
                 if (count($this->data['sub_chapter']->massMedia)) {
-                    $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year');
+                    $this->data['years'] = MassMedia::distinct()->orderBy('year','desc')->pluck('year');
                     $this->data['mass_media'] = [];
                     if (count($this->data['years'])) {
                         for ($i=0;$i<count($this->data['years']);$i++) {
