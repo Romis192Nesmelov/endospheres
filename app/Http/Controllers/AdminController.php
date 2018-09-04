@@ -251,7 +251,7 @@ class AdminController extends Controller
                 $validateArr['head_ru'] = 'required|min:1|max:20';
                 $validateArr['image'] = 'image|min:100|max:1000';
             } else {
-                $validateArr['video'] = 'mimes:mp4|min:10000|max:50000';
+                $validateArr['video'] = 'mimes:mp4|min:10000|max:2000';
                 $validateArr['poster'] = 'image|min:100|max:1000';
             }
         } else {
@@ -293,7 +293,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'id' => 'required|integer|exists:chapters',
             'head_ru' => 'required|min:1|max:200',
-            'content_ru' => 'min:10|max:5000',
+            'content_ru' => 'min:10|max:2000',
             'slide' => 'image|min:10|max:200'
         ]);
         
@@ -333,7 +333,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'id' => 'required|integer|exists:sub_chapters',
             'head_ru' => 'required|min:1|max:200',
-            'content_ru' => 'min:10|max:5000',
+            'content_ru' => 'min:10|max:2000',
             'slide' => 'image|min:10|max:200'
         ]);
 
@@ -353,7 +353,7 @@ class AdminController extends Controller
             'name' => 'required|min:3|max:200',
             'head_ru' => 'required|min:1|max:20',
             'description_ru' => 'required|min:5|max:200',
-            'content_ru' => 'required|min:10|max:5000'
+            'content_ru' => 'required|min:10|max:2000'
         ];
 
         $filesFields = ['home_page_image','image','slide'];
@@ -361,15 +361,15 @@ class AdminController extends Controller
             $validateArr['id'] = 'required|integer|exists:devices';
             foreach ($filesFields as $field) {
                 $validateArr[$field] = 'image|min:10|max:1000';
-                $validateArr['booklet'] = 'pdf|min:10|max:5000';
-                $validateArr['catalogue'] = 'pdf|min:10|max:5000';
+                $validateArr['booklet'] = 'pdf|min:10|max:2000';
+                $validateArr['catalogue'] = 'pdf|min:10|max:2000';
             }
         } else {
             $countDevices = Device::count() + 1;
             foreach ($filesFields as $field) {
                 $validateArr[$field] = 'required|image|min:10|max:1000';
-                $validateArr['booklet'] = 'required|pdf|min:10|max:5000';
-                $validateArr['catalogue'] = 'required|pdf|min:10|max:5000';
+                $validateArr['booklet'] = 'required|pdf|min:10|max:2000';
+                $validateArr['catalogue'] = 'required|pdf|min:10|max:2000';
             }
         }
         $filesFields[] = 'booklet';
@@ -462,7 +462,7 @@ class AdminController extends Controller
             'news_heading_id' => 'required|integer|exists:news_headings,id',
             'head_ru' => 'required|min:1|max:100',
             'description_ru' => 'required|min:5|max:1000',
-            'content_ru' => 'required|min:10|max:5000',
+            'content_ru' => 'required|min:10|max:2000',
             'slide' => 'mimes:jpeg|min:10|max:200'
         ];
 
@@ -543,7 +543,7 @@ class AdminController extends Controller
 
     public function postUserFile(Request $request)
     {
-        $this->validate($request, ['file' => 'required|max:5000']);
+        $this->validate($request, ['file' => 'required|max:2000']);
         $request->file('file')->move(base_path('/public/user_files'),$request->file('file')->getClientOriginalName());
         $this->saveCompleteMessage();
         return redirect('/admin/user-files/');
@@ -625,7 +625,7 @@ class AdminController extends Controller
         $validateArr = [
             'description_ru' => 'required|min:2|max:100',
             'preview' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:100',
-            'full' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg,pdf|min:10|max:5000',
+            'full' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg,pdf|min:10|max:2000',
             'year' => 'required|in:'.$years
         ];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:mass_media';
