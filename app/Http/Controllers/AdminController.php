@@ -645,22 +645,18 @@ class AdminController extends Controller
         if ($request->has('id')) {
             $media = MassMedia::find($request->input('id'));
 
-            if ($request->hasFile('preview')) {
+            if ($request->file('preview')) {
                 if (file_exists(base_path('/public'.$media->preview))) unlink(base_path('/public'.$media->preview));
                 $request->file('preview')->move(base_path('/public/mm/',$preview));
                 $fields['preview'] = '/mm/'.$preview;
             }
 
-            if ($request->hasFile('full')) {
+            if ($request->file('full')) {
                 if (file_exists(base_path('/public'.$media->full))) unlink(base_path('/public'.$media->full));
                 $request->file('full')->move(base_path('/public/mm/',$full));
                 $fields['full'] = '/mm/'.$full;
                 $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
             }
-
-            var_dump($request->file('full'));
-            var_dump($request->file('preview'));
-            die;
 
             $media->update($fields);
         } else {
