@@ -101,7 +101,7 @@ class AdminController extends Controller
         if (!$this->data['sub_chapter']) abort(404,'Page not found');
         $this->breadcrumbs['chapters/'.$this->data['sub_chapter']->chapter->slug] = $this->data['sub_chapter']->chapter['head_'.App::getLocale()];
         $this->breadcrumbs['sub-chapter/'.$this->data['sub_chapter']->slug] = $this->data['sub_chapter']['head_'.App::getLocale()];
-        if (count($this->data['sub_chapter']->massMedia)) $this->data['mass_media'] = MassMedia::orderBy('id','desc')->paginate(10);
+        if (count($this->data['sub_chapter']->massMedia)) $this->data['mass_media'] = MassMedia::orderBy('year','desc')->paginate(10);
         Session::put('sub_chapter',$this->data['sub_chapter']->id);
         return $this->showView('sub-chapter');
     }
