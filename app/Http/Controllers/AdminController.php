@@ -652,15 +652,15 @@ class AdminController extends Controller
             }
 
             if ($request->hasFile('full')) {
-                var_dump($media->full);
-                var_dump($full);
-                die;
                 if (file_exists(base_path('/public'.$media->full))) unlink(base_path('/public'.$media->full));
                 $request->file('full')->move(base_path('/public/mm/',$full));
                 $fields['full'] = '/mm/'.$full;
                 $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
             }
             $media->update($fields);
+
+            var_dump(base_path('/public/mm/',$full));
+            die;
 
         } else {
             $fields['preview'] = '/mm/'.$preview;
