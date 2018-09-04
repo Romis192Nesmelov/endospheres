@@ -647,15 +647,13 @@ class AdminController extends Controller
 
             if ($request->hasFile('preview')) {
                 if (file_exists(base_path('/public'.$media->preview))) unlink(base_path('/public'.$media->preview));
-                $request->file('preview')->move(base_path('/public/mm',$preview));
+                $request->file('preview')->move(base_path('/public/mm/',$preview));
                 $fields['preview'] = '/mm/'.$preview;
             }
 
             if ($request->hasFile('full')) {
                 if (file_exists(base_path('/public'.$media->full))) unlink(base_path('/public'.$media->full));
-                var_dump($full);
-                die;
-                $request->file('full')->move(base_path('/public/mm',$full));
+                $request->file('full')->move(base_path('/public/mm/',$full));
                 $fields['full'] = '/mm/'.$full;
             }
             $media->update($fields);
