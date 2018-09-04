@@ -657,6 +657,10 @@ class AdminController extends Controller
                 $fields['full'] = '/mm/'.$full;
                 $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
             }
+
+            var_dump($fields);
+            die;
+
             $media->update($fields);
         } else {
             $fields['preview'] = '/mm/'.$preview;
