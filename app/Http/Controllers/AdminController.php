@@ -642,7 +642,7 @@ class AdminController extends Controller
             $media = MassMedia::find($request->input('id'));
             $media->update($fields);
         } else {
-            $mmCount = MassMedia::where('year',$fields['year'])->count()+1;
+            $mmCount = MassMedia::where('year',$request->input('year'))->count()+1;
             $fields['preview'] = '/mm/mm_prev_'.$fields['year'].'_'.$mmCount.'.jpg';
             $fields['full'] = '/mm/mm_'.$fields['year'].'_'.$mmCount.'.'.$request->file('full')->getClientOriginalExtension();
             $media = MassMedia::create($fields);
