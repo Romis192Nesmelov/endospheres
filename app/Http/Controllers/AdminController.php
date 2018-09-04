@@ -653,6 +653,8 @@ class AdminController extends Controller
 
             if ($request->hasFile('full')) {
                 if (file_exists(base_path('/public'.$media->full))) unlink(base_path('/public'.$media->full));
+                var_dump($full);
+                die;
                 $request->file('full')->move(base_path('/public/mm',$full));
                 $fields['full'] = '/mm/'.$full;
             }
