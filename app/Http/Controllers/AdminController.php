@@ -659,7 +659,7 @@ class AdminController extends Controller
             }
             $media->update($fields);
 
-            var_dump(base_path('/public/mm/',$full));
+            var_dump(base_path('/public/mm/'.$full));
             die;
 
         } else {
