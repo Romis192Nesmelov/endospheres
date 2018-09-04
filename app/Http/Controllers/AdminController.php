@@ -658,7 +658,7 @@ class AdminController extends Controller
                 $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
             }
 
-            var_dump($fields);
+            var_dump($request->hasFile('full'));
             die;
 
             $media->update($fields);
