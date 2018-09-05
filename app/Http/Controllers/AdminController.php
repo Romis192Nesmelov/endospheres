@@ -101,7 +101,7 @@ class AdminController extends Controller
         if (!$this->data['sub_chapter']) abort(404,'Page not found');
         $this->breadcrumbs['chapters/'.$this->data['sub_chapter']->chapter->slug] = $this->data['sub_chapter']->chapter['head_'.App::getLocale()];
         $this->breadcrumbs['sub-chapter/'.$this->data['sub_chapter']->slug] = $this->data['sub_chapter']['head_'.App::getLocale()];
-        if (count($this->data['sub_chapter']->massMedia)) $this->data['mass_media'] = MassMedia::orderBy('year','desc')->paginate(10);
+        if (count($this->data['sub_chapter']->massMedia)) $this->data['mass_media'] = MassMedia::orderBy('year','desc')->orderBy('id','desc')->paginate(10);
         Session::put('sub_chapter',$this->data['sub_chapter']->id);
         return $this->showView('sub-chapter');
     }
@@ -642,29 +642,29 @@ class AdminController extends Controller
             $media = MassMedia::find($request->input('id'));
 
             if ($media->year != $request->input('year') && !$request->file('preview')) {
-                $fields['preview'] = str_replace($media->year, $request->input('year'), $media->preview);
+                $fields['preview'] = $this->checkingFileExist('/mm/mm_prev_'.$request->input('year').'_', 'jpg');
                 rename(base_path('/public'.$media->preview), base_path('/public'.$fields['preview']));
             } elseif ($request->file('preview')) {
                 if (file_exists(base_path('/public'.$media->preview))) unlink(base_path('/public'.$media->preview));
-                $fields['preview'] = $media->year != $request->input('year') ? str_replace($media->year, $request->input('year'), $media->preview) : $media->preview;
+                $fields['preview'] = $media->year != $request->input('year') ? $this->checkingFileExist('/mm/mm_prev_'.$request->input('year').'_', 'jpg') : $media->preview;
             }
 
             if ($media->year != $request->input('year') && !$request->file('full')) {
-                $fields['full'] = str_replace($media->year, $request->input('year'), $media->full);
+                $info = pathinfo($media->full);
+                $fields['full'] = $this->checkingFileExist('/mm/mm_'.$request->input('year').'_', $info['extension']);
                 rename(base_path('/public'.$media->full), base_path('/public'.$fields['full']));
             } elseif ($request->file('full')) {
                 if (file_exists(base_path('/public'.$media->full))) unlink(base_path('/public'.$media->full));
                 $fileName = str_replace(['.pdf','.jpg'], '', $media->full).'.'.$request->file('full')->getClientOriginalExtension();
                 $fields['full'] = $media->year != $request->input('year') ? str_replace($media->year, $request->input('year'), $fileName) : $fileName;
-                $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
+                $fields['full'] = $this->checkingFileExist('/mm/mm_'.$request->input('year').'_', $request->file('full')->getClientOriginalExtension());
             }
 
             $media->update($fields);
 
         } else {
-            $mmCount = MassMedia::where('year',$request->input('year'))->count()+1;
-            $fields['preview'] = '/mm/mm_prev_'.$fields['year'].'_'.$mmCount.'.jpg';;
-            $fields['full'] = '/mm/mm_'.$fields['year'].'_'.$mmCount.'.'.$request->file('full')->getClientOriginalExtension();
+            $fields['preview'] = $this->checkingFileExist('/mm/mm_prev_'.$fields['year'].'_', 'jpg');
+            $fields['full'] = $this->checkingFileExist('/mm/mm_'.$fields['year'].'_', $request->file('full')->getClientOriginalExtension());
             $media = MassMedia::create($fields);
         }
 
@@ -972,7 +972,16 @@ class AdminController extends Controller
     private function getYears()
     {
 //        $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year')->toArray();
-        $this->data['years'] = [2018,2017,2016,2015,2014];
+        $this->data['years'] = [2022,2021,2020,2019,2018,2017,2016,2015,2014];
+    }
+
+    private function checkingFileExist($baseName, $extension)
+    {
+        $counter = 1;
+        while (file_exists(base_path('/public'.$baseName.$counter.'.'.$extension))) {
+            $counter++;
+        }
+        return $baseName.$counter.'.'.$extension;
     }
 
     private function saveCompleteMessage()
