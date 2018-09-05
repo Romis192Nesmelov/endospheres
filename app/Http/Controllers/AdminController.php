@@ -638,35 +638,38 @@ class AdminController extends Controller
             $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
         }
 
-        $mmCount = MassMedia::where('year',$request->input('year'))->count()+1;
-        $preview = 'mm_prev_'.$fields['year'].'_'.$mmCount.'.jpg';
-        if ($request->file('full')) $full = 'mm_'.$fields['year'].'_'.$mmCount.'.'.$request->file('full')->getClientOriginalExtension();
-
         if ($request->has('id')) {
             $media = MassMedia::find($request->input('id'));
 
-            if ($request->file('preview')) {
+            if ($media->year != $request->input('year') && !$request->file('preview')) {
+                $fields['preview'] = str_replace($media->year, $request->input('year'), $media->preview);
+                rename(base_path('/public'.$media->preview), base_path('/public'.$fields['preview']));
+            } elseif ($request->file('preview')) {
                 if (file_exists(base_path('/public'.$media->preview))) unlink(base_path('/public'.$media->preview));
-                $request->file('preview')->move(base_path('/public/mm/',$preview));
-                $fields['preview'] = '/mm/'.$preview;
+                $fields['preview'] = $media->year != $request->input('year') ? str_replace($media->year, $request->input('year'), $media->preview) : $media->preview;
             }
 
-            if ($request->file('full')) {
+            if ($media->year != $request->input('year') && !$request->file('full')) {
+                $fields['full'] = str_replace($media->year, $request->input('year'), $media->full);
+                rename(base_path('/public'.$media->full), base_path('/public'.$fields['full']));
+            } elseif ($request->file('full')) {
                 if (file_exists(base_path('/public'.$media->full))) unlink(base_path('/public'.$media->full));
-                $request->file('full')->move(base_path('/public/mm/',$full));
-                $fields['full'] = '/mm/'.$full;
+                $fileName = str_replace(['.pdf','.jpg'], '', $media->full).'.'.$request->file('full')->getClientOriginalExtension();
+                $fields['full'] = $media->year != $request->input('year') ? str_replace($media->year, $request->input('year'), $fileName) : $fileName;
                 $fields['is_pdf'] = $request->file('full')->getClientOriginalExtension() == 'pdf';
             }
 
             $media->update($fields);
-        } else {
-            $fields['preview'] = '/mm/'.$preview;
-            $fields['full'] = '/mm/'.$full;
-            $media = MassMedia::create($fields);
 
-            foreach ($filesFields as $field) {
-                $this->processingFile($request, $media, $field);
-            }
+        } else {
+            $mmCount = MassMedia::where('year',$request->input('year'))->count()+1;
+            $fields['preview'] = '/mm/mm_prev_'.$fields['year'].'_'.$mmCount.'.jpg';;
+            $fields['full'] = '/mm/mm_'.$fields['year'].'_'.$mmCount.'.'.$request->file('full')->getClientOriginalExtension();
+            $media = MassMedia::create($fields);
+        }
+
+        foreach ($filesFields as $field) {
+            $this->processingFile($request, $media, $field);
         }
 
         $this->saveCompleteMessage();
