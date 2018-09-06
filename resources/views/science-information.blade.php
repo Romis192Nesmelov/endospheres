@@ -17,10 +17,10 @@
                     <ul class="hrefs">
                         @foreach($data['hrefs'] as $href)
                             <li>
-                                <a href="{{ $href['link'] }}" data-video="{{ $href['is_video'] }}" target="_blank">
+                                <a href="{{ $href['link'] }}" {{ $href['type'] == 'video' ? 'data-video=1' : ($href['type'] == 'image' ? 'data-popup=lightbox' : 'target=_blank') }}>
                                     <div class="href">{{ $href['head'] }}</div>
                                     <div class="label hidden-xs">
-                                        <div>{!! $href['is_video'] ? trans('content.play').'<div class="icon-utube"></div>' : trans('content.download').'<div class="icon-pdf"></div>' !!}</div>
+                                        <div>{!! $href['type'] == 'video' ? trans('content.play').'<div class="icon-utube"></div>' : ($href['type'] == 'image' ? trans('content.see').'<div class="icon-jpg"></div>' : trans('content.download').'<div class="icon-pdf"></div>') !!}</div>
                                     </div>
                                 </a>
                             </li>

@@ -54,6 +54,7 @@ return [
     'order_the_commercial_offer' => 'Коммерческое предложение',
     'download' => 'Скачать',
     'play' => 'Смотреть',
+    'see' => 'Посмотреть',
     'answer' => 'Ответ',
     'review' => 'Отзыв',
     'published' => 'Опубликовано :date',

@@ -36,11 +36,11 @@ class StaticController extends Controller
             } elseif ($this->data['chapter']->id == 2) {
                 $hrefs = [];
                 foreach ($this->data['chapter']->files as $file) {
-                    $hrefs[] = ['head' => $file['head_'.App::getLocale()], 'link' => $file->path, 'is_video' => false, 'time' => $file->created_at->timestamp];
+                    $hrefs[] = ['head' => $file['head_'.App::getLocale()], 'link' => $file->path, 'type' => $file->type, 'time' => $file->created_at->timestamp];
                 }
 
                 foreach ($this->data['chapter']->videos as $video) {
-                    $hrefs[] = ['head' => $video['head_'.App::getLocale()], 'link' => $video->url, 'is_video' => true, 'time' => $file->created_at->timestamp];
+                    $hrefs[] = ['head' => $video['head_'.App::getLocale()], 'link' => $video->url, 'type' => 'video', 'time' => $file->created_at->timestamp];
                 }
                 $collection = collect($hrefs);
                 $this->data['hrefs'] = count($collection) ? $collection->sortByDesc('time') : [];

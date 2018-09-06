@@ -359,6 +359,16 @@ ul.hrefs li .label > div .icon-pdf {
     background: url("../images/pdf_icon_gray.png") no-repeat;
 }
 
+ul.hrefs li .label > div .icon-jpg {
+    width: 32px;
+    height: 33px;
+    float: right;
+    margin-right: 7px;
+    margin-top: -12px;
+    position: relative;
+    background: url("../images/jpg_icon_gray.png") no-repeat;
+}
+
 ul.hrefs li .label > div .icon-utube {
     width: 53px;
     height: 21px;
@@ -399,6 +409,11 @@ ul.hrefs li.blue.active .label > div{
 ul.hrefs li:hover .label > div .icon-pdf,
 ul.hrefs li.active .label > div .icon-pdf {
     background: url("../images/pdf_icon_color.png") no-repeat;
+}
+
+ul.hrefs li:hover .label > div .icon-jpg,
+ul.hrefs li.active .label > div .icon-jpg {
+    background: url("../images/jpg_icon_color.png") no-repeat;
 }
 
 ul.hrefs li:hover .label > div .icon-utube,
