@@ -224,7 +224,7 @@ class AdminController extends Controller
         }
         return $this->showView('resource');
     }
-    
+
     public function getAllTruth(Request $request, $slug=null)
     {
         $this->breadcrumbs = ['all-truth' => trans('admin_menu.all-truth')];
@@ -815,11 +815,12 @@ class AdminController extends Controller
             $truth = $model->find($request->input('id'));
             $truth->update($fields);
         } else {
-            $chapter = Chapter::findBySlug(Session::get('chapter'));
-            $fields['chapter_id'] = $chapter->id;
+            if (Session::has('chapter')) {
+                $chapter = Chapter::findBySlug(Session::get('chapter'));
+                $fields['chapter_id'] = $chapter->id;
+            }
             $model->create($fields);
         }
-
         $this->saveCompleteMessage();
         return redirect('/admin/'.$redirect);
     }
