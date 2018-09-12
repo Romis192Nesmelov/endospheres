@@ -462,7 +462,7 @@ class AdminController extends Controller
             'news_heading_id' => 'required|integer|exists:news_headings,id',
             'head_ru' => 'required|min:1|max:100',
             'description_ru' => 'required|min:5|max:1000',
-            'content_ru' => 'required|min:10|max:2000',
+            'content_ru' => 'required|min:10|max:20000',
             'slide' => 'mimes:jpeg|min:10|max:200'
         ];
 
