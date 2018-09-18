@@ -16,12 +16,16 @@ jQuery(document).ready(function ($) {
         });
         fields['message'] = textarea.val();
         fields['_token'] = $('input[name=_token]').val();
+
+        addLoaderScree();
+
         $.post('/feedback', fields)
             .done(function( data ) {
                 clearErrors(container);
                 container.find('input').val('');
                 textarea.val('');
                 $('#feedback_modal').modal('hide');
+                removeLoaderScreen();
                 $('#message').modal('show');
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
@@ -32,6 +36,7 @@ jQuery(document).ready(function ($) {
                     var parent = errObj.parents('.form-group');
                     parent.addClass('has-error');
                     parent.find('.help-block').html(value);
+                    removeLoaderScreen();
                 });
             });
     });
@@ -40,4 +45,17 @@ jQuery(document).ready(function ($) {
 function clearErrors(container) {
     container.find('.form-group').removeClass('has-error');
     container.find('span.help-block').html('');
+}
+
+function addLoaderScree() {
+    $('body').css('overflow','hidden').append(
+        $('<div></div>').attr('id','loader-screen').append(
+            $('<img>').attr('src','../images/loader.gif')
+        )
+    );
+}
+
+function removeLoaderScreen() {
+    $('body').css('overflow','auto');
+    $('#loader-screen').remove();
 }
