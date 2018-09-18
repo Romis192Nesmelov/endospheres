@@ -24,7 +24,7 @@ class SubChapter extends Model implements SluggableInterface
 
     public function reviews()
     {
-        return $this->hasMany('App\Review','sub_chapter_id');
+        return $this->hasMany('App\Review','sub_chapter_id')->orderBy('id','desc');
     }
 
     public function results()
