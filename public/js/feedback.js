@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
         fields['message'] = textarea.val();
         fields['_token'] = $('input[name=_token]').val();
 
-        addLoaderScree();
+        addLoaderScreen();
 
         $.post('/feedback', fields)
             .done(function( data ) {
@@ -47,7 +47,7 @@ function clearErrors(container) {
     container.find('span.help-block').html('');
 }
 
-function addLoaderScree() {
+function addLoaderScreen() {
     $('body').css('overflow','hidden').append(
         $('<div></div>').attr('id','loader-screen').append(
             $('<img>').attr('src','../images/loader.gif')
