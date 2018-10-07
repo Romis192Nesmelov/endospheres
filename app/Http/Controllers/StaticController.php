@@ -13,6 +13,7 @@ use App\Device;
 use App\NewsHeading;
 use App\News;
 use App\MassMedia;
+use App\Article;
 use App\Truth;
 use Session;
 use Config;
@@ -91,6 +92,13 @@ class StaticController extends Controller
         return $this->showView('all-truth');
     }
 
+    public function articles($slug)
+    {
+        $this->data['article'] = Article::findBySlug($slug);
+        if (!$this->data['article']) abort(404,'Page not found');
+        return $this->showView('article');
+    }
+
     public function feedback(Request $request)
     {
         $this->validate($request, [
@@ -137,7 +145,8 @@ class StaticController extends Controller
 
         return view($view, [
             'mainMenu' => $mainMenu,
-            'data' => $this->data
+            'data' => $this->data,
+            'articles' => Article::where('active',1)->get()
         ]);
     }
 }

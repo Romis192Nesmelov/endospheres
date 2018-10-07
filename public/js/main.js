@@ -85,12 +85,32 @@ $(window).ready(function ($) {
         var button = $('#on_top_button');
         if ($(this).scrollTop() > $(this).outerHeight()) button.fadeIn();
         else button.fadeOut();
+
+        allFuckingTruth();
     });
 
     $('#on_top_button').click(function() {
         $(window).scrollTop(0);
     });
+
+    $(window).resize(function () {
+        allFuckingTruth();
+    });
+    allFuckingTruth();
 });
+
+function allFuckingTruth() {
+    var allTruthSimple = $('#all-truth-about'),
+        allTruthFixed = $('#all-truth-about-fixed');
+
+    if (allTruthSimple.length) {
+        if ($(document).scrollTop()+$(window).height() < allTruthSimple.offset().top+allTruthSimple.height()) {
+            allTruthFixed.show();
+        } else {
+            allTruthFixed.hide();
+        }
+    }
+}
 
 function addHrefImageShade(obj, logo) {
     var shadeContainer = obj.find('.image-frame');

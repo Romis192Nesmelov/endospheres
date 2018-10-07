@@ -11,7 +11,7 @@
             <tr role="row" id="{{ 'sheet_'.$item->id }}">
                 <td class="id">{{ $item->id }}</td>
                 <td class="text-center"><a href="/admin/{{ $suffix }}/?id={{ $item->id }}">{{ $item->head }}</a></td>
-                <td class="text-left">{!! str_limit($item->content, 500) !!}</td>
+                <td class="text-left">{!! mb_substr(strip_tags($item->content), 0, 500) !!}</td>
                 <td class="text-center">@include('admin._active_status_block', ['item' => $item])</td>
                 <td class="delete"><span del-data="{{ $item->id }}" modal-data="delete-sheet-modal" class="glyphicon glyphicon-remove-circle"></span></td>
             </tr>

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(SlidesTableSeeder::class);
 //        $this->call(ChaptersTableSeeder::class);
 //        $this->call(VideosTableSeeder::class);
-        $this->call(DevicesTableSeeder::class);
+//        $this->call(DevicesTableSeeder::class);
 //        $this->call(FilesTableSeeder::class);
 //        $this->call(QuestionsTableSeeder::class);
 //        $this->call(NewsHeadingTableSeeder::class);
@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(ResourcesTableSeeder::class);
 //        $this->call(TruthTableSeeder::class);
 //        $this->call(SheetsTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
     }
 }

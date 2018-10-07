@@ -12,10 +12,10 @@ class AddChapterIdToDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('devices', function (Blueprint $table) {
-            $table->integer('chapter_id', false, true);
-            $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade')->onUpdate('cascade');
-        });
+//        Schema::table('devices', function (Blueprint $table) {
+//            $table->integer('chapter_id', false, true);
+//            $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade')->onUpdate('cascade');
+//        });
     }
 
     /**
@@ -25,9 +25,9 @@ class AddChapterIdToDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('devices', function (Blueprint $table) {
-            $table->dropForeign('devices_chapter_id_foreign');
-            $table->dropColumn('chapter_id');
-        });
+//        Schema::table('devices', function (Blueprint $table) {
+//            $table->dropForeign('devices_chapter_id_foreign');
+//            $table->dropColumn('chapter_id');
+//        });
     }
 }

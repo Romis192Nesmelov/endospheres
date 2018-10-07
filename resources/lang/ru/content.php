@@ -33,6 +33,7 @@ return [
     'do_answer_your_question' => 'Задайте<br>свой<br>вопрос',
     'send' => 'Отправить',
     'all_truth_about' => 'Вся правда о...',
+    'recommended_articles' => 'Рекомендуемые статьи:',
     'all_truth_about_answer' => 'Ответ Росздравнадзора о медицинских изделиях, находящихся в обращении<br>с нарушением действующего законодательства.',
     'recommendations_from_the_manufacturer' => 'Рекомендации от производителя',
     'real_results' => 'Результаты на реальных пациентах',

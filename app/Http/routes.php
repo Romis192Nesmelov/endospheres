@@ -19,4 +19,5 @@ Route::get('/register', function() {
 Route::controllers(['admin' => 'AdminController']);
 Route::post('/feedback', 'StaticController@feedback');
 Route::get('/all-truth-about', 'StaticController@truth');
+Route::get('/articles/{slug}', 'StaticController@articles');
 Route::get('/{slug?}/{sub_slug?}/{sub_sub_slug?}', 'StaticController@chapter');

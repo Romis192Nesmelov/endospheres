@@ -9,5 +9,6 @@ return [
     'all-truth' => 'Вся правда о...',
     'recommendations' => 'Рекомендации',
     'user_files' => 'Файлы пользователя',
+    'articles' => 'Статьи',
     'exit' => 'Выход'
 ];

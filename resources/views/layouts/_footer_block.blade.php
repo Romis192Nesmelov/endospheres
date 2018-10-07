@@ -21,21 +21,51 @@
 @endif
 
 @if (isset($data['chapter']))
-    <div id="all-truth-about">
-        <a href="/all-truth-about">
-            <div class="container">
-                <h2>{{ trans('content.all_truth_about') }}</h2>
-            </div>
-        </a>
-    </div>
+    @include('layouts._all_truth_block', ['invisible' => true])
+    @include('layouts._all_truth_block')
 @endif
+
+<div id="articles-container">
+    @if (count($articles) && !preg_match('/^(articles)/',Request::path()) )
+        <div class="container">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h1>{{ trans('content.recommended_articles') }}</h1>
+            </div>
+            @if (count($articles) > 3)
+                <ul class="col-md-4 col-sm-4 col-xs-12">
+                    @for ($i=0;$i<ceil(count($articles)/3);$i++)
+                        @include('layouts._articles_line_block',['article' => $articles[$i]])
+                    @endfor
+                </ul>
+                <ul class="col-md-4 col-sm-4 col-xs-12">
+                    @for ($i=ceil(count($articles)/3);$i<(ceil(count($articles)/3))*2;$i++)
+                        @include('layouts._articles_line_block',['article' => $articles[$i]])
+                    @endfor
+                </ul>
+                <ul class="col-md-4 col-sm-4 col-xs-12">
+                    @for ($i=(ceil(count($articles)/3))*2;$i<count($articles);$i++)
+                        @include('layouts._articles_line_block',['article' => $articles[$i]])
+                    @endfor
+                </ul>
+            @else
+                <ul class="col-md-12 col-sm-12 col-xs-12">
+                    @foreach ($articles as $article)
+                        @include('layouts._articles_line_block',['article' => $article])
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    @endif
+</div>
 
 <div id="copyright-line">
     <div class="container">
         <div class="copyright hidden-xs">{{ trans('content.copyright') }}</div>
-        <div class="soc-icon" style="margin-left: 20px;"><a href="https://vk.com/endospherestherapyrussia"><img src="{{ asset('images/vk.png') }}" /></a></div>
-        <div class="soc-icon"><a href="https://www.youtube.com/user/FenixGroupVideo?ob=5"><img src="{{ asset('images/youtube.png') }}" /></a></div>
-        <div class="soc-icon"><a href="https://www.facebook.com/EndospheresTherapyRussia"><img src="{{ asset('images/fb.png') }}" /></a></div>
-        <div class="soc-icon"><a href="https://www.instagram.com/official_endospheres_russia/"><img src="{{ asset('images/insta.png') }}" /></a></div>
+        <div class="pull-right">
+            <div class="soc-icon"><a href="https://vk.com/endospherestherapyrussia"><img src="{{ asset('images/vk.png') }}" /></a></div>
+            <div class="soc-icon"><a href="https://www.youtube.com/user/FenixGroupVideo?ob=5"><img src="{{ asset('images/youtube.png') }}" /></a></div>
+            <div class="soc-icon"><a href="https://www.facebook.com/EndospheresTherapyRussia"><img src="{{ asset('images/fb.png') }}" /></a></div>
+            <div class="soc-icon"><a href="https://www.instagram.com/official_endospheres_russia/"><img src="{{ asset('images/insta.png') }}" /></a></div>
+        </div>
     </div>
 </div>

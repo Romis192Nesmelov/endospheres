@@ -37,6 +37,7 @@
 
 @include('layouts._modal_block',['id' => 'message', 'message' => trans('content.thanks_for_your_message')])
 @include('layouts._feedback_modal_block')
+
 @include('layouts._nav_top_block', ['items' => $mainMenu])
 
 @if (isset($data['chapter']) && $data['chapter']->id == 1)

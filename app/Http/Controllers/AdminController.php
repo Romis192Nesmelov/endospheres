@@ -21,6 +21,7 @@ use App\MassMedia;
 use App\Resource;
 use App\Truth;
 use App\Sheet;
+use App\Article;
 use Config;
 use Session;
 
@@ -230,6 +231,13 @@ class AdminController extends Controller
         $this->breadcrumbs = ['all-truth' => trans('admin_menu.all-truth')];
         $this->data['suffix'] = 'all-truth';
         return $this->sheet($request, new Truth(), $slug, 'all-truth');
+    }
+
+    public function getArticles(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = ['articles' => trans('admin_menu.articles')];
+        $this->data['suffix'] = 'articles';
+        return $this->sheet($request, new Article(), $slug, 'articles');
     }
     
     public function getRecommendation(Request $request, $slug=null)
@@ -711,6 +719,11 @@ class AdminController extends Controller
         return $this->saveSheet($request, new Truth(), 'all-truth');
     }
 
+    public function postArticles(Request $request)
+    {
+        return $this->saveSheet($request, new Article(), 'articles');
+    }
+
     public function postDeleteSlider(Request $request)
     {
         $this->slider();
@@ -783,6 +796,11 @@ class AdminController extends Controller
         return $this->deleteSomething($request, new Truth());
     }
 
+    public function postDeleteArticle(Request $request)
+    {
+        return $this->deleteSomething($request, new Article());
+    }
+
     public function postDeleteSheet(Request $request)
     {
         return $this->deleteSomething($request, new Sheet());
@@ -790,6 +808,8 @@ class AdminController extends Controller
 
     private function sheet(Request $request, Model $model, $slug, $alterView=null)
     {
+        $fields = $model->getFillable();
+        $this->data['show_time'] = isset($fields['time']);
         if ($slug) {
             $this->breadcrumbs[$this->data['suffix'].'/add'] = trans('admin_content.add_'.$this->data['suffix']);
             return $this->showView('sheet');
@@ -799,17 +819,17 @@ class AdminController extends Controller
             $this->breadcrumbs[$this->data['suffix'].'/?id='.$this->data['content']->id] = $this->data['content']->head;
             return $this->showView('sheet');
         } else {
-            $this->data['content'] = $model->orderBy('time','desc')->get();
-            return $alterView ? $this->showView($alterView) : redirect()->back();;
+            $this->data['content'] = $this->data['show_time'] ? $model->orderBy('time','desc')->get() : $model->all();
+            return $alterView ? $this->showView($alterView) : redirect()->back();
         }
     }
 
     private function saveSheet(Request $request, Model $model, $redirect)
     {
         $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:10000'];
-        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:truths';
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:'.$model->getTable();
         $this->validate($request, $validateArr);
-        $fields = $this->processingFields($request, 'active', null, null, 'time');
+        $fields = $this->processingFields($request, 'active', null, null, ($request->has('time') ? 'time': null));
 
         if ($request->has('id')) {
             $truth = $model->find($request->input('id'));
@@ -990,6 +1010,16 @@ class AdminController extends Controller
         Session::flash('message',trans('admin_content.save_complete'));
     }
 
+    private function makeSubMenu(Model $model, $desc=false)
+    {
+        $items = $desc ? $model->orderBy('time','desc')->get() : $model->all();
+        $itemsMenu = [];
+        foreach ($items as $item) {
+            $itemsMenu[] = ['id' => $item->id,'href' => '?id='.$item->id, 'name' => isset($item['head_'.App::getLocale()]) ? mb_substr($item['head_'.App::getLocale()], 0, 20) : mb_substr($item->head, 0, 20)];
+        }
+        return $itemsMenu;
+    }
+
     private function showView($view)
     {
         $slides = Slide::all();
@@ -998,26 +1028,15 @@ class AdminController extends Controller
             $landingSubmenu[] = ['href' => '?id='.$slide->id, 'name' => trans('admin_content.slide', ['number' => ($k+1)])];
         }
 
-        $chapters = Chapter::all();
-        $chaptersMenu = [];
-        foreach ($chapters as $chapter) {
-            $chaptersMenu[] = ['id' => $chapter->id,'href' => $chapter->slug, 'name' => $chapter['head_'.App::getLocale()]];
-        }
-
-        $allTruth = Truth::orderBy('time','desc')->get();
-        $truthMenu = [];
-        foreach ($allTruth as $truth) {
-            $truthMenu[] = ['id' => $truth->id,'href' => '?id='.$truth->id, 'name' => str_limit($truth->head, 20)];
-        }
-
         return view('admin.'.$view, [
             'breadcrumbs' => $this->breadcrumbs,
             'data' => $this->data,
             'menus' => [
                 ['href' => 'landing', 'name' => trans('admin_menu.landing'), 'icon' => 'icon-stack-picture', 'submenu' => $landingSubmenu],
                 ['href' => 'slider', 'name' => trans('admin_menu.slider'), 'icon' => 'icon-images3'],
-                ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $chaptersMenu],
-                ['href' => 'all-truth', 'name' => trans('admin_menu.all-truth'), 'icon' => 'icon-warning2', 'submenu' => $truthMenu],
+                ['href' => 'chapters', 'name' => trans('admin_menu.chapters'), 'icon' => ' icon-bookmark', 'submenu' => $this->makeSubMenu(new Chapter)],
+                ['href' => 'all-truth', 'name' => trans('admin_menu.all-truth'), 'icon' => 'icon-warning2', 'submenu' => $this->makeSubMenu(new Truth, true)],
+                ['href' => 'articles', 'name' => trans('admin_menu.articles'), 'icon' => 'icon-magazine', 'submenu' => $this->makeSubMenu(new Article)],
                 ['href' => 'user-files', 'name' => trans('admin_menu.user_files'), 'icon' => 'icon-files-empty']
             ]
         ]);

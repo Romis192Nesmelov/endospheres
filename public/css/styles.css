@@ -37,7 +37,7 @@ h2.head-news .label {
     border: 0;
     padding-right: 0 !important;
     padding-left: 10px;
-    padding-top: px;
+    padding-top: 10px;
     font-weight: bold;
     font-size: 14px;
     float: right;
@@ -281,7 +281,7 @@ p a {
 
 .row.main {
     padding-top: 0!important;
-    padding-bottom: 270px;
+    padding-bottom: 10px;
 }
 
 .quote {
@@ -654,7 +654,8 @@ ul.years li a.active {
 
 #footer {
     width: 100%;
-    min-height: 500px;
+    padding-bottom: 20px;
+    /*min-height: 500px;*/
     background-color: #e4f5ff;
 }
 
@@ -681,17 +682,15 @@ ul.years li a.active {
     margin-top: 10px;
 }
 
-#all-truth-about {
+#all-truth-about, #all-truth-about-fixed {
     width: 100%;
     height: 50px;
     background-color: #eeeeee;
     padding: 0 10px 10px 25px;
-    position: fixed;
-    bottom: 80px;
     z-index: 999;
 }
 
-#all-truth-about a {
+#all-truth-about a, #all-truth-about-fixed a {
     font-size: 20px;
     font-style: italic;
     letter-spacing: 0.02em;
@@ -699,17 +698,23 @@ ul.years li a.active {
     color: black !important;
 }
 
-#all-truth-about h1, #all-truth-about h2 {
+#all-truth-about h1, #all-truth-about h2, #all-truth-about-fixed h1, #all-truth-about-fixed h2 {
     font-style: normal !important;
     margin-top: 10px;
 }
 
-#all-truth-about:hover h1, #all-truth-about:hover h2 {
+#all-truth-about:hover h1, #all-truth-about:hover h2, #all-truth-about-fixed h1, #all-truth-about-fixed h2 {
     color: #74c1e8;
 }
 
-#all-truth-about:hover a {
+#all-truth-about:hover a, #all-truth-about-fixed a {
     color: grey !important;
+}
+
+#all-truth-about-fixed {
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
 }
 
 #on_top_button {
@@ -730,12 +735,40 @@ ul.years li a.active {
     color: #5aa0ce;
 }
 
+#articles-container {
+    width: 100%;
+    background-color: #747474;
+}
+
+#articles-container .container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#articles-container h1 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#articles-container ul li {
+    list-style: none outside none;
+}
+
+#articles-container ul li a {
+    color: #d9d9d9 !important;
+    display: block;
+    font-size: 15px;
+    padding: 5px 0 5px 15px;
+    background: url(../images/nav-arrow.png) no-repeat -17px -140px;
+}
+
 #copyright-line {
     width: 100%;
-    height: 80px;
-    background-color: #747474;
-    padding-top: 30px;
-    position: fixed;
+    height: 45px;
+    background-color: #303030;
+    padding-top: 10px;
+    /*position: fixed;*/
     bottom: 0;
     z-index: 999;
 }
@@ -744,16 +777,13 @@ ul.years li a.active {
     float: left;
     font-size: 15px;
     color: white;
-    margin-top: 5px;
-    margin-left: 80px;
-    margin-right: 60px;
     letter-spacing: 0.02em;
 }
 
 #copyright-line .soc-icon {
     padding: 0;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     float: left;
     margin-left: 5px;
 }
@@ -898,10 +928,6 @@ ul.years li a.active {
 }
 
 @media only screen and (max-device-width : 900px) and (orientation : landscape) {
-    .row.main {
-        padding-bottom: 10px;
-    }
-
     #all-truth-about {
         display: none;
     }

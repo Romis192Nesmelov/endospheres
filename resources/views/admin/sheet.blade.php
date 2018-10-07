@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="panel panel-flat">
-
-
         <div class="panel-heading">
             <h4 class="panel-title">{{ isset($data['content']) ? $data['content']->head : trans('admin_content.add_'.$data['suffix']) }}</h4>
         </div>
@@ -25,11 +23,13 @@
                                 'value' => isset($data['content']) ? $data['content']->head : ''
                             ])
 
-                            @include('admin._date_block', [
-                                'label' => trans('admin_content.date'),
-                                'name' => 'time',
-                                'value' => isset($data['content']) ? $data['content']->time : time()
-                            ])
+                            @if ($data['show_time'])
+                                @include('admin._date_block', [
+                                    'label' => trans('admin_content.date'),
+                                    'name' => 'time',
+                                    'value' => isset($data['content']) ? $data['content']->time : time()
+                                ])
+                            @endif
 
                             @include('admin._textarea_block', [
                                 'label' => trans('admin_content.content'),
