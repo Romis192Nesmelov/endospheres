@@ -10,7 +10,34 @@ class News extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['slide','head_ru','head_en','description_ru','description_en','content_ru','content_en','news_heading_id','chapter_id','time','active'];
+    protected $fillable = [
+        'title',
+        'meta_description',
+        'meta_keywords',
+        'meta_twitter_card',
+        'meta_twitter_size',
+        'meta_twitter_creator',
+        'meta_og_url',
+        'meta_og_type',
+        'meta_og_title',
+        'meta_og_description',
+        'meta_og_image',
+        'meta_robots',
+        'meta_googlebot',
+        'meta_google_site_verification',
+        
+        'slide',
+        'head_ru',
+        'head_en',
+        'description_ru',
+        'description_en',
+        'content_ru',
+        'content_en',
+        'news_heading_id',
+        'chapter_id',
+        'time',
+        'active'
+    ];
 
     protected $sluggable = [
         'build_from' => 'head_ru',

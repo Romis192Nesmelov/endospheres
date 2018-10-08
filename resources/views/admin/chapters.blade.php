@@ -14,7 +14,7 @@
                     <tr role="row">
                         <td class="id">{{ $chapter->id }}</td>
                         <td class="text-center"><a href="/admin/chapters/{{ $chapter->slug }}">{{ $chapter['head_'.App::getLocale()] }}</a></td>
-                        <td class="text-left">{!! str_limit($chapter['content_'.App::getLocale()], 500) !!}</td>
+                        <td class="text-left">{!! mb_substr($chapter['content_'.App::getLocale()], 0, 500) !!}</td>
                         <td class="text-center">@include('admin._active_status_block', ['item' => $chapter])</td>
                     </tr>
                 @endforeach

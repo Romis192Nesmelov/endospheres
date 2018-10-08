@@ -12,10 +12,10 @@ class AddNewsHeadingIdToNewsTable extends Migration
      */
     public function up()
     {
-//        Schema::table('news', function (Blueprint $table) {
-//            $table->integer('news_heading_id', false, true);
-//            $table->foreign('news_heading_id')->references('id')->on('news_headings')->onDelete('cascade')->onUpdate('cascade');
-//        });
+        Schema::table('news', function (Blueprint $table) {
+            $table->integer('news_heading_id', false, true);
+            $table->foreign('news_heading_id')->references('id')->on('news_headings')->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -25,9 +25,9 @@ class AddNewsHeadingIdToNewsTable extends Migration
      */
     public function down()
     {
-//        Schema::table('news', function (Blueprint $table) {
-//            $table->dropForeign('news_news_heading_id_foreign');
-//            $table->dropColumn('news_heading_id');
-//        });
+        Schema::table('news', function (Blueprint $table) {
+            $table->dropForeign('news_news_heading_id_foreign');
+            $table->dropColumn('news_heading_id');
+        });
     }
 }

@@ -10,6 +10,8 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $data['sub_chapter']->id }}">
 
+                @include('admin._meta_tags_block',['chapter' => $data['sub_chapter']])
+
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         @include('admin._image_block', ['item' => 'sub_chapter', 'folder' => 'chapters_slides', 'height' => 169, 'name' => 'slide'])
@@ -55,7 +57,7 @@
                                                     <tr role="row" id="{{ 'review_'.$review->id }}">
                                                         <td class="id">{{ $review->id }}</td>
                                                         <td class="text-left"><a href="/admin/review/?id={{ $review->id }}">{{ $review['name_'.App::getLocale()] }}</a></td>
-                                                        <td class="text-left">{{ str_limit(strip_tags($review['review_'.App::getLocale()]), 500) }}</td>
+                                                        <td class="text-left">{{ mb_substr(strip_tags($review['review_'.App::getLocale()]), 0, 500) }}</td>
                                                         <td class="delete"><span del-data="{{ $review->id }}" modal-data="delete-review-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                                     </tr>
                                                 @endforeach

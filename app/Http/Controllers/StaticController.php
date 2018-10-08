@@ -20,6 +20,8 @@ use Config;
 
 class StaticController extends Controller
 {
+    use HelperTrait;
+    
     private $data;
     
     public function chapter($slug=null, $subSlug=null, $subSubSlug=null)
@@ -145,6 +147,7 @@ class StaticController extends Controller
 
         return view($view, [
             'mainMenu' => $mainMenu,
+            'metas' => $this->metas,
             'data' => $this->data,
             'articles' => Article::where('active',1)->get()
         ]);

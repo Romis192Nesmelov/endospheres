@@ -12,23 +12,39 @@ class CreateChaptersTable extends Migration
      */
     public function up()
     {
-//        Schema::create('chapters', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->string('slug');
-//            $table->string('slide')->nullable();
-//            $table->string('subscribe_ru');
-//            $table->string('subscribe_en')->nullable();
-//            $table->string('head_ru');
-//            $table->string('head_en');
-//            $table->longText('content_ru');
-//            $table->longText('content_en')->nullable();
-//            $table->boolean('have_a_video');
-//            $table->boolean('have_a_files');
-//            $table->boolean('have_a_sheet');
-//            $table->boolean('have_a_questions');
-//            $table->boolean('active');
-//            $table->timestamps();
-//        });
+        Schema::create('chapters', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->string('title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->string('meta_twitter_card')->nullable();
+            $table->string('meta_twitter_size')->nullable();
+            $table->string('meta_twitter_creator')->nullable();
+            $table->string('meta_og_url')->nullable();
+            $table->string('meta_og_type')->nullable();
+            $table->string('meta_og_title')->nullable();
+            $table->text('meta_og_description')->nullable();
+            $table->string('meta_og_image')->nullable();
+            $table->string('meta_robots')->nullable();
+            $table->string('meta_googlebot')->nullable();
+            $table->string('meta_google_site_verification')->nullable();
+
+            $table->string('slug');
+            $table->string('slide')->nullable();
+            $table->string('subscribe_ru');
+            $table->string('subscribe_en')->nullable();
+            $table->string('head_ru');
+            $table->string('head_en');
+            $table->longText('content_ru');
+            $table->longText('content_en')->nullable();
+            $table->boolean('have_a_video');
+            $table->boolean('have_a_files');
+            $table->boolean('have_a_sheet');
+            $table->boolean('have_a_questions');
+            $table->boolean('active');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -38,6 +54,6 @@ class CreateChaptersTable extends Migration
      */
     public function down()
     {
-//        Schema::drop('chapters');
+        Schema::drop('chapters');
     }
 }

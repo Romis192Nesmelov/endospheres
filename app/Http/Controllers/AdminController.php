@@ -27,6 +27,7 @@ use Session;
 
 class AdminController extends Controller
 {
+    use HelperTrait;
 
     private $breadcrumbs = [];
     private $data = [];
@@ -74,6 +75,7 @@ class AdminController extends Controller
             Session::put('chapter',$slug);
 
             if ($this->data['chapter']->id == 3 && $subSlug) {
+                $this->data['metas'] = $this->metas;
                 if ($subSlug != 'add') {
                     $this->data['device'] = Device::findBySlug($subSlug);
                     $this->breadcrumbs[$this->data['device']->slug] = $this->data['device']->name;
@@ -84,9 +86,8 @@ class AdminController extends Controller
             } else if ($this->data['chapter']->id == 6) {
                 $this->data['news_heading'] = NewsHeading::all();
                 return $this->showView('chapter');
-            } else if ($this->data['chapter']->id == 9  && $subSlug) {
-                
             } else {
+                if ($this->data['chapter']->id != 3 && $this->data['chapter']->id != 5 && $this->data['chapter']->id != 8) $this->data['metas'] = $this->metas;
                 return $this->showView('chapter');
             }
         } else {
@@ -98,6 +99,7 @@ class AdminController extends Controller
     public function getSubChapter($slug)
     {
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters')];
+        $this->data['metas'] = $this->metas;
         $this->data['sub_chapter'] = SubChapter::findBySlug($slug);
         if (!$this->data['sub_chapter']) abort(404,'Page not found');
         $this->breadcrumbs['chapters/'.$this->data['sub_chapter']->chapter->slug] = $this->data['sub_chapter']->chapter['head_'.App::getLocale()];
@@ -111,6 +113,7 @@ class AdminController extends Controller
     {
         $chapter = Chapter::find(6);
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters'), 'chapters/news' => $chapter['head_'.App::getLocale()]];
+        $this->data['metas'] = $this->metas;
         $this->data['news_heading'] = NewsHeading::all();
         if ($request->has('id')) {
             $this->validate($request, ['id' => 'required|integer|exists:news']);
@@ -237,6 +240,7 @@ class AdminController extends Controller
     {
         $this->breadcrumbs = ['articles' => trans('admin_menu.articles')];
         $this->data['suffix'] = 'articles';
+        $this->data['metas'] = $this->metas;
         return $this->sheet($request, new Article(), $slug, 'articles');
     }
     
@@ -435,7 +439,7 @@ class AdminController extends Controller
             }
         }
         $this->saveCompleteMessage();
-        return redirect('/admin/chapters/'.$device->chapter->slug);
+        return redirect('/admin/chapters/devices/'.$device->slug);
     }
 
     public function postNewsHeading(Request $request)
@@ -1015,7 +1019,7 @@ class AdminController extends Controller
         $items = $desc ? $model->orderBy('time','desc')->get() : $model->all();
         $itemsMenu = [];
         foreach ($items as $item) {
-            $itemsMenu[] = ['id' => $item->id,'href' => '?id='.$item->id, 'name' => isset($item['head_'.App::getLocale()]) ? mb_substr($item['head_'.App::getLocale()], 0, 20) : mb_substr($item->head, 0, 20)];
+            $itemsMenu[] = ['id' => $item->id,'href' => $item->slug, 'name' => isset($item['head_'.App::getLocale()]) ? mb_substr($item['head_'.App::getLocale()], 0, 20) : mb_substr($item->head, 0, 20)];
         }
         return $itemsMenu;
     }

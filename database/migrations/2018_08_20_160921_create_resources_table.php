@@ -12,14 +12,14 @@ class CreateResourcesTable extends Migration
      */
     public function up()
     {
-//        Schema::create('resources', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->string('logo');
-//            $table->string('url');
-//            $table->longText('description_ru');
-//            $table->longText('description_en')->nullable();
-//            $table->timestamps();
-//        });
+        Schema::create('resources', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('logo');
+            $table->string('url');
+            $table->longText('description_ru');
+            $table->longText('description_en')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateResourcesTable extends Migration
      */
     public function down()
     {
-//        Schema::drop('resources');
+        Schema::drop('resources');
     }
 }

@@ -13,6 +13,8 @@
                     <input type="hidden" name="id" value="{{ $data['heading']->id }}">
                 @endif
 
+                @include('admin._meta_tags_block',['chapter' => isset($data['heading']) ? $data['heading'] : null])
+
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         @include('admin._image_block', ['item' => 'heading', 'folder' => 'chapters_slides', 'height' => 169, 'name' => 'slide'])
@@ -66,8 +68,8 @@
                                 @foreach ($data['heading']->news as $news)
                                     <tr role="row" id="{{ 'news_'.$news->id }}">
                                         <td class="text-center"><h4><a href="/admin/news/?id={{ $news->id }}">{{ $news['head_'.App::getLocale()] }}</a></h4></td>
-                                        <td class="text-left">{{ str_limit(strip_tags($news['description_'.App::getLocale()]), 200) }}</td>
-                                        <td class="text-left">{{ str_limit(strip_tags($news['content_'.App::getLocale()]), 500) }}</td>
+                                        <td class="text-left">{{ mb_substr(strip_tags($news['description_'.App::getLocale()]), 0, 200) }}</td>
+                                        <td class="text-left">{{ mb_substr(strip_tags($news['content_'.App::getLocale()]), 0, 500) }}</td>
                                         <td class="text-center">{{ date('d.m.Y', $news->time) }}</td>
                                         <td class="text-center">@include('admin._active_status_block',['item' => $news])</td>
                                         <td class="delete"><span del-data="{{ $news->id }}" modal-data="delete-modal" class="glyphicon glyphicon-remove-circle"></span></td>

@@ -12,13 +12,13 @@ class CreateSheetsTable extends Migration
      */
     public function up()
     {
-//        Schema::create('sheets', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->string('head');
-//            $table->longText('content');
-//            $table->integer('time');
-//            $table->boolean('active');
-//        });
+        Schema::create('sheets', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('head');
+            $table->longText('content');
+            $table->integer('time');
+            $table->boolean('active');
+        });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateSheetsTable extends Migration
      */
     public function down()
     {
-//        Schema::drop('sheets');
+        Schema::drop('sheets');
     }
 }

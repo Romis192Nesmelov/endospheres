@@ -12,6 +12,8 @@
                     <input type="hidden" name="id" value="{{ $data['content']->id }}">
                 @endif
 
+                @include('admin._meta_tags_block',['chapter' => isset($data['content']) ? $data['content'] : null])
+
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-body">

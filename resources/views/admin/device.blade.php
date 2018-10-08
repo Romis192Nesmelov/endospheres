@@ -13,6 +13,8 @@
                     <input type="hidden" name="id" value="{{ $data['device']->id }}">
                 @endif
 
+                @include('admin._meta_tags_block',['chapter' => isset($data['device']) ? $data['device'] : null])
+
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="panel panel-flat">
                         @include('admin._image_block', ['item' => 'device', 'folder' => '', 'height' => 210, 'name' => 'home_page_image'])

@@ -13,27 +13,29 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $data['chapter']->id }}">
 
-                @if ($data['chapter']->id != 1 && !$data['chapter']->have_a_sheet))
+                @if ($data['chapter']->slide)
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="panel panel-flat">
                             @include('admin._image_block', ['item' => 'chapter', 'folder' => 'chapters_slides', 'height' => 169, 'name' => 'slide'])
-                        </div>
-                    </div>
-                @endif
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="panel panel-flat">
-                        <div class="panel-body">
-
-                            @if (!$data['chapter']->have_a_sheet)
-
+                            <div class="panel-body">
                                 @include('admin._textarea_block', [
                                     'label' => trans('admin_content.subscribe'),
                                     'name' => 'subscribe_ru',
                                     'value' => $data['chapter']->subscribe_ru,
                                     'simple' => true
                                 ])
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
+                @include('admin._meta_tags_block',['chapter' => $data['chapter']])
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel panel-flat">
+                        <div class="panel-body">
+
+                            @if (!$data['chapter']->have_a_sheet)
                                 @include('admin._input_block', [
                                     'label' => trans('admin_content.head'),
                                     'name' => 'head_ru',
@@ -60,7 +62,7 @@
                                         @foreach ($data['news_heading'] as $heading)
                                             <tr role="row">
                                                 <td class="text-left"><h3><a href="/admin/news/{{ $heading->slug }}">{{ $heading['head_'.App::getLocale()] }}</a></h3></td>
-                                                <td class="text-left">{{ str_limit($heading['subscribe_'.App::getLocale()], 1000) }}</td>
+                                                <td class="text-left">{{ mb_substr($heading['subscribe_'.App::getLocale()], 0, 1000) }}</td>
                                             </tr>
                                         @endforeach
                                     </table>
@@ -138,7 +140,7 @@
                                             <tr role="row" id="{{ 'question_'.$questions->id }}">
                                                 <td class="id">{{ $questions->id }}</td>
                                                 <td class="text-left"><a href="/admin/question/?id={{ $questions->id }}">{{ $questions['question_'.App::getLocale()] }}</a></td>
-                                                <td class="text-left">{{ str_limit(strip_tags($questions['answer_'.App::getLocale()]), 500) }}</td>
+                                                <td class="text-left">{{ mb_substr(strip_tags($questions['answer_'.App::getLocale()]), 0, 500) }}</td>
                                                 <td class="delete"><span del-data="{{ $questions->id }}" modal-data="delete-question-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                             </tr>
                                         @endforeach
@@ -198,7 +200,7 @@
                                             <td class="id">{{ $file->id }}</td>
                                             <td class="text-center"><a href="/admin/file/?id={{ $file->id }}"><i class="{{ $file->type == 'pdf' ? 'icon-file-pdf' : 'icon-file-word' }}"></i> {{ pathinfo($file->path)['basename'] }}</a></td>
                                             <td class="text-center">{{ $file['head_'.App::getLocale()] }}</td>
-                                            <td class="text-left">{{ str_limit($file['description_'.App::getLocale()], 500) }}</td>
+                                            <td class="text-left">{{ mb_substr($file['description_'.App::getLocale()], 0, 500) }}</td>
                                             <td class="delete"><span del-data="{{ $file->id }}" modal-data="delete-file-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                         </tr>
                                     @endforeach

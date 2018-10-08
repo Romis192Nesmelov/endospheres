@@ -12,15 +12,15 @@ class CreateVideosTable extends Migration
      */
     public function up()
     {
-//        Schema::create('videos', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->string('url');
-//            $table->string('head_ru');
-//            $table->string('head_en')->nullable();
-//            $table->longText('description_ru');
-//            $table->longText('description_en')->nullable();
-//            $table->timestamps();
-//        });
+        Schema::create('videos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('url');
+            $table->string('head_ru');
+            $table->string('head_en')->nullable();
+            $table->longText('description_ru');
+            $table->longText('description_en')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateVideosTable extends Migration
      */
     public function down()
     {
-//        Schema::drop('videos');
+        Schema::drop('videos');
     }
 }

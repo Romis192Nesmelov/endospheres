@@ -13,6 +13,8 @@
                     <input type="hidden" name="id" value="{{ $data['news']->id }}">
                 @endif
 
+                @include('admin._meta_tags_block',['chapter' => isset($data['news']) ? $data['news'] : null])
+
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         @include('admin._image_block', ['item' => 'news', 'folder' => 'chapters_slides', 'height' => 169, 'name' => 'slide'])

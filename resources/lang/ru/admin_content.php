@@ -87,4 +87,5 @@ return [
     'review' => 'Отзыв',
     'booklet' => 'Буклет',
     'catalogue' => 'Каталог',
+    'meta_tags' => 'meta-теги'
 ];

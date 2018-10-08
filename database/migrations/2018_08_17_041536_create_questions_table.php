@@ -12,14 +12,14 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-//        Schema::create('questions', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->string('question_ru');
-//            $table->string('question_en')->nullable();
-//            $table->longText('answer_ru');
-//            $table->longText('answer_en')->nullable();
-//            $table->timestamps();
-//        });
+        Schema::create('questions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('question_ru');
+            $table->string('question_en')->nullable();
+            $table->longText('answer_ru');
+            $table->longText('answer_en')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-//        Schema::drop('questions');
+        Schema::drop('questions');
     }
 }
