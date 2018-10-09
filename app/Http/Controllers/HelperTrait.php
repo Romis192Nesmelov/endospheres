@@ -19,4 +19,8 @@ trait HelperTrait
         'meta_googlebot' => ['name' => 'googlebot', 'property' => false],
         'meta_google_site_verification' => ['name' => 'robots', 'property' => false],
     ];
+    
+    public function subStr($string, $length) {
+        return mb_strlen($string, 'UTF-8') > $length ? mb_substr($string, 0, $length).'…' : $string;
+    }
 }

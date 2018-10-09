@@ -1,0 +1,1 @@
+{!! mb_strlen($string, 'UTF-8') > $length ? mb_substr($string, 0, $length).'…' : $string !!}

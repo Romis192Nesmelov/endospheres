@@ -3,9 +3,9 @@
 @section('content')
     <div class="row main">
         <div class="container">
-            @include('_head_block', ['head' => $data['news_heading']])
+            @include('_head_block', ['head' => $data['heading']['head_'.App::getLocale()]])
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                @include('layouts._secondary_menu_block',['items' => $data['news_headings'], 'prefix' => 'news', 'activeId' => $data['heading_id']])
+                @include('layouts._secondary_menu_block',['items' => $data['headings'], 'prefix' => 'news', 'activeId' => $data['heading']->id])
                 @include('layouts._nav_left_block', ['items' => $mainMenu])
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">

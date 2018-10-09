@@ -57,7 +57,7 @@
                                                     <tr role="row" id="{{ 'review_'.$review->id }}">
                                                         <td class="id">{{ $review->id }}</td>
                                                         <td class="text-left"><a href="/admin/review/?id={{ $review->id }}">{{ $review['name_'.App::getLocale()] }}</a></td>
-                                                        <td class="text-left">{{ mb_substr(strip_tags($review['review_'.App::getLocale()]), 0, 500) }}</td>
+                                                        <td class="text-left">@include('admin._substr_block', ['string' => strip_tags($review['review_'.App::getLocale()]), 'length' => 500])</td>
                                                         <td class="delete"><span del-data="{{ $review->id }}" modal-data="delete-review-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                                     </tr>
                                                 @endforeach

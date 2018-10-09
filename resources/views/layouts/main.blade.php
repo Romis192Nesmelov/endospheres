@@ -6,17 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @if ($data['chapter']->id == 3)
-        @include('layouts._tags_block',['chapter' => (isset($data['device']) ? $data['device'] : $data['chapter']->devices[0])])
+        @include('layouts._tags_block',['chapter' => $data['device']])
     @elseif ($data['chapter']->id == 6)
-        @if (isset($data['current_news']))
-            @include('layouts._tags_block',['chapter' => $data['current_news']])
-        @else
-            @foreach ($data['news_headings'] as $heading)
-                @if ($heading->id == $data['heading_id'])
-                    @include('layouts._tags_block',['chapter' => $heading])
-                @endif
-            @endforeach
-        @endif
+        @include('layouts._tags_block',['chapter' => $data['heading']])
     @elseif ($data['chapter']->id == 5 || $data['chapter']->id == 8)
         @include('layouts._tags_block',['chapter' => $data['sub_chapter']])
     @else

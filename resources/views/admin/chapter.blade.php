@@ -62,7 +62,7 @@
                                         @foreach ($data['news_heading'] as $heading)
                                             <tr role="row">
                                                 <td class="text-left"><h3><a href="/admin/news/{{ $heading->slug }}">{{ $heading['head_'.App::getLocale()] }}</a></h3></td>
-                                                <td class="text-left">{{ mb_substr($heading['subscribe_'.App::getLocale()], 0, 1000) }}</td>
+                                                <td class="text-left">@include('admin._substr_block', ['string' => $heading['subscribe_'.App::getLocale()], 'length' => 1000])</td>
                                             </tr>
                                         @endforeach
                                     </table>
@@ -140,7 +140,7 @@
                                             <tr role="row" id="{{ 'question_'.$questions->id }}">
                                                 <td class="id">{{ $questions->id }}</td>
                                                 <td class="text-left"><a href="/admin/question/?id={{ $questions->id }}">{{ $questions['question_'.App::getLocale()] }}</a></td>
-                                                <td class="text-left">{{ mb_substr(strip_tags($questions['answer_'.App::getLocale()]), 0, 500) }}</td>
+                                                <td class="text-left">@include('admin._substr_block', ['string' => strip_tags($questions['answer_'.App::getLocale()]), 'length' => 500])</td>
                                                 <td class="delete"><span del-data="{{ $questions->id }}" modal-data="delete-question-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                             </tr>
                                         @endforeach
@@ -200,7 +200,7 @@
                                             <td class="id">{{ $file->id }}</td>
                                             <td class="text-center"><a href="/admin/file/?id={{ $file->id }}"><i class="{{ $file->type == 'pdf' ? 'icon-file-pdf' : 'icon-file-word' }}"></i> {{ pathinfo($file->path)['basename'] }}</a></td>
                                             <td class="text-center">{{ $file['head_'.App::getLocale()] }}</td>
-                                            <td class="text-left">{{ mb_substr($file['description_'.App::getLocale()], 0, 500) }}</td>
+                                            <td class="text-left">@include('admin._substr_block', ['string' => strip_tags($file['description_'.App::getLocale()]), 'length' => 500])</td>
                                             <td class="delete"><span del-data="{{ $file->id }}" modal-data="delete-file-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                                         </tr>
                                     @endforeach

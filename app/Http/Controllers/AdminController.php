@@ -1019,7 +1019,7 @@ class AdminController extends Controller
         $items = $desc ? $model->orderBy('time','desc')->get() : $model->all();
         $itemsMenu = [];
         foreach ($items as $item) {
-            $itemsMenu[] = ['id' => $item->id,'href' => $item->slug, 'name' => isset($item['head_'.App::getLocale()]) ? mb_substr($item['head_'.App::getLocale()], 0, 20) : mb_substr($item->head, 0, 20)];
+            $itemsMenu[] = ['id' => $item->id,'href' => $item->slug, 'name' => isset($item['head_'.App::getLocale()]) ? $this->subStr($item['head_'.App::getLocale()], 20) : $this->subStr($item->head, 20)];
         }
         return $itemsMenu;
     }

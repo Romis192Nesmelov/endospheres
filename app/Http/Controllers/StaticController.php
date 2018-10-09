@@ -47,24 +47,13 @@ class StaticController extends Controller
                 }
                 $collection = collect($hrefs);
                 $this->data['hrefs'] = count($collection) ? $collection->sortByDesc('time') : [];
-            } elseif ($this->data['chapter']->id == 3 && $subSlug) {
-                $this->data['device'] = Device::findBySlug($subSlug);
+            } elseif ($this->data['chapter']->id == 3) {
+                $this->data['device'] = $subSlug ? Device::findBySlug($subSlug) : Device::find(1);
             } elseif ($this->data['chapter']->id == 6) {
-                $this->data['news_headings'] = NewsHeading::all();
-                $this->data['heading_id'] = 1;
-                $this->data['news_heading'] = $this->data['news_headings'][0]['head_'.App::getLocale()];
-                if ($subSlug) {
-                    foreach ($this->data['news_headings'] as $heading) {
-                        if ($heading->slug == $subSlug) {
-                            $this->data['heading_id'] = $heading->id;
-                            $this->data['news_heading'] = $heading['head_'.App::getLocale()];
-                            break;
-                        }
-                    }
-                }
-
+                $this->data['headings'] = NewsHeading::all();
+                $this->data['heading'] = $subSlug ? NewsHeading::findBySlug($subSlug) : $this->data['headings'][0];
                 if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
-                else $this->data['news'] = News::where('news_heading_id',$this->data['heading_id'])->where('active',1)->orderBy('time','desc')->paginate(10);
+                else $this->data['news'] = News::where('news_heading_id',$this->data['heading']->id)->where('active',1)->orderBy('time','desc')->paginate(10);
             }
 
             if (count($this->data['chapter']->subChapters)) {

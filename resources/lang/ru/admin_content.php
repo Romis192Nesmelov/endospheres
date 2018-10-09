@@ -87,5 +87,6 @@ return [
     'review' => 'Отзыв',
     'booklet' => 'Буклет',
     'catalogue' => 'Каталог',
+    'seo_block' => 'SEO блок',
     'meta_tags' => 'meta-теги'
 ];
