@@ -32,6 +32,8 @@ class CreateNewsTable extends Migration
             
             $table->string('slug');
             $table->string('slide')->nullable();
+            $table->string('slide_title_ru')->nullable();
+            $table->string('slide_title_en')->nullable();
             $table->string('head_ru');
             $table->string('head_en')->nullable();
             $table->longText('description_ru');

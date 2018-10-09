@@ -16,6 +16,8 @@ class CreateMassMediaTable extends Migration
             $table->increments('id');
             $table->string('preview');
             $table->string('full');
+            $table->string('preview_title_ru')->nullable();
+            $table->string('preview_title_en')->nullable();
             $table->longText('description_ru');
             $table->longText('description_en')->nullable();
             $table->boolean('is_pdf');

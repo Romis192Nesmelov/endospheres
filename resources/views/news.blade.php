@@ -9,7 +9,7 @@
                 @include('layouts._nav_left_block', ['items' => $mainMenu])
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                @include('_chapter_slider_block',['slide' => isset($data['current_news']) ? $data['current_news']->slide : $data['news'][0]->heading->slide, 'showLicense' => false])
+                @include('_chapter_slider_block',['slide' => isset($data['current_news']) ? $data['current_news']->slide : $data['heading']->slide, 'title' => isset($data['current_news']) ? $data['current_news']['slide_title_'.App::getLocale()] : $data['heading']['slide_title_'.App::getLocale()], 'showLicense' => false])
                 @if (!isset($data['current_news']))
                     <div class="quote gray">
                         {{ $data['news'][0]->heading['subscribe_'.App::getLocale()] }}

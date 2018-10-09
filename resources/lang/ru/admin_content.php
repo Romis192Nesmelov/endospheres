@@ -38,6 +38,8 @@ return [
     'content' => 'Содержание',
     'description' => 'Описание',
     'subscribe' => 'Подпись под слайдом',
+    'tag_slide_title' => 'title для слайда',
+    'tag_image_title' => 'title для картинки',
     'year' => 'Год',
     'date' => 'Дата',
     'date_created' => 'Дата создания',

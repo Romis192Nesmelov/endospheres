@@ -27,6 +27,8 @@ class NewsHeading extends Model implements SluggableInterface
         'meta_google_site_verification',
         
         'slide',
+        'slide_title_ru',
+        'slide_title_en',
         'subscribe_ru',
         'subscribe_en',
         'head_ru',

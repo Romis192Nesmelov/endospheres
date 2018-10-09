@@ -8,7 +8,7 @@
                 @include('layouts._nav_left_block', ['items' => $mainMenu])
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                @include('_chapter_slider_block',['slide' => $data['chapter']->slide, 'showLicense' => false])
+                @include('_chapter_slider_block',['slide' => $data['chapter']->slide, 'title' => $data['chapter']['slide_title_'.App::getLocale()], 'showLicense' => false])
                 <div class="quote">
                     {{ $data['chapter']['subscribe_'.App::getLocale()] }}
                     <a href="{{ asset('pdfs/lipodistrofie.pdf') }}" class="pull-right" target="_blank">{{ trans('content.read_more') }}</a>

@@ -13,6 +13,8 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $data['chapter']->id }}">
 
+                @include('admin._meta_tags_block',['chapter' => $data['chapter']])
+
                 @if ($data['chapter']->slide)
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="panel panel-flat">
@@ -20,16 +22,14 @@
                             <div class="panel-body">
                                 @include('admin._textarea_block', [
                                     'label' => trans('admin_content.subscribe'),
-                                    'name' => 'subscribe_ru',
-                                    'value' => $data['chapter']->subscribe_ru,
+                                    'name' => 'subscribe_'.App::getLocale(),
+                                    'value' => $data['chapter']['subscribe_'.App::getLocale()],
                                     'simple' => true
                                 ])
                             </div>
                         </div>
                     </div>
                 @endif
-
-                @include('admin._meta_tags_block',['chapter' => $data['chapter']])
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">

@@ -32,12 +32,18 @@ class CreateDevicesTable extends Migration
 
             $table->string('slug');
             $table->string('slide');
+            $table->string('slide_title_ru')->nullable();
+            $table->string('slide_title_en')->nullable();
             $table->string('home_page_image');
+            $table->string('home_page_image_title_ru')->nullable();
+            $table->string('home_page_image_title_en')->nullable();
             $table->string('menu_logo');
             $table->string('head_ru');
             $table->string('head_en');
             $table->string('name');
             $table->string('image');
+            $table->string('image_title_ru')->nullable();
+            $table->string('image_title_en')->nullable();
             $table->text('description_ru');
             $table->text('description_en')->nullable();
             $table->longText('content_ru');

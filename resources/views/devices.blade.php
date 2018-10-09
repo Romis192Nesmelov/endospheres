@@ -20,20 +20,20 @@
                 @include('layouts._nav_left_block', ['items' => $mainMenu])
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                @include('_chapter_slider_block',['slide' => $data['device']->slide, 'showLicense' => true])
+                @include('_chapter_slider_block',['slide' => $data['device']->slide, 'title' => $data['device']['slide_title_'.App::getLocale()], 'showLicense' => true])
 
                 <div class="shadow-container">
                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
                         <div class="logo-container">
                             @if ($data['device']->is_new)
                                 <div class="new-label"></div>
-                                <img src="{{ asset('images/eva_logo.png') }}" />
+                                <img title="EVA" src="{{ asset('images/eva_logo.png') }}" />
                             @endif
                         </div>
                         <div class="device-description"><span>{{ $data['device']->name }}</span> {{ $data['device']['description_'.App::getLocale()] }}</div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 device-img text-center">
-                        <img src="{{ asset('images/devices/'.$data['device']->image) }}" />
+                        <img {!! $data['device']['image_title_'.App::getLocale()] ? 'title="'.$data['device']['image_title_'.App::getLocale()].'"' : '' !!} src="{{ asset('images/devices/'.$data['device']->image) }}" />
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 device-right-block">
                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">

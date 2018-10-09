@@ -27,6 +27,8 @@ class News extends Model implements SluggableInterface
         'meta_google_site_verification',
         
         'slide',
+        'slide_title_ru',
+        'slide_title_en',
         'head_ru',
         'head_en',
         'description_ru',
