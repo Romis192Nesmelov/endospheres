@@ -20,7 +20,7 @@
                     @if (count($data['mass_media']))
                         @foreach($data['mass_media'] as $mm)
                             <div class="mm-cover col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <a href="{{ asset($mm->full) }}" data-description="{{ $mm['description_'.App::getLocale()] }}" {{ !$mm->is_pdf ? 'data-popup=lightbox' : 'target=_blank' }}><img src="{{ asset($mm->preview) }}" /></a>
+                                <a href="{{ asset($mm->full) }}" data-description="{{ $mm['description_'.App::getLocale()] }}" {{ !$mm->is_pdf ? 'data-popup=lightbox' : 'target=_blank' }}><img {!! $mm['preview_title_'.App::getLocale()] ? 'title="'.$mm['preview_title_'.App::getLocale()].'"' : '' !!} src="{{ asset($mm->preview) }}" /></a>
                             </div>
                         @endforeach
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
