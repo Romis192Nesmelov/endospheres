@@ -5,14 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    @if ($data['chapter']->id == 3)
-        @include('layouts._tags_block',['chapter' => $data['device']])
-    @elseif ($data['chapter']->id == 6)
-        @include('layouts._tags_block',['chapter' => $data['heading']])
-    @elseif ($data['chapter']->id == 5 || $data['chapter']->id == 8)
-        @include('layouts._tags_block',['chapter' => $data['sub_chapter']])
+    @if (isset($data['chapter']))
+        @if ($data['chapter']->id == 3)
+            @include('layouts._tags_block',['chapter' => $data['device']])
+        @elseif ($data['chapter']->id == 6)
+            @include('layouts._tags_block',['chapter' => $data['heading']])
+        @elseif ($data['chapter']->id == 5 || $data['chapter']->id == 8)
+            @include('layouts._tags_block',['chapter' => $data['sub_chapter']])
+        @else
+            @include('layouts._tags_block',['chapter' => $data['chapter']])
+        @endif
     @else
-        @include('layouts._tags_block',['chapter' => $data['chapter']])
+        <title>Endospheres therapy</title>
     @endif
 
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
