@@ -16,7 +16,7 @@
             @include('layouts._tags_block',['chapter' => $data['chapter']])
         @endif
     @else
-        <title>Endospheres therapy</title>
+        <title>{{ Request::path() == 'all-truth-about' ? 'Вся правда о...' : 'Endospheres therapy' }}</title>
     @endif
 
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
