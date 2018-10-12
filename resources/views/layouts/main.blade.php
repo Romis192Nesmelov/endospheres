@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    @if (isset($data['chapter']))
+    @if (isset($data['chapter']) || isset($data['device']) || isset($data['heading']) || isset($data['sub_chapter']))
         @if ($data['chapter']->id == 3)
             @include('layouts._tags_block',['chapter' => $data['device']])
         @elseif ($data['chapter']->id == 6)
