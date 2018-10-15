@@ -105,6 +105,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Settings XML
+    |--------------------------------------------------------------------------
+    */
+
+    'settings_xml' => $_SERVER['DOCUMENT_ROOT'].env('SETTINGS_XML'),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Logging Configuration
     |--------------------------------------------------------------------------
     |
@@ -166,6 +175,7 @@ return [
 
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
 
+        App\Providers\SettingsProvider::class,
     ],
 
     /*
@@ -211,6 +221,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Settings' => Illuminate\Support\Facades\Settings::class,
 
     ],
 

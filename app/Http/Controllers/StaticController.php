@@ -26,7 +26,7 @@ class StaticController extends Controller
     
     public function chapter($slug=null, $subSlug=null, $subSubSlug=null)
     {
-        if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get()]);
+        if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get(), 'metas' => $this->metas]);
         else {
             $this->data['chapter'] = Chapter::findBySlug($slug);
             if (!$this->data['chapter']) abort(404,'Page not found');

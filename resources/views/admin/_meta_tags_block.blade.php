@@ -13,7 +13,7 @@
                         'name' => 'title',
                         'type' => 'text',
                         'placeholder' => 'Title',
-                        'value' => isset($chapter) && $chapter ? $chapter->title : ''
+                        'value' => isset($chapter) && $chapter ? $chapter['title'] : ''
                     ])
                 </div>
                 <div class="panel-heading">

@@ -24,6 +24,7 @@ use App\Sheet;
 use App\Article;
 use Config;
 use Session;
+use Settings;
 
 class AdminController extends Controller
 {
@@ -53,6 +54,7 @@ class AdminController extends Controller
             $this->breadcrumbs['landing/add'] = trans('admin_content.add_slide');
             return $this->showView('slide');
         } else {
+            $this->data['metas'] = $this->metas;
             $this->data['slides'] = Slide::all();
             return $this->showView('landing');
         }
@@ -254,9 +256,11 @@ class AdminController extends Controller
         return $this->sheet($request, new Sheet(), $slug);
     }
 
-    public function postLanding(Request $request)
+    public function postLanding(Request $request, $slug=null)
     {
         $validateArr = ['description_ru' => 'required|min:10|max:1500'];
+        $moveFiles = [];
+        
         if ($request->has('id')) {
             $slide = Slide::find($request->input('id'));
             if ($slide->is_image) {
@@ -266,17 +270,9 @@ class AdminController extends Controller
                 $validateArr['video'] = 'mimes:mp4|min:10000|max:10000';
                 $validateArr['poster'] = 'image|min:100|max:1000';
             }
-        } else {
-            $validateArr['image'] = 'required|image|min:100|max:1000';
-            $validateArr['head_ru'] = 'required|min:1|max:20';
-        }
 
-        $this->validate($request, $validateArr);
-        $fields = $this->processingFields($request, 'active', ['image','video','poster'], ['background_color','mouse_color']);
-
-        $moveFiles = [];
-        if ($request->has('id')) {
-//            $fields['active'] = !$slide->is_image ? 1 : $fields['active'];
+            $this->validate($request, $validateArr);
+            $fields = $this->processingFields($request, 'active', ['image','video','poster'], ['background_color','mouse_color']);
             $slide->update($fields);
             foreach (['image','video','poster'] as $name) {
                 if ($request->hasFile($name)) {
@@ -284,10 +280,18 @@ class AdminController extends Controller
                     $moveFiles[] = ['file' => $name, 'path' => $info['dirname'], 'name' => $info['basename']];
                 }
             }
-        } else {
+            
+        } elseif ($slug && $slug == 'add') {
+            $validateArr['image'] = 'required|image|min:100|max:1000';
+            $validateArr['head_ru'] = 'required|min:1|max:20';
+
+            $this->validate($request, $validateArr);
+            $fields = $this->processingFields($request, 'active', ['image','video','poster'], ['background_color','mouse_color']);
             $fields['is_image'] = 1;
             $slide = Slide::create($fields);
             $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
+        } else {
+            Settings::saveLandingTags($request);
         }
 
         if (count($moveFiles)) {

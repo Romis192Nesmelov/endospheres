@@ -6,7 +6,7 @@
             <h4 class="panel-title">{{ isset($data['slide']) ? trans('admin_content.slide', ['number' => $data['slide']->id]) : trans('admin_content.add_slide') }}</h4>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" enctype="multipart/form-data" action="{{ url('/admin/landing') }}" method="post">
+            <form class="form-horizontal" enctype="multipart/form-data" action="{{ url('/admin/landing/add') }}" method="post">
                 {{ csrf_field() }}
                 @if (isset($data['slide']))
                     <input type="hidden" name="id" value="{{ $data['slide']->id }}">
