@@ -331,7 +331,7 @@ class AdminController extends Controller
             'content_ru' => 'min:10|max:2000',
             'slide' => 'image|min:10|max:200'
         ];
-        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
+        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
         
         $chapter = Chapter::find($request->input('id'));
         $fields = $this->processingFields($request, 'active', ['slide','video_head_ru','video_url','video_description_ru']);
@@ -372,7 +372,7 @@ class AdminController extends Controller
             'content_ru' => 'min:10|max:2000',
             'slide' => 'image|min:10|max:200'
         ];
-        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
+        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
 
         $fields = $this->processingFields($request, null, 'slide');
         $subChapter = SubChapter::find($request->input('id'));
@@ -412,7 +412,7 @@ class AdminController extends Controller
         $filesFields[] = 'booklet';
         $filesFields[] = 'catalogue';
 
-        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
+        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
         $fields = $this->processingFields($request, ['is_new','active'], $filesFields);
         $fields['chapter_id'] = 3;
 
@@ -476,7 +476,7 @@ class AdminController extends Controller
         ];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news_headings';
 
-        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
+        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
         $headingCount = NewsHeading::count()+1;
         $fields = $this->processingFields($request, null, 'slide');
 
@@ -505,7 +505,7 @@ class AdminController extends Controller
 
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';
 
-        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
+        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
         $newsCount = News::count()+1;
 
         $fields = $this->processingFields($request, 'active', 'slide', null, 'time');
