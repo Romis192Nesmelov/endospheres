@@ -32,6 +32,22 @@ class AdminController extends Controller
 
     private $breadcrumbs = [];
     private $data = [];
+    private $tagsValidator = [
+        'title' => 'max:255',
+        'meta_description' => 'max:4000',
+        'meta_keywords' => 'max:4000',
+        'meta_twitter_card' => 'max:255',
+        'meta_twitter_size' => 'max:255',
+        'meta_twitter_creator' => 'max:255',
+        'meta_og_url' => 'max:255',
+        'meta_og_type' => 'max:255',
+        'meta_og_title' => 'max:255',
+        'meta_og_description' => 'max:4000',
+        'meta_og_image' => 'max:255',
+        'meta_robots' => 'max:255',
+        'meta_googlebot' => 'max:255',
+        'meta_google_site_verification' => 'max:255',
+    ];
 
     public function __construct()
     {
@@ -258,10 +274,9 @@ class AdminController extends Controller
 
     public function postLanding(Request $request, $slug=null)
     {
-        $validateArr = ['description_ru' => 'required|min:10|max:1500'];
-        $moveFiles = [];
-        
+        $moveFiles = [];   
         if ($request->has('id')) {
+            $validateArr = ['description_ru' => 'required|min:10|max:1500'];
             $slide = Slide::find($request->input('id'));
             if ($slide->is_image) {
                 $validateArr['head_ru'] = 'required|min:1|max:20';
@@ -282,8 +297,11 @@ class AdminController extends Controller
             }
             
         } elseif ($slug && $slug == 'add') {
-            $validateArr['image'] = 'required|image|min:100|max:1000';
-            $validateArr['head_ru'] = 'required|min:1|max:20';
+            $validateArr = [
+                'description_ru' => 'required|min:10|max:1500',
+                'image' => 'required|image|min:100|max:1000',
+                'head_ru' => 'required|min:1|max:20'
+            ];
 
             $this->validate($request, $validateArr);
             $fields = $this->processingFields($request, 'active', ['image','video','poster'], ['background_color','mouse_color']);
@@ -291,6 +309,7 @@ class AdminController extends Controller
             $slide = Slide::create($fields);
             $moveFiles[] = ['file' => 'image','path' => '/images/landing/','name' => 'slide'.$slide->id.'.'.$request->file('image')->getClientOriginalExtension()];
         } else {
+            $this->validate($request, $this->tagsValidator);
             Settings::saveLandingTags($request);
         }
 
@@ -306,12 +325,13 @@ class AdminController extends Controller
 
     public function postChapter(Request $request)
     {
-        $this->validate($request, [
+        $validateArr = [
             'id' => 'required|integer|exists:chapters',
             'head_ru' => 'required|min:1|max:200',
             'content_ru' => 'min:10|max:2000',
             'slide' => 'image|min:10|max:200'
-        ]);
+        ];
+        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
         
         $chapter = Chapter::find($request->input('id'));
         $fields = $this->processingFields($request, 'active', ['slide','video_head_ru','video_url','video_description_ru']);
@@ -346,12 +366,13 @@ class AdminController extends Controller
 
     public function postSubChapter(Request $request)
     {
-        $this->validate($request, [
+        $validateArr = [
             'id' => 'required|integer|exists:sub_chapters',
             'head_ru' => 'required|min:1|max:200',
             'content_ru' => 'min:10|max:2000',
             'slide' => 'image|min:10|max:200'
-        ]);
+        ];
+        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
 
         $fields = $this->processingFields($request, null, 'slide');
         $subChapter = SubChapter::find($request->input('id'));
@@ -391,7 +412,7 @@ class AdminController extends Controller
         $filesFields[] = 'booklet';
         $filesFields[] = 'catalogue';
 
-        $this->validate($request, $validateArr);
+        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
         $fields = $this->processingFields($request, ['is_new','active'], $filesFields);
         $fields['chapter_id'] = 3;
 
@@ -455,7 +476,7 @@ class AdminController extends Controller
         ];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news_headings';
 
-        $this->validate($request, $validateArr);
+        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
         $headingCount = NewsHeading::count()+1;
         $fields = $this->processingFields($request, null, 'slide');
 
@@ -484,7 +505,7 @@ class AdminController extends Controller
 
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';
 
-        $this->validate($request, $validateArr);
+        $this->validate($request, array_merge($validateArr. $this->tagsValidator));
         $newsCount = News::count()+1;
 
         $fields = $this->processingFields($request, 'active', 'slide', null, 'time');
