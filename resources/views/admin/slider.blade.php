@@ -11,10 +11,10 @@
                         <th class="text-center">{{ trans('admin_content.slide_simple') }}</th>
                         <th width="20" class="text-center delete">{{ trans('admin_content.del') }}</th>
                     </tr>
-                    @foreach ($data['slider'] as $k => $slide)
-                        <tr role="row" id="{{ 'slider_'.$k }}">
+                    @foreach ($data['slider'] as $slide)
+                        <tr role="row" id="{{ 'slider_'.str_replace('slide','',pathinfo($slide)['filename']) }}">
                             <td class="slide text-center"><img src="{{ asset('images/slider/'.$slide) }}" /></td>
-                            <td class="delete text-center"><span del-data="{{ $k }}" modal-data="delete-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                            <td class="delete text-center"><span del-data="{{ str_replace('slide','',pathinfo($slide)['filename']) }}" modal-data="delete-modal" class="glyphicon glyphicon-remove-circle"></span></td>
                         </tr>
                     @endforeach
                     <tr role="row">

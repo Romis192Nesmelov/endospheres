@@ -526,9 +526,10 @@ class AdminController extends Controller
     
     public function postAddSlide(Request $request)
     {
-        $this->validate($request, ['file' => 'image|min:10|max:1000']);
+        $this->validate($request, ['file' => 'mimes:jpeg|min:10|max:1000']);
         $this->slider();
-        $request->file('file')->move(base_path('/public/images/slider/'),'slide'.(count($this->data['slider'])+1).'.'.$request->file('file')->getClientOriginalExtension());
+        $number = ((int)str_replace('slide','',pathinfo($this->data['slider'][count($this->data['slider'])-1])['filename'])) + 1;
+        $request->file('file')->move(base_path('/public/images/slider/'),'slide'.$number.'.jpg');
         $this->saveCompleteMessage();
         return redirect()->back();
     }
@@ -755,10 +756,21 @@ class AdminController extends Controller
 
     public function postDeleteSlider(Request $request)
     {
-        $this->slider();
-        $path = base_path('/public/images/slider/'.$this->data['slider'][$request->input('id')]);
-        if (file_exists($path)) unlink($path);
-        return response()->json(['success' => true]);
+        $path = '';
+        $sliderFolder = '/public/images/slider/';
+        foreach (glob(base_path($sliderFolder.'*')) as $file) {
+            $currentName = 'slide'.$request->input('id').'.jpg';
+            if (pathinfo($file)['basename'] == $currentName) {
+                $path = $sliderFolder.$currentName;
+                break;
+            }
+        }
+        if ($path && file_exists(base_path($path))) {
+            unlink(base_path($path));
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
     
     public function postDeleteSlide(Request $request)
