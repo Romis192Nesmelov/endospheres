@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ResourcesTableSeeder::class);
         $this->call(TruthTableSeeder::class);
         $this->call(SheetsTableSeeder::class);
-//        $this->call(ArticlesTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
     }
 }

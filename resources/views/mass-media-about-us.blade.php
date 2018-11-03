@@ -32,7 +32,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <a href="{{ $resource->url }}" target="_blank">
                                 <div class="resource-frame">
-                                    <img src="{{ $resource->logo }}" />
+                                    <img {{ $resource['logo_title_'.App::getLocale()] ? 'title='.$resource['logo_title_'.App::getLocale()] : '' }} src="{{ $resource->logo }}" />
                                     <div>{{ $resource['description_'.App::getLocale()] }}</div>
                                 </div>
                             </a>

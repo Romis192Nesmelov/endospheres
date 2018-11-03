@@ -741,14 +741,14 @@ ul.years li a.active {
 }
 
 #articles-container .container {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 12px;
+    padding-bottom: 5px;
 }
 
 #articles-container h1 {
     color: white;
     margin-top: 0;
-    margin-bottom: 20px;
+    font-size: 22px;
 }
 
 #articles-container ul li {
@@ -758,9 +758,9 @@ ul.years li a.active {
 #articles-container ul li a {
     color: #d9d9d9 !important;
     display: block;
-    font-size: 15px;
-    padding: 5px 0 5px 15px;
-    background: url(../images/nav-arrow.png) no-repeat -17px -140px;
+    font-size: 13px;
+    padding: 2px 0 2px 15px;
+    background: url(../images/nav-arrow.png) no-repeat -20px -143px;
 }
 
 #copyright-line {
