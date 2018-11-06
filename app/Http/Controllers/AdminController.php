@@ -850,7 +850,7 @@ class AdminController extends Controller
     private function sheet(Request $request, Model $model, $slug, $alterView=null)
     {
         $fields = $model->getFillable();
-        $this->data['show_time'] = isset($fields['time']);
+        $this->data['show_time'] = in_array('time',$fields);
         if ($slug) {
             $this->breadcrumbs[$this->data['suffix'].'/add'] = trans('admin_content.add_'.$this->data['suffix']);
             return $this->showView('sheet');
