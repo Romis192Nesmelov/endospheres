@@ -643,9 +643,10 @@ class AdminController extends Controller
             $result = PhotoResult::find($request->input('id'));
             $result->update($fields);
         } else {
-            $resultCount = PhotoResult::count()+1;
-            $fields['path'] = '/images/photo_results/result'.$resultCount.'.jpg';
+            $fields['path'] = '';
             $result = PhotoResult::create($fields);
+            $path = '/images/photo_results/result'.$result->id.'.jpg';
+            $result->update(['path' => $path]);
         }
 
         $this->processingFile($request, $result, 'path');
@@ -937,7 +938,7 @@ class AdminController extends Controller
     
     private function unlinkFile($table, $file)
     {
-        $fullPath = $file == 'slide' ? base_path('/public'.$table[$file]) : base_path('/public/images/chapters_slides/'.$table[$file]);
+        $fullPath = $file != 'slide' ? base_path('/public'.$table[$file]) : base_path('/public/images/chapters_slides/'.$table[$file]);
         if (isset($table[$file]) && $table[$file] && file_exists($fullPath)) unlink($fullPath);
     }
 
