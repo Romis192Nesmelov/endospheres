@@ -126,7 +126,7 @@
 
 <div id="hrefs">
     <a class="skip" href="/home">{{ trans('landing.skip_intro') }}</a>
-    <a href="http://www.fenixgroup.it/system/" target="_blank">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
+    <a href="https://www.endospheres.com/" target="_blank">{{ trans('landing.redirect_to_italy_site') }}<img src="{{ asset('images/italy_flag.gif') }}" /></a>
     <span class="hidden glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}"></span>
 </div>
 
