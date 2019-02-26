@@ -63,7 +63,7 @@
         <div class="copyright hidden-xs">{{ trans('content.copyright') }}</div>
         <div class="pull-right">
             <div class="soc-icon"><a href="https://vk.com/endospherestherapyrussia"><img src="{{ asset('images/vk.png') }}" /></a></div>
-            <div class="soc-icon"><a href="https://www.youtube.com/channel/UCqKzf0mlFRozg0dAtchL3yg"><img src="{{ asset('images/youtube.png') }}" /></a></div>
+            <div class="soc-icon"><a href="https://www.youtube.com/c/EndospheresTherapyRussia"><img src="{{ asset('images/youtube.png') }}" /></a></div>
             <div class="soc-icon"><a href="https://www.facebook.com/EndospheresTherapyRussia"><img src="{{ asset('images/fb.png') }}" /></a></div>
             <div class="soc-icon"><a href="https://www.instagram.com/endospheresrussia_official/"><img src="{{ asset('images/insta.png') }}" /></a></div>
         </div>
