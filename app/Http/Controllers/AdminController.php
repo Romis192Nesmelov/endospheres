@@ -500,7 +500,7 @@ class AdminController extends Controller
             'head_ru' => 'required|min:1|max:100',
             'description_ru' => 'required|min:5|max:1000',
             'content_ru' => 'required|min:10|max:20000',
-            'slide' => 'mimes:jpeg|min:10|max:200'
+            'slide' => 'mimes:jpeg|min:10|max:2000'
         ];
 
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';
@@ -663,8 +663,8 @@ class AdminController extends Controller
         }
         $validateArr = [
             'description_ru' => 'required|min:2|max:100',
-            'preview' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:100',
-            'full' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg,pdf|min:10|max:10000',
+            'preview' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg|min:10|max:10000',
+            'full' => (!$request->has('id') ? 'required|' : '').'mimes:jpeg,pdf|min:10|max:100000',
             'year' => 'required|in:'.$years
         ];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:mass_media';
