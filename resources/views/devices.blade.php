@@ -38,7 +38,9 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 device-right-block">
                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                             <p class="blue">{{ trans('content.the_technology_is_patented') }}</p>
-                            <p class="blue">{{ trans('content.the_device_is_certified') }}</p>
+                            @if ($data['device']->id != 1)
+                                <p class="blue">{{ trans('content.the_device_is_certified') }}</p>
+                            @endif
                             <p><a href="http://www.fenixgroup.it/system/" target="_blank">{{ trans('content.link_to_the_manufacturer') }}</a></p>
 
                             @if ($data['device']->catalogue)
