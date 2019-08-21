@@ -528,7 +528,7 @@ class AdminController extends Controller
     {
         $this->validate($request, ['file' => 'mimes:jpeg|min:10|max:1000']);
         $this->slider();
-        $number = ((int)str_replace('slide','',pathinfo($this->data['slider'][count($this->data['slider'])-1])['filename'])) + 1;
+        $number = count($this->data['slider']) ? ((int)str_replace('slide','',pathinfo($this->data['slider'][count($this->data['slider'])-1])['filename'])) + 1 : 1;
         $request->file('file')->move(base_path('/public/images/slider/'),'slide'.$number.'.jpg');
         $this->saveCompleteMessage();
         return redirect()->back();
