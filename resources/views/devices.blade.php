@@ -20,7 +20,7 @@
                 @include('layouts._nav_left_block', ['items' => $mainMenu])
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                @include('_chapter_slider_block',['slide' => $data['device']->slide, 'title' => $data['device']['slide_title_'.App::getLocale()], 'showLicense' => true])
+                @include('_chapter_slider_block',['slide' => $data['device']->slide, 'title' => $data['device']['slide_title_'.App::getLocale()], 'showLicense' => $data['device']->id != 1])
 
                 <div class="shadow-container">
                     <div class="col-lg-4 col-md-4 col-sm-9 col-xs-12">
