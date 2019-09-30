@@ -52,12 +52,16 @@
                             @endif
 
                             <div class="made-in-italy"><img src="{{ asset('images/italy_flag.gif') }}"/>100% Made in Italy</div>
-                            @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer visible-sm hidden-xs'])
+                            @if ($data['device']->id != 1)
+                                @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer visible-sm hidden-xs'])
+                            @endif
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                             {!! $data['device']['content_'.App::getLocale()] !!}
                         </div>
-                        @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer visible-lg visible-md hidden-sm visible-xs'])
+                        @if ($data['device']->id != 1)
+                            @include('_button_block', ['type' => 'button', 'text' => trans('content.order_the_commercial_offer'), 'mainClass' => 'bg-primary-400', 'addClass' => 'order_offer visible-lg visible-md hidden-sm visible-xs'])
+                        @endif
                     </div>
                 </div>
             </div>
