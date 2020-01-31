@@ -398,15 +398,15 @@ class AdminController extends Controller
             $validateArr['id'] = 'required|integer|exists:devices';
             foreach ($filesFields as $field) {
                 $validateArr[$field] = 'image|min:10|max:1000';
-                $validateArr['booklet'] = 'pdf|min:10|max:10000';
-                $validateArr['catalogue'] = 'pdf|min:10|max:10000';
+//                $validateArr['booklet'] = 'pdf|min:10|max:10000';
+//                $validateArr['catalogue'] = 'pdf|min:10|max:10000';
             }
         } else {
             $countDevices = Device::count() + 1;
             foreach ($filesFields as $field) {
                 $validateArr[$field] = 'required|image|min:10|max:1000';
-                $validateArr['booklet'] = 'required|pdf|min:10|max:10000';
-                $validateArr['catalogue'] = 'required|pdf|min:10|max:10000';
+//                $validateArr['booklet'] = 'required|pdf|min:10|max:10000';
+//                $validateArr['catalogue'] = 'required|pdf|min:10|max:10000';
             }
         }
         $filesFields[] = 'booklet';
