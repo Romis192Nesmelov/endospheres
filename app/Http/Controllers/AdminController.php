@@ -15,6 +15,7 @@ use App\File;
 use App\Question;
 use App\NewsHeading;
 use App\News;
+use App\Magic;
 use App\Review;
 use App\PhotoResult;
 use App\MassMedia;
@@ -127,13 +128,13 @@ class AdminController extends Controller
         return $this->showView('sub-chapter');
     }
     
-    public function getNews(Request $request, $slug=null)
+    public function getNews(Request $request, $slug=null, $subSlug=null)
     {
         $chapter = Chapter::find(6);
         $this->breadcrumbs = ['chapters' => trans('admin_menu.chapters'), 'chapters/news' => $chapter['head_'.App::getLocale()]];
         $this->data['metas'] = $this->metas;
         $this->data['news_heading'] = NewsHeading::all();
-        if ($request->has('id')) {
+        if ($request->has('id') && !$slug) {
             $this->validate($request, ['id' => 'required|integer|exists:news']);
             $this->data['news'] = News::find($request->input('id'));
             $this->breadcrumbs['news/?id='.$this->data['news']->id] = $this->data['news']['head_'.App::getLocale()];
@@ -147,6 +148,20 @@ class AdminController extends Controller
         } else {
             $this->data['heading'] = NewsHeading::findBySlug($slug);
             $this->breadcrumbs['news/'.$this->data['heading']->slug] = $this->data['heading']['head_'.App::getLocale()];
+            if ($this->data['heading']->id == 4) {
+                
+                if ($request->has('id')) {
+                    $this->data['magic'] = Magic::find($request->input('id'));
+                    $this->breadcrumbs['news/'.$this->data['heading']->slug.'/?id='.$this->data['magic']->id] = $this->data['magic']['head_'.App::getLocale()];
+                    return $this->showView('magic');
+                } else if ($subSlug && $subSlug == 'add') {
+                    $this->breadcrumbs['news/'.$this->data['heading']->slug.'/add'] = trans('admin_content.add_articles');
+                    return $this->showView('magic');
+                } else {
+                    $this->data['slug'] = $this->data['heading']->slug;
+                    $this->data['magic'] = Magic::orderBy('id','desc')->get();
+                }
+            }
             return $this->showView('news_heading');
         }
     }
@@ -506,7 +521,6 @@ class AdminController extends Controller
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:news';
 
         $this->validate($request, array_merge($validateArr, $this->tagsValidator));
-        $newsCount = News::count()+1;
 
         $fields = $this->processingFields($request, 'active', 'slide', null, 'time');
         $fields['chapter_id'] = 6;
@@ -515,6 +529,8 @@ class AdminController extends Controller
             $news = News::find($request->input('id'));
             $news->update($fields);
         } else {
+            $newsCount = News::orderBy('id','desc')->limit(1)->pluck('id');
+            $newsCount = $newsCount[0] + 1;
             $fields['slide'] = 'news'.$newsCount.'.jpg';
             $news = News::create($fields);
         }
@@ -522,6 +538,36 @@ class AdminController extends Controller
         $this->processingFile($request, $news);
         $this->saveCompleteMessage();
         return redirect('/admin/news/'.$news->heading->slug);
+    }
+
+    public function postMagic(Request $request)
+    {
+        $validateArr = [
+            'head_ru' => 'required|min:1|max:100',
+            'content_ru' => 'required|min:10|max:20000',
+            'image' => 'mimes:jpeg|min:10|max:2000'
+        ];
+
+        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:magics';
+
+        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
+
+        $fields = $this->processingFields($request, 'active', 'image');
+        $heading = NewsHeading::find(4);
+
+        if ($request->has('id')) {
+            $magic = Magic::find($request->input('id'));
+            $magic->update($fields);
+        } else {
+            $magicCount = Magic::orderBy('id','desc')->limit(1)->pluck('id');
+            $magicCount = $magicCount[0] + 1;
+            $fields['image'] = 'magic'.$magicCount.'.jpg';
+            $magic = Magic::create($fields);
+        }
+
+        $this->processingFile($request, $magic, 'image', '/images/magics/');
+        $this->saveCompleteMessage();
+        return redirect('/admin/news/'.$heading->slug);
     }
     
     public function postAddSlide(Request $request)
@@ -810,7 +856,12 @@ class AdminController extends Controller
 
     public function postDeleteNews(Request $request)
     {
-        return $this->deleteSomething($request, new News(), 'slide');
+        return $this->deleteSomething($request, new News(), 'slide', '/images/chapters_slides/');
+    }
+
+    public function postDeleteMagic(Request $request)
+    {
+        return $this->deleteSomething($request, new Magic(), 'image', '/images/magics/');
     }
 
     public function postDeleteReview(Request $request)
@@ -920,7 +971,7 @@ class AdminController extends Controller
         } else return false;
     }
 
-    private function deleteSomething(Request $request, Model $model, $files=null, $addValidation=null)
+    private function deleteSomething(Request $request, Model $model, $files=null, $pathToFiles='', $addValidation=null)
     {
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
         $table = $model->find($request->input('id'));
@@ -929,16 +980,16 @@ class AdminController extends Controller
         if ($files) {
             if (is_array($files)) {
                 foreach ($files as $file) {
-                    $this->unlinkFile($table, $file);
+                    $this->unlinkFile($table, $file, $pathToFiles);
                 }
-            } else $this->unlinkFile($table, $files);
+            } else $this->unlinkFile($table, $files, $pathToFiles);
         }
         return response()->json(['success' => true]);
     }
     
-    private function unlinkFile($table, $file)
+    private function unlinkFile($table, $file, $path='')
     {
-        $fullPath = $file != 'slide' ? base_path('/public'.$table[$file]) : base_path('/public/images/chapters_slides/'.$table[$file]);
+        $fullPath = $file != base_path('/public'.$path.$table[$file]);
         if (isset($table[$file]) && $table[$file] && file_exists($fullPath)) unlink($fullPath);
     }
 

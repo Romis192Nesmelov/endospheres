@@ -580,7 +580,12 @@ ul.years li a.active {
     margin-bottom: 10px;
 }
 
-.href-image .image-frame > img {
+.image {
+    width: 100%;
+}
+
+.href-image .image-frame > img,
+.image img {
     width: 100%;
     position: relative;
 }
@@ -610,6 +615,21 @@ ul.years li a.active {
 .subscribe p {
     font-style: italic;
     font-size: 12px;
+}
+
+.magic-pair {
+    width: 100%;
+    display: table;
+    margin-bottom: 15px;
+}
+
+.magic-block {
+    display: table;
+}
+
+.magic-block a:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
 }
 
 .photo-result {

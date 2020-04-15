@@ -6,10 +6,12 @@
     @endif
     @include('admin._input_file_block', ['label' => '', 'name' => $name])
 
-    @include('admin._input_block', [
-        'name' => $name.'_title_'.App::getLocale(),
-        'type' => 'text',
-        'placeholder' => ($name == 'slide') ? trans('admin_content.tag_slide_title') : trans('admin_content.tag_image_title'),
-        'value' => isset($data[$item]) ? $data[$item][$name.'_title_'.App::getLocale()] : ''
-    ])
+    @if (!isset($title) || $title)
+        @include('admin._input_block', [
+            'name' => $name.'_title_'.App::getLocale(),
+            'type' => 'text',
+            'placeholder' => ($name == 'slide') ? trans('admin_content.tag_slide_title') : trans('admin_content.tag_image_title'),
+            'value' => isset($data[$item]) ? $data[$item][$name.'_title_'.App::getLocale()] : ''
+        ])
+    @endif
 </div>

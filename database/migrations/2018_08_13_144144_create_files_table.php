@@ -12,16 +12,16 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('path');
-            $table->string('head_ru');
-            $table->string('head_en')->nullable();
-            $table->longText('description_ru');
-            $table->longText('description_en')->nullable();
-            $table->string('type');
-            $table->timestamps();
-        });
+//        Schema::create('files', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('path');
+//            $table->string('head_ru');
+//            $table->string('head_en')->nullable();
+//            $table->longText('description_ru');
+//            $table->longText('description_en')->nullable();
+//            $table->string('type');
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -31,6 +31,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('files');
+//        Schema::drop('files');
     }
 }

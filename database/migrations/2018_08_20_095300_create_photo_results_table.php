@@ -12,17 +12,17 @@ class CreatePhotoResultsTable extends Migration
      */
     public function up()
     {
-        Schema::create('photo_results', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('path');
-            $table->string('image_title_ru')->nullable();
-            $table->string('image_title_en')->nullable();
-            $table->longText('head_ru');
-            $table->longText('head_en')->nullable();
-            $table->longText('description_ru');
-            $table->longText('description_en')->nullable();
-            $table->timestamps();
-        });
+//        Schema::create('photo_results', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('path');
+//            $table->string('image_title_ru')->nullable();
+//            $table->string('image_title_en')->nullable();
+//            $table->longText('head_ru');
+//            $table->longText('head_en')->nullable();
+//            $table->longText('description_ru');
+//            $table->longText('description_en')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -32,6 +32,6 @@ class CreatePhotoResultsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('photo_results');
+//        Schema::drop('photo_results');
     }
 }

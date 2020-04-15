@@ -62,6 +62,7 @@ return [
     'add_recommendation' => 'Добавить рекомендацию',
     'edit' => 'Редактировать',
     
+    'articles' => 'Статьи',
     'heading_news' => 'Раздел новостей',
     'background_color' => 'Цвет фона',
     'mouse_color' => 'Цвет символа мыши',

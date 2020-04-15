@@ -12,13 +12,13 @@ class CreateTruthTable extends Migration
      */
     public function up()
     {
-        Schema::create('truths', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('head');
-            $table->longText('content');
-            $table->integer('time');
-            $table->boolean('active');
-        });
+//        Schema::create('truths', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('head');
+//            $table->longText('content');
+//            $table->integer('time');
+//            $table->boolean('active');
+//        });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateTruthTable extends Migration
      */
     public function down()
     {
-        Schema::drop('truths');
+//        Schema::drop('truths');
     }
 }

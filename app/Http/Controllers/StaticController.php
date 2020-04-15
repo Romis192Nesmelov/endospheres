@@ -12,6 +12,7 @@ use App\SubChapter;
 use App\Device;
 use App\NewsHeading;
 use App\News;
+use App\Magic;
 use App\MassMedia;
 use App\Article;
 use App\Truth;
@@ -52,8 +53,15 @@ class StaticController extends Controller
             } elseif ($this->data['chapter']->id == 6) {
                 $this->data['headings'] = NewsHeading::all();
                 $this->data['heading'] = $subSlug ? NewsHeading::findBySlug($subSlug) : $this->data['headings'][0];
-                if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
-                else $this->data['news'] = News::where('news_heading_id',$this->data['heading']->id)->where('active',1)->orderBy('time','desc')->paginate(10);
+
+                // If choose magic
+                if ($this->data['heading']->id == 4) {
+                    if ($subSubSlug) $this->data['current_magic'] = Magic::findBySlug($subSubSlug);
+                    else $this->data['magic'] = Magic::where('active',1)->orderBy('id','desc')->paginate(10);
+                } else {
+                    if ($subSubSlug) $this->data['current_news'] = News::findBySlug($subSubSlug);
+                    else $this->data['news'] = News::where('news_heading_id',$this->data['heading']->id)->where('active',1)->orderBy('time','desc')->paginate(10);
+                }
             }
 
             if (count($this->data['chapter']->subChapters)) {
