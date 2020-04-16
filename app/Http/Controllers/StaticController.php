@@ -106,7 +106,7 @@ class StaticController extends Controller
             'message' => 'required|min:2|max:500',
             'phone' => 'string|regex:/^((\+)?(\d)(\s)?(\()?9[0-9]{2}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/'
         ]);
-        $this->sendMessage($request);
+//        $this->sendMessage($request);
         return response()->json(['success' => true]);
     }
 

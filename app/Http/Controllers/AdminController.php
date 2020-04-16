@@ -148,20 +148,20 @@ class AdminController extends Controller
         } else {
             $this->data['heading'] = NewsHeading::findBySlug($slug);
             $this->breadcrumbs['news/'.$this->data['heading']->slug] = $this->data['heading']['head_'.App::getLocale()];
-            if ($this->data['heading']->id == 4) {
-                
-                if ($request->has('id')) {
-                    $this->data['magic'] = Magic::find($request->input('id'));
-                    $this->breadcrumbs['news/'.$this->data['heading']->slug.'/?id='.$this->data['magic']->id] = $this->data['magic']['head_'.App::getLocale()];
-                    return $this->showView('magic');
-                } else if ($subSlug && $subSlug == 'add') {
-                    $this->breadcrumbs['news/'.$this->data['heading']->slug.'/add'] = trans('admin_content.add_articles');
-                    return $this->showView('magic');
-                } else {
-                    $this->data['slug'] = $this->data['heading']->slug;
-                    $this->data['magic'] = Magic::orderBy('id','desc')->get();
-                }
-            }
+//            if ($this->data['heading']->id == 4) {
+//
+//                if ($request->has('id')) {
+//                    $this->data['magic'] = Magic::find($request->input('id'));
+//                    $this->breadcrumbs['news/'.$this->data['heading']->slug.'/?id='.$this->data['magic']->id] = $this->data['magic']['head_'.App::getLocale()];
+//                    return $this->showView('magic');
+//                } else if ($subSlug && $subSlug == 'add') {
+//                    $this->breadcrumbs['news/'.$this->data['heading']->slug.'/add'] = trans('admin_content.add_articles');
+//                    return $this->showView('magic');
+//                } else {
+//                    $this->data['slug'] = $this->data['heading']->slug;
+//                    $this->data['magic'] = Magic::orderBy('id','desc')->get();
+//                }
+//            }
             return $this->showView('news_heading');
         }
     }
@@ -540,35 +540,35 @@ class AdminController extends Controller
         return redirect('/admin/news/'.$news->heading->slug);
     }
 
-    public function postMagic(Request $request)
-    {
-        $validateArr = [
-            'head_ru' => 'required|min:1|max:100',
-            'content_ru' => 'required|min:10|max:20000',
-            'image' => 'mimes:jpeg|min:10|max:2000'
-        ];
-
-        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:magics';
-
-        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
-
-        $fields = $this->processingFields($request, 'active', 'image');
-        $heading = NewsHeading::find(4);
-
-        if ($request->has('id')) {
-            $magic = Magic::find($request->input('id'));
-            $magic->update($fields);
-        } else {
-            $magicCount = Magic::orderBy('id','desc')->limit(1)->pluck('id');
-            $magicCount = $magicCount[0] + 1;
-            $fields['image'] = 'magic'.$magicCount.'.jpg';
-            $magic = Magic::create($fields);
-        }
-
-        $this->processingFile($request, $magic, 'image', '/images/magics/');
-        $this->saveCompleteMessage();
-        return redirect('/admin/news/'.$heading->slug);
-    }
+//    public function postMagic(Request $request)
+//    {
+//        $validateArr = [
+//            'head_ru' => 'required|min:1|max:100',
+//            'content_ru' => 'required|min:10|max:20000',
+//            'image' => 'mimes:jpeg|min:10|max:2000'
+//        ];
+//
+//        if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:magics';
+//
+//        $this->validate($request, array_merge($validateArr, $this->tagsValidator));
+//
+//        $fields = $this->processingFields($request, 'active', 'image');
+//        $heading = NewsHeading::find(4);
+//
+//        if ($request->has('id')) {
+//            $magic = Magic::find($request->input('id'));
+//            $magic->update($fields);
+//        } else {
+//            $magicCount = Magic::orderBy('id','desc')->limit(1)->pluck('id');
+//            $magicCount = $magicCount[0] + 1;
+//            $fields['image'] = 'magic'.$magicCount.'.jpg';
+//            $magic = Magic::create($fields);
+//        }
+//
+//        $this->processingFile($request, $magic, 'image', '/images/magics/');
+//        $this->saveCompleteMessage();
+//        return redirect('/admin/news/'.$heading->slug);
+//    }
     
     public function postAddSlide(Request $request)
     {
