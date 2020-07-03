@@ -97,6 +97,11 @@ class StaticController extends Controller
         if (!$this->data['article']) abort(404,'Page not found');
         return $this->showView('article');
     }
+    
+    public function policy()
+    {
+        return $this->showView('policy');
+    }
 
     public function feedback(Request $request)
     {
@@ -104,9 +109,10 @@ class StaticController extends Controller
             'name' => 'required|min:5|max:50',
             'email' => 'required|email',
             'message' => 'required|min:2|max:500',
-            'phone' => 'string|regex:/^((\+)?(\d)(\s)?(\()?9[0-9]{2}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/'
+            'phone' => 'string|regex:/^((\+)?(\d)(\s)?(\()?9[0-9]{2}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/',
+            'i_agree' => 'required|accepted'
         ]);
-//        $this->sendMessage($request);
+        $this->sendMessage($request);
         return response()->json(['success' => true]);
     }
 

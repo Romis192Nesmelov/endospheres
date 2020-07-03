@@ -5,16 +5,26 @@
     <div id="footer">
         {{ csrf_field() }}
         <div class="container feedback-container">
+            <div class="title">{{ trans('content.feedback_form') }}</div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="title">{{ trans('content.feedback_form') }}</div>
                 @include('_input_block',['name' => 'name', 'type' => 'text', 'placeholder' => trans('content.your_name'), 'icon' => 'icon-user', 'useAjax' => true])
                 @include('_input_block',['name' => 'email', 'type' => 'email', 'placeholder' => trans('content.your_email'), 'icon' => 'icon-mail-read', 'useAjax' => true])
                 @include('_input_block',['name' => 'phone', 'type' => 'text', 'placeholder' => trans('content.your_phone'), 'icon' => 'icon-iphone', 'useAjax' => true])
+                @include('_checkbox_block', ['name' => 'i_agree', 'label' => trans('content.i_agree_pd'), 'checked' => false])
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="title">{{ trans('content.feedback_form') }}</div>
                 @include('_textarea_block', ['name' => 'message', 'placeholder' => trans('content.message'), 'icon' => 'icon-bubble-dots4', 'simple' => true, 'useAjax' => true])
-                @include('_button_block', ['type' => 'button', 'id' => 'send_message', 'text' => trans('content.send'), 'addClass' => 'pull-right', 'icon' => 'icon-upload'])
+                @include('_button_block', [
+                    'type' => 'button',
+                    'id' => 'send_message',
+                    'text' => trans('content.send'),
+                    'addClass' => 'pull-right',
+                    'icon' => 'icon-upload',
+                    'disabled' => true
+                ])
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 20px;">
+                @include('_policy_block')
             </div>
         </div>
     </div>

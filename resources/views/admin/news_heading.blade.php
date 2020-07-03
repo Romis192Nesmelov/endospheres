@@ -44,7 +44,7 @@
                                 'value' => isset($data['heading']) ? $data['heading']->subscribe_ru : '',
                                 'simple' => true
                             ])
-                            @include('admin._button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
+                            @include('_button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
                         </div>
                     </div>
                 </div>

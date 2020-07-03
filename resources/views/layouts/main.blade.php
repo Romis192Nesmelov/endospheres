@@ -77,8 +77,19 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/44462833" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!— /Yandex.Metrika counter —>
 
+<?php /*
+Cookie::get('name');
+  Cookie::put('name', 'Fred', 60);
+    setcookie('ny_work', true, time()+(60 * 60 * 24));*/
+?>
+
+
 @include('layouts._modal_block',['id' => 'message', 'message' => trans('content.thanks_for_your_message')])
-@include('layouts._feedback_modal_block')
+{{--@include('layouts._feedback_modal_block')--}}
+@if (!$_COOKIE['cookie'])
+    @include('layouts._cookie_modal_block')
+    <?php setcookie('cookie', true, time()+(60 * 60 * 24)); ?>
+@endif
 
 @include('layouts._nav_top_block', ['items' => $mainMenu])
 

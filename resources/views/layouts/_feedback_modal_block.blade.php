@@ -6,9 +6,17 @@
         @include('_input_block',['name' => 'phone', 'type' => 'text', 'placeholder' => trans('content.your_phone'), 'icon' => 'icon-iphone', 'useAjax' => true])
         <p class="description">{{ trans('content.feedback_limit') }}</p>
         @include('_textarea_block', ['name' => 'message', 'placeholder' => trans('content.message'), 'icon' => 'icon-bubble-dots4', 'simple' => true, 'useAjax' => true])
+        @include('_checkbox_block', ['name' => 'i_agree', 'label' => trans('content.i_agree_pd'), 'checked' => false])
+        <div style="padding: 10px; display: table;">
+            @include('_policy_block')
+        </div>
     </div>
     <div class="modal-footer">
-        @include('admin._button_block', ['type' => 'submit', 'text' => trans('content.send')])
+        @include('_button_block', [
+            'type' => 'submit',
+            'text' => trans('content.send'),
+            'disabled' => true
+        ])
     </div>
 </div>
 

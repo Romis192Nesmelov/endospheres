@@ -1,4 +1,4 @@
-<a href="/admin/{{ $href }}">@include('admin._button_block', [
+<a href="/admin/{{ $href }}">@include('_button_block', [
     'type' => 'button',
     'icon' => 'icon-database-add',
     'text' => $text,

@@ -16,7 +16,7 @@
 
         <div class="form-group login-options">
             <div class="row">
-                @include('admin._checkbox_block', ['name' => 'remember', 'checked' => true, 'label' => trans('auth.remember_me')])
+                @include('_checkbox_block', ['name' => 'remember', 'checked' => true, 'label' => trans('auth.remember_me')])
 <!--                <div class="col-sm-6 text-right">-->
 <!--                    <a href="{{ url('/password/reset') }}">Забыли пароль?</a>-->
 <!--                </div>-->
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @include('admin._button_block', ['type' => 'submit', 'text' => trans('auth.login'), 'icon' => 'icon-circle-right2 position-right'])
+            @include('_button_block', ['type' => 'submit', 'text' => trans('auth.login'), 'icon' => 'icon-circle-right2 position-right'])
         </div>
     </div>
 </form>

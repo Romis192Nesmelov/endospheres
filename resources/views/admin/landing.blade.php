@@ -41,7 +41,7 @@
                         </tr>
                     @endforeach
                 </table>
-                @include('admin._button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right', 'addAttr' => ['style' => 'margin-left:20px']])
+                @include('_button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right', 'addAttr' => ['style' => 'margin-left:20px']])
             </form>
             @include('admin._add_button_block',['href' => 'landing/add', 'text' => trans('admin_content.add_slide')])
         </div>

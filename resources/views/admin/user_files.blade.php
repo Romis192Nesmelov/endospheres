@@ -11,7 +11,7 @@
             {{ csrf_field() }}
             <div class="panel-body">
                 @include('admin._input_file_block', ['label' => trans('admin_content.file_simple'), 'name' => 'file'])
-                @include('admin._button_block', ['type' => 'submit', 'icon' => 'icon-database-add', 'text' => trans('admin_content.add_file'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
+                @include('_button_block', ['type' => 'submit', 'icon' => 'icon-database-add', 'text' => trans('admin_content.add_file'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
             </div>
         </form>
         <div class="panel-body">

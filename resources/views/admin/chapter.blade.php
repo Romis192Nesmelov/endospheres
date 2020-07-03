@@ -168,7 +168,7 @@
                                     @include('admin._video_input_block', ['video' => '', 'addClass' => 'new-video'])
                                 @endfor
 
-                                @include('admin._button_block', [
+                                @include('_button_block', [
                                     'addAttr' => ['id' => 'addVideo'],
                                     'type' => 'button',
                                     'icon' => 'icon-database-add',
@@ -212,11 +212,11 @@
                     @endif
 
                     <div class="panel panel-flat">
-                        @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => $data['chapter']->active])
+                        @include('_checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => $data['chapter']->active])
                     </div>
 
                 </div>
-                @include('admin._button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
+                @include('_button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
             </form>
         </div>
     </div>

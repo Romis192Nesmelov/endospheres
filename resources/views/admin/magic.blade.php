@@ -39,9 +39,9 @@
                             ])
                         </div>
 
-                        @include('admin._checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => isset($data['magic']) ? $data['magic']->active : 1])
+                        @include('_checkbox_block', ['name' => 'active', 'label' => trans('admin_content.active'), 'checked' => isset($data['magic']) ? $data['magic']->active : 1])
                     </div>
-                    @include('admin._button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
+                    @include('_button_block', ['type' => 'submit', 'icon' => ' icon-floppy-disk', 'text' => trans('admin_content.save'), 'mainClass' => 'bg-primary-400', 'addClass' => 'pull-right'])
                 </div>
             </form>
         </div>

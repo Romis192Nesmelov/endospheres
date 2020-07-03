@@ -1,0 +1,1 @@
+<p><a href="{{ url('/policy') }}" target="_blank">{{ trans('content.policy') }}</a></p>
