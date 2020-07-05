@@ -86,7 +86,7 @@ Cookie::get('name');
 
 @include('layouts._modal_block',['id' => 'message', 'message' => trans('content.thanks_for_your_message')])
 {{--@include('layouts._feedback_modal_block')--}}
-@if (!$_COOKIE['cookie'])
+@if (!isset($_COOKIE['cookie']))
     @include('layouts._cookie_modal_block')
     <?php setcookie('cookie', true, time()+(60 * 60 * 24)); ?>
 @endif
