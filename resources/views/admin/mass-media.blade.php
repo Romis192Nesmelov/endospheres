@@ -25,7 +25,7 @@
                 <div class="col-md-10 col-sm-10 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-body">
-                            @include('admin._select_block', [
+                            @include('_select_block', [
                                 'label' => trans('admin_content.year'),
                                 'name' => 'year',
                                 'values' => $data['years'],

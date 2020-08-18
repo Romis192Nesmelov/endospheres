@@ -24,7 +24,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-flat">
                         <div class="panel-body">
-                            @include('admin._select_block', [
+                            @include('_select_block', [
                                 'label' => trans('admin_content.heading_news'),
                                 'name' => 'news_heading_id',
                                 'values' => $data['news_heading'],

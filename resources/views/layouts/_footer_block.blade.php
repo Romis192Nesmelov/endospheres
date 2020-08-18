@@ -10,7 +10,15 @@
                 @include('_input_block',['name' => 'name', 'type' => 'text', 'placeholder' => trans('content.your_name'), 'icon' => 'icon-user', 'useAjax' => true])
                 @include('_input_block',['name' => 'email', 'type' => 'email', 'placeholder' => trans('content.your_email'), 'icon' => 'icon-mail-read', 'useAjax' => true])
                 @include('_input_block',['name' => 'phone', 'type' => 'text', 'placeholder' => trans('content.your_phone'), 'icon' => 'icon-iphone', 'useAjax' => true])
+                @include('_input_block',['name' => 'city', 'type' => 'text', 'placeholder' => trans('content.your_city'), 'icon' => 'icon-city', 'useAjax' => true])
+                @include('_select_block', [
+                    'name' => 'type',
+                    'values' => [trans('content.salon'),trans('content.clinic')],
+                    'selected' => count($errors) ? old('type') : trans('content.salon')
+                ])
+
                 @include('_checkbox_block', ['name' => 'i_agree', 'label' => trans('content.i_agree_pd'), 'checked' => false])
+
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 @include('_textarea_block', ['name' => 'message', 'placeholder' => trans('content.message'), 'icon' => 'icon-bubble-dots4', 'simple' => true, 'useAjax' => true])

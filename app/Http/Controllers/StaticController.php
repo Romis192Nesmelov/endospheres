@@ -108,8 +108,10 @@ class StaticController extends Controller
         $this->validate($request, [
             'name' => 'required|min:5|max:50',
             'email' => 'required|email',
-            'message' => 'required|min:2|max:500',
             'phone' => 'string|regex:/^((\+)?(\d)(\s)?(\()?9[0-9]{2}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/',
+            'city' => 'required|min:2|max:500',
+            'type' => 'required',
+            'message' => 'required|min:2|max:500',
             'i_agree' => 'required|accepted'
         ]);
         $this->sendMessage($request);
@@ -129,6 +131,8 @@ class StaticController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->has('phone') ? $request->input('phone') : '',
+            'city' => $request->input('city'),
+            'type' => $request->input('type'),
             'content' => $request->input('message')
         ];
 

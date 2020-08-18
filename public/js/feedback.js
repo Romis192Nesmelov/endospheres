@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
             fields = {};
 
         if (checkbox.is(':checked')) {
-            $.each(container.find('input.form-control'), function (key, obj) {
+            $.each(container.find('input.form-control, select.form-control'), function (key, obj) {
                 fields[obj.name] = obj.value;
             });
             fields['message'] = textarea.val();
@@ -31,26 +31,24 @@ jQuery(document).ready(function ($) {
 
             addLoaderScreen();
 
-            $.post('/feedback', fields)
-                .done(function( data ) {
-                    clearErrors(container);
-                    container.find('input').val('');
-                    textarea.val('');
-                    $('#feedback_modal').modal('hide');
+            $.post('/feedback', fields).done(function( data ) {
+                clearErrors(container);
+                container.find('input').val('');
+                textarea.val('');
+                $('#feedback_modal').modal('hide');
+                removeLoaderScreen();
+                $('#message').modal('show');
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                clearErrors(container);
+                var responseMsg = jQuery.parseJSON(jqXHR.responseText);
+                $.each(responseMsg, function (message, value) {
+                    var errObj = message == 'message' ? textarea : container.find('input[name='+message+']');
+                    var parent = errObj.parents('.form-group');
+                    parent.addClass('has-error');
+                    parent.find('.help-block').html(value);
                     removeLoaderScreen();
-                    $('#message').modal('show');
-                })
-                .fail(function(jqXHR, textStatus, errorThrown) {
-                    clearErrors(container);
-                    var responseMsg = jQuery.parseJSON(jqXHR.responseText);
-                    $.each(responseMsg, function (message, value) {
-                        var errObj = message == 'message' ? textarea : container.find('input[name='+message+']');
-                        var parent = errObj.parents('.form-group');
-                        parent.addClass('has-error');
-                        parent.find('.help-block').html(value);
-                        removeLoaderScreen();
-                    });
                 });
+            });
         }
     });
 });

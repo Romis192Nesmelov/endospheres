@@ -713,9 +713,8 @@ ul.years li a.active {
     text-transform: uppercase;
 }
 
-#footer textarea
-{
-    height: 148px;
+#footer textarea {
+    height: 260px;
 }
 
 #footer .col-md-12 {
