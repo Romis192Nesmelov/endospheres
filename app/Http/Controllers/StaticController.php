@@ -156,7 +156,7 @@ class StaticController extends Controller
             'mainMenu' => $mainMenu,
             'metas' => $this->metas,
             'data' => $this->data,
-//            'articles' => Article::where('active',1)->get()
+            'articles' => Article::where('active',1)->get()
         ]);
     }
 }

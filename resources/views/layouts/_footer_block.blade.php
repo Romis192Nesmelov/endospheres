@@ -43,38 +43,38 @@
     @include('layouts._all_truth_block')
 @endif
 
-{{--<div id="articles-container">--}}
-    {{--@if (count($articles) && !preg_match('/^(articles)/',Request::path()) )--}}
-        {{--<div class="container">--}}
-            {{--<div class="col-md-12 col-sm-12 col-xs-12">--}}
-                {{--<h1>{{ trans('content.recommended_articles') }}</h1>--}}
-            {{--</div>--}}
-            {{--@if (count($articles) > 3)--}}
-                {{--<ul class="col-md-4 col-sm-4 col-xs-12">--}}
-                    {{--@for ($i=0;$i<ceil(count($articles)/3);$i++)--}}
-                        {{--@include('layouts._articles_line_block',['article' => $articles[$i]])--}}
-                    {{--@endfor--}}
-                {{--</ul>--}}
-                {{--<ul class="col-md-4 col-sm-4 col-xs-12">--}}
-                    {{--@for ($i=ceil(count($articles)/3);$i<(ceil(count($articles)/3))*2;$i++)--}}
-                        {{--@include('layouts._articles_line_block',['article' => $articles[$i]])--}}
-                    {{--@endfor--}}
-                {{--</ul>--}}
-                {{--<ul class="col-md-4 col-sm-4 col-xs-12">--}}
-                    {{--@for ($i=(ceil(count($articles)/3))*2;$i<count($articles);$i++)--}}
-                        {{--@include('layouts._articles_line_block',['article' => $articles[$i]])--}}
-                    {{--@endfor--}}
-                {{--</ul>--}}
-            {{--@else--}}
-                {{--<ul class="col-md-12 col-sm-12 col-xs-12">--}}
-                    {{--@foreach ($articles as $article)--}}
-                        {{--@include('layouts._articles_line_block',['article' => $article])--}}
-                    {{--@endforeach--}}
-                {{--</ul>--}}
-            {{--@endif--}}
-        {{--</div>--}}
-    {{--@endif--}}
-{{--</div>--}}
+<div id="articles-container">
+    @if (count($articles) && !preg_match('/^(articles)/',Request::path()) )
+        <div class="container">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h1>{{ trans('content.recommended_articles') }}</h1>
+            </div>
+            @if (count($articles) > 3)
+                <ul class="col-md-4 col-sm-4 col-xs-12">
+                    @for ($i=0;$i<ceil(count($articles)/3);$i++)
+                        @include('layouts._articles_line_block',['article' => $articles[$i]])
+                    @endfor
+                </ul>
+                <ul class="col-md-4 col-sm-4 col-xs-12">
+                    @for ($i=ceil(count($articles)/3);$i<(ceil(count($articles)/3))*2;$i++)
+                        @include('layouts._articles_line_block',['article' => $articles[$i]])
+                    @endfor
+                </ul>
+                <ul class="col-md-4 col-sm-4 col-xs-12">
+                    @for ($i=(ceil(count($articles)/3))*2;$i<count($articles);$i++)
+                        @include('layouts._articles_line_block',['article' => $articles[$i]])
+                    @endfor
+                </ul>
+            @else
+                <ul class="col-md-12 col-sm-12 col-xs-12">
+                    @foreach ($articles as $article)
+                        @include('layouts._articles_line_block',['article' => $article])
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    @endif
+</div>
 
 <div id="copyright-line">
     <div class="container">
