@@ -1,0 +1,10 @@
+/.idea
+/vendor
+/node_modules
+/public/mm
+/public/storage
+/public/video
+Homestead.yaml
+settings.xml
+Homestead.json
+.env

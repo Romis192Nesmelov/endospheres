@@ -1,0 +1,77 @@
+<?php
+
+return [
+    'home' => 'Home page',
+    'welcome' => 'Welcome!',
+    'search' => 'Search',
+    'number' => '#',
+    'find' => 'Find',
+    'send' => 'Send',
+    'enter' => 'Enter',
+    'logout' => 'Logout',
+    'not_found' => 'Nothing found',
+    'search_result' => 'Search result',
+    'feedback_message' => 'Feedback message',
+    'feedback_limit' => 'Write the message min 5 and max 500 symbols',
+
+    'warning' => 'Warning!',
+    'please_enter_your_name' => 'Please, write your name',
+    'please_enter_your_email' => 'Please, write your e-mail',
+    'please_enter_your_phone' => 'Please, write your phone',
+
+    'phone_fax' => 'Tel/fax:',
+    'phone' => 'Phone:',
+    'complete_name' => 'Complete name',
+    'not_set' => 'not set',
+    'message_from' => 'Message from ',
+    'message_from_user' => 'From user :name',
+    'with_email' => 'E-mail :email',
+    'with_phone' => 'Phone :phone',
+    'thanks_for_your_message' => 'Thanx for your message!',
+
+    'details' => 'Detail',
+    'read_more' => 'Read more',
+    'return_back' => 'Return back',
+    'close' => 'Close',
+
+    'head' => 'Head',
+    'subhead' => 'Subhead',
+    'name' => 'Name',
+    'user' => 'User',
+    'intro' => 'Intro',
+    'content' => 'Content',
+    'description' => 'Description',
+    'date' => 'Date',
+    'date_created' => 'Date created',
+
+    'add_image' => 'Add image',
+    'del' => 'Delete',
+    'do_you_really_want_to_delete_this_image' => 'Do you really want to delete this image?',
+    'save' => 'Save',
+    'save_complete' => 'Save complete.',
+    'main_menu' => 'Main menu',
+    'admin_menu' => 'Admin menu',
+    'admin_panel' => 'Admin panel',
+
+    '404' => 'Sorry, that page doesn\' exist!',
+    'send_request' => 'Send request',
+
+    'portfolio' => 'Portfolio',
+    'see_portfolio' => 'Seen portfolio',
+    'to_left' => 'To left',
+    'to_right' => 'To right',
+    'active_chapter' => 'Active chapter',
+
+    'in_russian' => ' in russian',
+    'in_english' => ' in english',
+
+    'preview' => 'Preview',
+    'chapter' => 'Chapter',
+    'created_at' => 'Сreated at',
+    'updated_at' => 'Updated at',
+
+    'main_image' => 'Main image',
+    'change' => 'Change',
+    'add_chapter' => 'Add chapter',
+    'new_chapter' => 'New chapter',
+];
