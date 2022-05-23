@@ -7,7 +7,7 @@
     {!! csrf_field() !!}
     <div class="panel panel-body login-form">
         <div class="text-center">
-            <img width="260" src="{{ asset('images/logo.jpg') }}" />
+            <img width="260" src="{{ asset('images/logo.jpg?'.(md5(rand(0,100)))) }}" />
             <h5 class="content-group-lg">{{ trans('auth.login_to_your_account') }} <small class="display-block">{!! trans('auth.login_head') !!}</small></h5>
         </div>
 

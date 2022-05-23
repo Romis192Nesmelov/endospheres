@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-static-top">
 
     <div class="container">
-        <div class="logo"><a href="/home"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+        <div class="logo"><a href="/home"><img src="{{ asset('images/logo.png?'.(md5(rand(0,100)))) }}" alt="Logo" /></a></div>
 
         <div class="navbar-header">
             <!-- Collapsed Hamburger -->

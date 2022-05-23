@@ -49,7 +49,7 @@
 <div id="main-container">
     <!--Подложка (предыдущий слайд)-->
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-        <image id="background-image" width='100%' height='100%' xlink:href="{{ asset('images/landing/main.jpg') }}" />
+        <image id="background-image" width='100%' height='100%' xlink:href="{{ asset('images/landing/main.jpg?'.(md5(rand(0,100)))) }}" />
     </svg>
     <!--/Подложка-->
 
