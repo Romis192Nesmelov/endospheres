@@ -130,7 +130,7 @@
     <span class="hidden glyphicon {{ isset($_COOKIE['muted']) && $_COOKIE['muted'] ? 'glyphicon-volume-up' : 'glyphicon-volume-off' }}"></span>
 </div>
 
-<div id="logo" class="hidden"><img src="{{ asset('images/logo_white.png') }}" /></div>
+<div id="logo" class="hidden"><img src="{{ asset('images/logo_white.png?'.(md5(rand(0,100)))) }}" /></div>
 
 <audio id="welcome" preload="auto" muted="muted">
     <source src="{{ asset('audio/welcome.mp3') }}" type="audio/mpeg">
