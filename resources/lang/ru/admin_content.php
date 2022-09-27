@@ -58,8 +58,8 @@ return [
     'add_resource' => 'Добавить интернет-ресурс',
     'add_all-truth' => 'Добавить ПРАВДУ (матку)!',
     'add_articles' => 'Добавить статью',
-    'add_recommendations' => 'Добавить рекомендацию',
     'add_recommendation' => 'Добавить рекомендацию',
+    'add_fake' => 'Добавить подделку',
     'edit' => 'Редактировать',
     
     'articles' => 'Статьи',

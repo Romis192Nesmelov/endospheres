@@ -94,9 +94,15 @@
                                 @endif
                             @else
                                 <div class="panel-heading">
-                                    @include('admin._add_button_block',['href' => 'recommendation/add', 'text' => trans('admin_content.add_recommendations')])
+                                    @include('admin._add_button_block',[
+                                        'href' =>  (substr($data['chapter']->slug, 0, -1)).'/add',
+                                        'text' => trans('admin_content.add_'.substr($data['chapter']->slug, 0, -1))
+                                    ])
                                 </div>
-                                @include('admin._sheets_table_block',['data' => $data['chapter']->sheets, 'suffix' => 'recommendation'])
+                                @include('admin._sheets_table_block',[
+                                    'data' => $data['chapter']->sheets,
+                                    'suffix' => substr($data['chapter']->slug, 0, -1)
+                                ])
                             @endif
                         </div>
                     </div>

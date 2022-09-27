@@ -8,6 +8,7 @@ return [
     'chapters' => 'Разделы',
     'all-truth' => 'Вся правда о...',
     'recommendations' => 'Рекомендации',
+    'fakes' => 'Подделки',
     'user_files' => 'Файлы пользователя',
     'articles' => 'Статьи',
     'exit' => 'Выход'

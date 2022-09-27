@@ -286,6 +286,16 @@ class AdminController extends Controller
         $this->data['suffix'] = 'recommendation';
         return $this->sheet($request, new Sheet(), $slug);
     }
+    
+    public function getFake(Request $request, $slug=null)
+    {
+        $this->breadcrumbs = [
+            'chapters' => trans('admin_menu.chapters'),
+            'chapters/fakes' => trans('admin_menu.fakes')
+        ];
+        $this->data['suffix'] = 'fakes';
+        return $this->sheet($request, new Sheet(), $slug);
+    }
 
     public function postLanding(Request $request, $slug=null)
     {
@@ -789,6 +799,11 @@ class AdminController extends Controller
     public function postRecommendation(Request $request)
     {
         return $this->saveSheet($request, new Sheet(), 'chapters/recommendations');
+    }
+
+    public function postFakes(Request $request)
+    {
+        return $this->saveSheet($request, new Sheet(), 'chapters/fakes');
     }
     
     public function postAllTruth(Request $request)

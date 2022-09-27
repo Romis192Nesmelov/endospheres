@@ -36,6 +36,7 @@ return [
     'recommended_articles' => 'Рекомендуемые статьи:',
     'all_truth_about_answer' => 'Ответ Росздравнадзора о медицинских изделиях, находящихся в обращении<br>с нарушением действующего законодательства.',
     'recommendations_from_the_manufacturer' => 'Рекомендации от производителя',
+    'warning_fakes' => 'Осторожно, ФЕЙКИ!',
     'real_results' => 'Результаты на реальных пациентах',
     'copyright' => ' Endospheres Therapy® |  Разработка сайта - TessART',
 

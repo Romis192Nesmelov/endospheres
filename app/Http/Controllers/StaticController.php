@@ -29,9 +29,9 @@ class StaticController extends Controller
     {
         if (!$slug) return view('landing', ['slides' => Slide::where('active',1)->get(), 'metas' => $this->metas]);
         else {
-            $this->data['chapter'] = Chapter::findBySlug($slug);
-            if (!$this->data['chapter']) abort(404,'Page not found');
-            else if ($this->data['chapter']->id == 1) {
+            if (!$this->data['chapter'] = Chapter::findBySlug($slug)) abort(404,'Page not found');
+
+            if ($this->data['chapter']->id == 1) {
                 $this->data['devices'] = Device::where('active',1)->get();
                 $this->data['slider'] = [];
                 foreach (glob(base_path('/public/images/slider/*')) as $file) {
@@ -80,6 +80,8 @@ class StaticController extends Controller
                 }
 
             }
+//            var_dump($this->data['chapter']->id);
+//            die;
             return $this->showView($slug);
         }
     }
