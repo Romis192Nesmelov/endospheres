@@ -1,6 +1,6 @@
 <ul class="navigation navigation-main navigation-accordion hidden-xs">
     @foreach ($items as $item)
-        <li class="{{ Request::path() == $item['href'] ? 'active ' : ''}}">
+        <li class="{{ ( preg_match('/^'.str_replace('/','\/',$item['href']).'/',Request::path()) ) ? 'active ' : ''}}">
             <a href="/{{ $item['href'] }}">{{ $item['name'] }}</a>
             @if (isset($item['submenu']) && count($item['submenu']))
                 <ul class="dropdown-menu">

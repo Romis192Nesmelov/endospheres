@@ -17,7 +17,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav dropdown {{ isset($data['chapter']) && $data['chapter']->id != 1 && $data['chapter']->id != 9 ? 'visible-xs' : '' }}">
                 @foreach ($items as $item)
-                    <li class="{{ Request::path() == $item['href'] ? 'active ' : ''}}">
+                    <li class="{{ ( preg_match('/^'.str_replace('/','\/',$item['href']).'/',Request::path()) ) ? 'active ' : ''}}">
                         <a href="/{{ $item['href'] }}">{{ $item['name'] }}</a>
                         @if (isset($item['submenu']) && count($item['submenu']))
                             <ul class="dropdown-menu">
