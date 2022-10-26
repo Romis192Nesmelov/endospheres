@@ -1,4 +1,4 @@
-@if (isset($data['chapter']) && ($data['chapter']->id == 1 || $data['chapter']->id == 10))
+@if (isset($data['chapter']) && ($data['chapter']->id == 1 || $data['chapter']->id == 11))
     <div class="container">
         <h2>{{ trans('content.answer_question') }}</h2>
     </div>
