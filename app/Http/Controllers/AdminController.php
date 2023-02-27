@@ -1101,7 +1101,10 @@ class AdminController extends Controller
     private function getYears()
     {
 //        $this->data['years'] = MassMedia::distinct()->orderBy('id','desc')->pluck('year')->toArray();
-        $this->data['years'] = [2022,2021,2020,2019,2018,2017,2016,2015,2014];
+        $this->data['years'] = [];
+        for ($i=(int)date('Y');$i>=2014;$i--) {
+            $this->data['years'][] = $i;
+        }
     }
 
     private function checkingFileExist($baseName, $extension)
