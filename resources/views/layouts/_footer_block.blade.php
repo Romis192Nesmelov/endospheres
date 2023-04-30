@@ -84,6 +84,7 @@
             <div class="soc-icon"><a href="https://vk.com/endospherestherapyrussia"><img src="{{ asset('images/vk.png') }}" /></a></div>
             <div class="soc-icon"><a href="https://t.me/endospheresrussia_official"><img src="{{ asset('images/telegram.png') }}" /></a></div>
             <div class="soc-icon"><a href="https://www.youtube.com/c/EndospheresTherapyRussia"><img src="{{ asset('images/youtube.png') }}" /></a></div>
+            <div class="soc-icon"><a href="https://rutube.ru/channel/30970052/"><img src="{{ asset('images/rutube.png') }}" /></a></div>
             {{--<div class="soc-icon"><a href="https://www.facebook.com/EndospheresTherapyRussia"><img src="{{ asset('images/fb.png') }}" /></a></div>--}}
             {{--<div class="soc-icon"><a href="https://www.instagram.com/endospheresrussia_official/"><img src="{{ asset('images/insta.png') }}" /></a></div>--}}
         </div>
