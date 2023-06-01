@@ -787,7 +787,7 @@ class AdminController extends Controller
             $resource->update($fields);
         } else {
             $fields['sub_chapter_id'] = Session::get('sub_chapter');
-            $fields['logo'] = '/resources_logos/'.$request->file('logo')->getClientOriginalName();
+            if ($request->hasFile('logo')) $fields['logo'] = '/resources_logos/'.$request->file('logo')->getClientOriginalName();
             $resource = Resource::create($fields);
         }
         $this->processingFile($request, $resource, 'logo');
