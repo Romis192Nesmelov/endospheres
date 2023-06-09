@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
@@ -12,18 +11,16 @@ use App\SubChapter;
 use App\Device;
 use App\NewsHeading;
 use App\News;
-use App\Magic;
 use App\MassMedia;
 use App\Article;
 use App\Truth;
-use Session;
-use Config;
+use Illuminate\Support\Facades\Config;
 
 class StaticController extends Controller
 {
     use HelperTrait;
-    
-    private $data;
+
+    protected $data;
     
     public function chapter($slug=null, $subSlug=null, $subSubSlug=null)
     {
@@ -146,7 +143,7 @@ class StaticController extends Controller
         });
     }
 
-    private function showView($view)
+    protected function showView($view)
     {
         $chapters = Chapter::where('active',1)->get();
         $mainMenu = [];

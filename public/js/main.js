@@ -97,6 +97,13 @@ $(window).ready(function ($) {
         allFuckingTruth();
     });
     allFuckingTruth();
+
+    // Get search
+    var findForm = $('#search-form');
+    findForm.find('button').click(function (e) {
+        e.preventDefault();
+        location.href = '/search/'+findForm.find('input').val();
+    });
 });
 
 function allFuckingTruth() {

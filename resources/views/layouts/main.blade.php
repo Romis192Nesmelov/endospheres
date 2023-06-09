@@ -28,7 +28,7 @@
     <link href="{{ asset('css/components.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/colors.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/dm3Slideshow.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/styles.css?'.str_random()) }}" rel="stylesheet" type="text/css" >
 
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
@@ -44,7 +44,7 @@
     <script type="text/javascript" src="{{ asset('js/dm3Slideshow.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/feedback.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js?'.str_random()) }}"></script>
 </head>
 <body>
 

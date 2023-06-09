@@ -69,5 +69,7 @@ return [
     'clinic' => 'Клиника',
     'city' => 'Город: :city',
     'your_city' => 'Ваш город',
-    'type' => 'Тип: :type'
+    'type' => 'Тип: :type',
+    'search' => 'Поиск',
+    'search_results' => 'Результаты поиска по запросу «:searching»'
 ];

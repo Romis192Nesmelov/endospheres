@@ -18,6 +18,5 @@
             </div>
         </div>
     </div>
-
-    <div id="on_top_button"><i class="glyphicon glyphicon-upload"></i></div>
+    @include('_on_top_button_block')
 @endsection
