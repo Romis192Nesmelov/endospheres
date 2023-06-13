@@ -12,7 +12,7 @@ class AddFullSearchToDevices extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE devices ADD FULLTEXT search(head_ru,content_ru)');
+//        DB::statement('ALTER TABLE devices ADD FULLTEXT search(head_ru,content_ru)');
     }
 
     /**

@@ -104,6 +104,8 @@ $(window).ready(function ($) {
         e.preventDefault();
         location.href = '/search/'+findForm.find('input').val();
     });
+
+
 });
 
 function allFuckingTruth() {

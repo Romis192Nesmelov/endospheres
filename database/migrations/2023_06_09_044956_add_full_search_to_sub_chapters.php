@@ -12,7 +12,7 @@ class AddFullSearchToSubChapters extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE sub_chapters ADD FULLTEXT search(head_ru,content_ru)');
+//        DB::statement('ALTER TABLE sub_chapters ADD FULLTEXT search(head_ru,content_ru)');
     }
 
     /**

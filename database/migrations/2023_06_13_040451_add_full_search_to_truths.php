@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFullSearchToChapters extends Migration
+class AddFullSearchToTruths extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class AddFullSearchToChapters extends Migration
      */
     public function up()
     {
-//        DB::statement('ALTER TABLE chapters ADD FULLTEXT search(head_ru,content_ru)');
+        DB::statement('ALTER TABLE truths ADD FULLTEXT search(head,content)');
     }
 
     /**

@@ -7,9 +7,10 @@ use App\Device;
 use App\Chapter;
 use App\News;
 use App\Question;
+use App\Sheet;
 use App\SubChapter;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class SearchController extends StaticController
 {
@@ -25,12 +26,13 @@ class SearchController extends StaticController
         $this->getFound(new Article(), 'articles');
         $this->getFound(new News(), 'news');
         $this->getFound(new Question(), 'faq');
+        $this->getFound(new Sheet(), 'fakes', true);
 
         $this->data['found'] = $this->data['found']->paginate(10);
         return $this->showView('search');
     }
 
-    private function getFound(Model $model, $prefix=null)
+    private function getFound(Model $model, $prefix=null, $useAnchor=false)
     {
         $fields = $model->getFillable();
         $searchInFields = '';
@@ -54,27 +56,36 @@ class SearchController extends StaticController
         )->get();
 
         foreach ($found as $item) {
-            if (isset($item->head) && $item->head) $head = $item->head;
-            elseif (isset($item->head_ru) && $item->head_ru) $head = $item->head_ru;
-            else $head = $item->question_ru;
+            if (!isset($item->active) || $item->active) {
 
-            if (isset($item->content) && $item->content) $text = $item->content;
-            elseif (isset($item->content_ru) && $item->content_ru) $text = $item->content_ru;
-            else $text = $item->answer_ru;
+                if (isset($item->head) && $item->head) $head = $item->head;
+                elseif (isset($item->head_ru) && $item->head_ru) $head = $item->head_ru;
+                else $head = $item->question_ru;
 
-            if ($prefix) {
-                $href = '/'.$prefix;
-                if (isset($item->slug)) $href .= '/'.$item->slug;
-                else $href .= '?id=' . $item->id;
-            } elseif ($model instanceof SubChapter) {
-                $href = '/'.$item->chapter->slug.'/'.$item->slug;
-            } else $href = '/'.$item->slug;
+                if (isset($item->content) && $item->content) $text = $item->content;
+                elseif (isset($item->content_ru) && $item->content_ru) $text = $item->content_ru;
+                else $text = $item->answer_ru;
 
-            $this->data['found']->push([
-                'href' => url($href),
-                'head' => $head,
-                'text' => $text,
-            ]);
+                if ($prefix) {
+                    $href = '/'.$prefix;
+
+                    if ($model instanceof News) $href .= '/'.$item->heading->slug;
+
+                    if (isset($item->slug)) $href .= '/'.$item->slug;
+                    elseif ($useAnchor) $href .= '#'.$item->id;
+                    else $href .= '?id='.$item->id;
+
+                } elseif ($model instanceof SubChapter) {
+                    $href = '/'.$item->chapter->slug.'/'.$item->slug;
+                } else $href = '/'.$item->slug;
+
+                $this->data['found']->push([
+                    'href' => url($href),
+                    'head' => $head,
+                    'text' => $text,
+                ]);
+            }
+
         }
     }
 }

@@ -12,7 +12,7 @@ class AddFullSearchToArticles extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE articles ADD FULLTEXT search(head,content)');
+//        DB::statement('ALTER TABLE articles ADD FULLTEXT search(head,content)');
     }
 
     /**

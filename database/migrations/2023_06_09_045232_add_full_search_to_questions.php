@@ -12,7 +12,7 @@ class AddFullSearchToQuestions extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE questions ADD FULLTEXT search(question_ru,answer_ru)');
+//        DB::statement('ALTER TABLE questions ADD FULLTEXT search(question_ru,answer_ru)');
     }
 
     /**
