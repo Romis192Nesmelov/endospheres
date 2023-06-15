@@ -989,7 +989,7 @@ ul.years li a.active {
     }
 
     #search-form .form-group.has-feedback {
-        width: calc(100% - 75px);
+        width: calc(100% - 100px);
     }
 }
 
