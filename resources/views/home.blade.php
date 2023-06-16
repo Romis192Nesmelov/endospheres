@@ -6,7 +6,7 @@
             @foreach($data['devices'] as $k => $device)
                 @include('_href_image_block', [
                     'href' => '/devices/'.$device->slug,
-                    'width' => (!$k || !$k%3 ? '18.3%' : '40.5%'),
+                    'width' => (!$k || !$k%3 ? '19%' : '39%'),
                     'image' => asset('images/'.$device->home_page_image),
                     'title' => $device['home_page_image_title_'.App::getLocale()],
                     'description' => '<span>'.trans('content.endosphere').'</span> '.$device['head_'.App::getLocale()],

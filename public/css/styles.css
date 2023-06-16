@@ -578,12 +578,14 @@ ul.years li a.active {
 }
 
 .href-image {
-    width: 32.9%;
     float: left;
     text-align: center;
     text-transform: uppercase;
-    margin-right: 4px;
+    margin-left: 1%;
+}
 
+.href-image:first-child {
+    margin-left: 0;
 }
 
 .href-image:last-child {
@@ -872,6 +874,13 @@ ul.years li a.active {
     }
 }
 
+@media (max-width: 1200px) {
+    .href-image .image-frame img.device {
+        width: auto;
+        height: 100%;
+    }
+}
+
 @media (max-width: 1024px) {
     .navbar.navbar-default .container {
         width: 90%;
@@ -893,10 +902,6 @@ ul.years li a.active {
     .container {
         width: 90%;
         padding: 0;
-    }
-
-    .href-image {
-        width: 32% !important;
     }
 
     .href-image .image-frame {
@@ -952,6 +957,11 @@ ul.years li a.active {
         margin-right: auto;
         margin-bottom: 10px;
         float: none;
+    }
+
+    .href-image .image-frame img.device {
+        width: 100%;
+        height: auto;
     }
 
     .navbar-nav {
