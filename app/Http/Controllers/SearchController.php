@@ -9,6 +9,7 @@ use App\News;
 use App\Question;
 use App\Sheet;
 use App\SubChapter;
+use App\Truth;
 use Illuminate\Database\Eloquent\Model;
 //use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ class SearchController extends StaticController
         $this->getFound(new News(), 'news');
         $this->getFound(new Question(), 'faq');
         $this->getFound(new Sheet(), 'fakes', true);
+        $this->getFound(new Truth(), 'all-truth-about', true);
 
         $this->data['found'] = $this->data['found']->paginate(10);
         return $this->showView('search');
