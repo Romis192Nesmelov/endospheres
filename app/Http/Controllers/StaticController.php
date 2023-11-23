@@ -107,7 +107,7 @@ class StaticController extends Controller
         $this->validate($request, [
             'name' => 'required|min:5|max:50',
             'email' => 'required|email',
-            'phone' => 'string|regex:/^((\+)?(7|8)(\d)+)$/',
+            'phone' => 'string|regex:/^((\+)?(7|8)(\d|\(|\)|-)+)$/',
             'city' => 'required|min:2|max:500',
             'type' => 'required',
             'message' => 'required|min:2|max:500',
