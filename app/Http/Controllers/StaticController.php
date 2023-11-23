@@ -112,7 +112,7 @@ class StaticController extends Controller
             'message' => 'required|min:2|max:500',
             'i_agree' => 'required|accepted'
         ]);
-//        $this->sendMessage($request);
+        $this->sendMessage($request);
         return response()->json(['success' => true]);
     }
 
