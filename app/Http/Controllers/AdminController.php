@@ -939,7 +939,7 @@ class AdminController extends Controller
 
     private function saveSheet(Request $request, Model $model, $redirect)
     {
-        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10|max:10000'];
+        $validateArr = ['head' => 'required|min:3|max:700','content' => 'required|min:10'];
         if ($request->has('id')) $validateArr['id'] = 'required|integer|exists:'.$model->getTable();
         $this->validate($request, $validateArr);
         $fields = $this->processingFields($request, 'active', null, null, ($request->has('time') ? 'time': null));
