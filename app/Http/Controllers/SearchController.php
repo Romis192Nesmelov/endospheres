@@ -27,7 +27,7 @@ class SearchController extends StaticController
         $this->getFound(new Article(), 'articles');
         $this->getFound(new News(), 'news');
         $this->getFound(new Question(), 'faq');
-        $this->getFound(new Sheet(), 'fakes', true);
+        $this->getFound(new Sheet(), null, true);
         $this->getFound(new Truth(), 'all-truth-about', true);
 
         $this->data['found'] = $this->data['found']->paginate(10);
@@ -77,7 +77,7 @@ class SearchController extends StaticController
                     elseif ($useAnchor) $href .= '#'.$item->id;
                     else $href .= '?id='.$item->id;
 
-                } elseif ($model instanceof SubChapter) {
+                } elseif ($model instanceof SubChapter || $model instanceof Sheet) {
                     $href = '/'.$item->chapter->slug.'/'.$item->slug;
                 } else $href = '/'.$item->slug;
 
