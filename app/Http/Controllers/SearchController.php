@@ -78,7 +78,7 @@ class SearchController extends StaticController
                     else $href .= '?id='.$item->id;
 
                 } elseif ($model instanceof SubChapter || $model instanceof Sheet) {
-                    $href = '/'.$item->chapter->slug.'/'.$item->slug;
+                    $href = '/'.$item->chapter->slug.'/'.$item->slug.($useAnchor ? '#'.$item->id : '');
                 } else $href = '/'.$item->slug;
 
                 $this->data['found']->push([
